@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!-- Index Page for PAU CAFETERIA WEBSITE  -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/configure.css">
+  <!-- <script src="index.js"></script> -->
+  <link rel = "icon" href = "../img/piatron-logo.jpg" type = "">
+  <title>PAU CAFETERIA</title>
+</head>
+<body>
+  <button id="add-menu-group">
+    + Menu Group
+  </button>
+
+  <!-- Trigger/Open The Modal -->
+<!-- <button id="myBtn">Open Modal</button> -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <!-- <span class="close-menu-group">&times;</span> -->
+    <form action="" onsubmit="menuFunction()">
+      <div class="group-name">
+        <h2>Add a New Menu Group</h2>
+        <input type="text" name="" id="menuName" placeholder="Menu Group Name" required>
+        <p id="nameError" hidden></p>
+      </div>
+      <div class="group-list">
+        <ul>
+          <h4>
+            Rice & Pasta Dishes
+          </h4>
+          <li>
+            <label for="Fried-Rice">Fried Rice</label>
+            <input type="checkbox" name="rice" id="rice" value="Fried Rice">
+          </li>
+
+          <li>
+            <label for="Jollof-Rice">Jollof Rice</label>
+            <input type="checkbox" name="rice" id="rice" value="Jollof Rice">
+          </li>
+
+          <li>
+            <label for="Rice-Beans">Rice and Beans</label>
+            <input type="checkbox" name="rice" id="rice" value="Rice and Beans">
+          </li>
+
+          <li>
+            <label for="spaghetti">Jollof Spaghetti</label>
+            <input type="checkbox" name="rice" id="rice" value="Jollof Spaghetti">
+          </li>
+
+        </ul>
+
+        <ul>
+          <h4>
+            Side Dishes
+          </h4>
+          <li>
+            <label for="Fried-Plantain">Fried Plantain</label>
+            <input type="checkbox" name="side" id="side" value="Fried Plantain">
+          </li>
+
+          <li>
+            <label for="pottage">Yam Pottage</label>
+            <input type="checkbox" name="side" id="side" value="Yam Pottage">
+          </li>
+
+          <li>
+            <label for="potato">Sweet Potato</label>
+            <input type="checkbox" name="side" id="side" value="Sweet Potato">
+          </li>
+
+          <li>
+            <label for="beans">Savoury Beans</label>
+            <input type="checkbox" name="side" id="side" value="Savoury Beans">
+          </li>
+
+        </ul>
+
+        <ul>
+          <h4>
+            Soups & Swallows
+          </h4>
+          <li>
+            <label for="eba">Eba</label>
+            <input type="checkbox" name="swallow" id="swallow" value="Eba">
+          </li>
+
+          <li>
+            <label for="semo">Semo</label>
+            <input type="checkbox" name="swallow" id="swallow" value="Semo">
+          </li>
+
+          <li>
+            <label for="egusi">Egusi Soup</label>
+            <input type="checkbox" name="swallow" id="swallow" value="Egusi Soup">
+          </li>
+
+          <li>
+            <label for="oha">Oha Soup</label>
+            <input type="checkbox" name="swallow" id="swallow" value="Oha Soup">
+          </li>
+
+          <li>
+            <label for="okro">Okro Soup</label>
+            <input type="checkbox" name="swallow" id="swallow" value="Okro Soup">
+          </li>
+
+          <li>
+            <label for="nsala">Nsala Soup</label>
+            <input type="checkbox" name="swallow" id="swallow" value="Nsala Soup">
+          </li>
+
+        </ul>
+
+        <ul>
+          <h4>
+            Proteins
+          </h4>
+          <li>
+            <label for="casserole">Chicken Casserole</label>
+            <input type="checkbox" name="protein" id="protein" value="Chicken Casserole">
+          </li>
+
+          <li>
+            <label for="wing">Chicken Wing</label>
+            <input type="checkbox" name="protein" id="protein" value="Chicken Wing">
+          </li>
+
+          <li>
+            <label for="Hotdog">Hotdog</label>
+            <input type="checkbox" name="protein" id="protein" value="Hotdog">
+          </li>
+
+          <li>
+            <label for="egg">Boiled Egg</label>
+            <input type="checkbox" name="protein" id="protein" value="Boiled Egg">
+          </li>
+
+          <li>
+            <label for="beef">Fried Beef</label>
+            <input type="checkbox" name="protein" id="protein" value="Fried Beef">
+          </li>
+
+          <li>
+            <label for="fish">Fried Fish</label>
+            <input type="checkbox" name="protein" id="protein" value="Fried Fish">
+          </li>
+
+        </ul>
+        
+        <ul>
+          <h4>
+            Beverages
+          </h4>
+          <li>
+            <label for="water">Bottled Water</label>
+            <input type="checkbox" name="drinks" id="drinks" value="Bottled Water">
+          </li>
+
+          <li>
+            <label for="freshyo">Freshyo</label>
+            <input type="checkbox" name="drinks" id="drinks" value="Freshyo">
+          </li>
+
+          <li>
+            <label for="Viju">Viju Choco</label>
+            <input type="checkbox" name="drinks" id="drinks" value="Viju Choco">
+          </li>
+
+          <li>
+            <label for="malt">Can/Glass Malt</label>
+            <input type="checkbox" name="drinks" id="drinks" value="Can/Glass Malt">
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="close-menu-group">Close</button>
+        <button type="submit" class="add-menu-group">Create Menu Group</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+
+  <script type="text/javascript" src="../Javascript/configure.js"></script>
+<!-- 
+  The Modal -->
+<!-- <div id="myModal" class="modal"> -->
+
+  <!-- Modal content -->
+  <!-- <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div> -->
+
+</div>
+</body>
+</html>

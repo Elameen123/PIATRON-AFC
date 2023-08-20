@@ -1,0 +1,92 @@
+body {
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.checkout-header {
+  width: 73.5%;
+  height: 3rem;
+  background: goldenrod;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  /* margin: 0 0; */
+  /* top: -15px;
+  left: -15px; */
+}
+
+.cart {
+  display: flex;
+  justify-content: space-between;
+  background-color: whitesmoke;
+  width: 3rem;
+  height: 2rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  align-items: center;
+}
+
+.bucket-list {
+  width: 4rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  background-color: goldenrod;
+  padding: 0.5rem 0.75rem;
+  margin: 0.35rem ;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+
+}
+
+.cart-list {
+  position: fixed;
+  left: calc(100% - 25%);
+  width: 25%;
+  height: 100vh;
+  top: 0;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem;
+  background-color: navy;
+}
+
+.cart-list h2 {
+  color: cornflowerblue;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
+}
+
+.cart .cart-icon {
+  color: goldenrod;
+  font-size: 1.2rem;
+
+}
+
+.cart p {
+  height: 1.2rem;
+  width: 1.2rem;
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  color: whitesmoke;
+  font-weight: 500;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: goldenrod;
+}
+
+
