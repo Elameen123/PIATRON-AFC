@@ -1,0 +1,194 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(navy, rgb(61, 61, 61));
+}
+
+#register-container {
+  max-width: 650px;
+  padding: 1.5rem;
+  margin: 0 1.5rem;
+  border-radius: 7px;
+  overflow: hidden;
+  background: rgba(12, 69, 175, 0.2);
+  box-shadow: 0 0.9rem 1.2rem rgba(0, 0, 0, 0.6);
+}
+
+#register-container form h2 {
+  font-size: 1.85rem;
+  font-weight: bold;
+  text-align: left;
+  color: whitesmoke;
+  padding:  0 0 0.5rem 0;
+  border-bottom: 1px solid silver;
+}
+
+.register-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+}
+
+.input-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  padding-bottom: 0.9rem;
+  /* border: 1px solid red; */
+}
+
+.input-box:nth-child(2n) {
+  justify-content: end;
+}
+
+.input-change {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  padding-bottom: 0.9rem;
+  /* border: 1px solid red; */
+  justify-content: left;
+}
+
+.input-changes {
+  justify-content: end;
+}
+
+
+#role-container {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  padding: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid yellow; */
+}
+
+.role {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  width: 45%;
+  height: 100%;
+}
+
+.input-box label, .role-title, .input-change label {
+  width: 95%;
+  color: whitesmoke;
+  font-weight: bold;
+  margin: 0.2rem 0;
+}
+
+.change {
+  /* margin-left: -3rem; */
+  justify-content: start;
+  align-self: flex-start;
+}
+
+.role-title {
+  font-size: 1rem;
+}
+
+.input-box input[type="radio"] {
+  width: auto;
+  height: auto;
+}
+
+.input-box input, .input-change input {
+  height: 2.5rem;
+  width: 95%;
+  padding: 0 0.75rem;
+  border-radius: 5px;
+  background-color: rgb(200, 233, 247);
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.input-box input::placeholder , .input-change input::placeholder{
+  color: rgb(22, 96, 126);
+}
+
+.input-box input:is(:focus, :valid), .input-change input:is(:focus, :valid){
+  box-shadow: 0 3px 6px  rgba(12, 69, 175, 0.2);
+}
+
+
+.role-category label {
+  padding: 0 1.25rem 0 0.25rem;
+  font-size: 14px;
+}
+.role-category {
+  color: gainsboro;
+}
+
+.role-category label, .role-category input {
+  cursor: pointer;
+}
+
+.button-container {
+  margin: 0.9rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container button {
+  width: 100%;
+  margin-top: 0.7rem;
+  padding: 0.6rem;
+  display: block;
+  font-size: 1.25rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background-image: linear-gradient(to right, rgb(112, 111, 111), black);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button-container button:hover {
+  background-image: linear-gradient(to right, black, rgb(112, 111, 111));
+}
+
+@media (max-width: 600px) {
+  .Container {
+    min-width: 280px;
+  }
+
+  .content {
+    max-height: 380px;
+    overflow: auto;
+  }
+
+  .input-box {
+    margin-bottom: 0.75rem;
+    width: 100%;
+  }
+
+  .input-box:nth-child(2n) {
+    justify-content: space-between;
+  }
+
+  .role-category {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  }
+
+  .content::-webkit-scrollbar {
+    width: 0;
+  }
+}
+

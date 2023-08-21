@@ -227,7 +227,7 @@ body {
   color: red;
 }
 
-#Admin{
+#Admin, #Login-Button {
   margin: 0rem 1rem;
   padding: 1rem 2rem;
   width: 4rem;
@@ -245,6 +245,12 @@ body {
   display: flex;
 }
 
+#Login-Button:hover {
+  background: transparent;
+  color: green;
+  border: 1px solid green;
+}
+
 #Admin {
   background-color: steelblue;
   border: 1px steelblue;
@@ -256,7 +262,7 @@ body {
   border: 1px solid steelblue;
 }
 
-#Admin a, #Register-Button a, #Order-Button a {
+#Admin a, #Register-Button a, #Order-Button a, #Login-Button a{
   text-decoration: none;
   text-transform: capitalize;
   color: white;
