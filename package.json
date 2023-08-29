@@ -1,0 +1,27 @@
+{
+  "name": "piatron-afc",
+  "version": "1.0.0",
+  "description": "Piatron Automated Food Counter Version 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elameen123/PIATRON-AFC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Elameen123/PIATRON-AFC/issues"
+  },
+  "homepage": "https://github.com/Elameen123/PIATRON-AFC#readme",
+  "devDependencies": {
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "firebase": "^10.3.0"
+  }
+}

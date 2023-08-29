@@ -1,5 +1,7 @@
 // alert("Script is working properly")
-console.log("Script is working properly");
+// console.log("Script is working properly");
+
+console.log('configure.js is bundled');
   // Get the modal
 var modal = document.getElementById("myModal");
 

@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../CSS/Order.css">
+  <link rel="stylesheet" href="../CSS/menu.css">
+
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <title>Order Button and Functionality</title>
@@ -15,22 +17,67 @@
   </button> -->
 
   <!-- Checkout Page  -->
+  <!-- <div class="checkout-header">
+    <div class="bucket-list">CHECKOUT</div>
+    <div class="cart">
+      <i class="fa-solid fa-cart-shopping cart-icon"></i>
+      <p id="cart-count">0</p></div>
+  </div> -->
+
+ <div class="cart-container">
+
   <div class="checkout-header">
     <div class="bucket-list">CHECKOUT</div>
     <div class="cart">
       <i class="fa-solid fa-cart-shopping cart-icon"></i>
       <p id="cart-count">0</p></div>
-      <!-- <img src="../img/eba.jpg" alt=""> -->
   </div>
 
-  <div class="cart-list">
-    <h2>
-      Your Order
-    </h2>
+  <div id="cart-root">
+      <div id="cart-container">
+
+      </div>
+  </div> 
+
+  <!-- <div class="cart-sidebar">
+
+    <div class="cart-head">
+      <p>Your Order</p>
+    </div>
+
+    <div id="cartItem">
+      No Order Placed
+    </div>
+
+    <div class="cart-foot">
+      <h3>Total</h3>
+      <h2 id="total">&#8358;0.00</h2>
+    </div>
+  </div> -->
+ </div>
+
+ <div class="cart-sidebar">
+
+  <div class="cart-head">
+    <p>Your Order</p>
   </div>
 
+  <div id="cartItem">
+  
+  </div>
 
-  <script src="../Javascript/Order.js"></script>
+  <div class="cart-foot">
+    <h3>Total</h3>
+    <h2>&#8358;<span id="total">0.00</span></h2>
+  </div>
+
+  <button type="button" class="Enter"> 
+    Enter
+  </button>
+</div>
+
+
+  <script src="../dist/order.bundle.js"></script>
 
 </body>
 </html>

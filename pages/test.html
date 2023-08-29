@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="../CSS/test.css">
+</head>
+<body>
+ <div id="sidebar">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li>
+      <a href="#">Products</a>
+      <ul>
+        <li><a href="#">Product 1</a></li>
+        <li><a href="#">Product 2</a></li>
+        <li>
+          <a href="#">Product 3</a>
+          <ul>
+            <li><a href="#">Subproduct 1</a></li>
+            <li><a href="#">Subproduct 2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.submenu').hide();
+
+      $('ul li a').click(function() {
+        $(this).closest('li').find('ul.submenu').slideToggle("fast");
+      });
+  });
+
+  </script>
+  
+</body>
+</html>

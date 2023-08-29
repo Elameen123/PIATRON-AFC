@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif&family=Instrument+Sans&family=Inter&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #5b6677;
+}
+
+#sidebar-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+#sidebar {
+  width: 256px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #efff;
+  padding: 1.5rem;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+#sidebar .sidebar-header {
+  display: flex;
+  gap: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.user-img {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 2px solid steelblue;
+  overflow: hidden;
+}
+
+.user-img img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.user-details .title, .sideMenu .title {
+  font-size: 10px;
+  font-weight: 500;
+  color: #757575;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.user-details .name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#side-nav {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.sideMenu ul li {
+  list-style-type: none;
+  margin-bottom: 5px;
+  /* transition: 0.3s ease-in-out; */
+}
+
+.sideMenu ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #757575;
+  padding: 12px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.sideMenu ul li > a:hover, .sideMenu ul li.active > a {
+  color: #000;
+  background-color: rgb(238, 242, 248);
+}
+
+.sideMenu ul li .icon {
+  font-size: 1.25rem;
+}
+
+.sideMenu ul li .text {
+  flex: 1;
+}
+
+.sideMenu ul li .arrow {
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.sideMenu ul li.active .arrow{
+  transform: rotate(180deg);
+}
+
+.sideMenu .sub-side-menu ,.sideMenu .sub-side-menu .sub-sub-side-menu {
+  display: none;
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+  padding-top: 5px;
+  border-left: 1px solid #f6f6f6;
+}
+
+.sideMenu .sub-side-menu li a {
+  padding: 10px 8px;
+  font-size: 12px;
+}
+
+.sideMenu .sub-side-menu .sub-sub-side-menu li a {
+  padding: 10px 8px;
+  font-size: 10px;
+} 

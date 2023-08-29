@@ -1,4 +1,6 @@
-const Lunch = [
+
+ 
+ const Lunch = [
     // Location: 'PAU CAFETERIA',
   {
     Location: 'PAU CAFETERIA',
@@ -390,8 +392,12 @@ const Lunch = [
   }
 ];
 
+// export default Lunch;
 
 
+
+/* The code you provided is a JavaScript code that creates a dynamic menu display based on the data
+stored in the `Lunch` array. */
 const menu = document.getElementById('display');
 
 const hideFunction = () => {

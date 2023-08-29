@@ -16,72 +16,54 @@
 <body>
   <div id="menuDisplay">
     <div id="navbar">
-      <img src="./img/piatron-title.jpeg" alt="pau-logo">
-      <h1 class="pau">PAU CAFETERIA MENU</h1>
+            <img src="./img/piatron-title.jpeg" alt="pau-logo">
+            <h1 class="pau">PAU CAFETERIA MENU</h1>
 
-      <!-- <div class="btn">
-        <i class="fas fa-times menu-btn"></i>
-      </div> -->
+            <input type="checkbox" name="check" id="menu-bar">
+            <label for="menu-bar"><i class="fas fa-bars"></i></label>
 
-      <!-- <div class="links"> -->
+              <ul class="links">
 
-        <ul class="links">
-          <li id="Register-Button">
-            <a href="./pages/Register.html">Register</a>
-          </li>
+                <li id="#Register-Button">
+                  <a href="./pages/Register.html">Register</a>
+                </li>
 
-          <li id="Login-Button">
-            <a href="./pages/Login.html">Login</a>
-          </li>
+                <!-- <li id="#Login-Button">
+                  <a href="./pages/Login.html">Login</a>
+                </li> -->
 
-          <li id="Admin">
-            <a href="/#">Admin</a>
-          </li>
+                <li id="#Admin">
+                  <a href="./pages/Admin.html">Admin</a>
+                </li>
 
-          <li id="Order-Button">
-            <a href="./pages/Order.html">Order</a>
-          </li>
+                <li id="#Order-Button">
+                  <a href="./pages/Login.html">Order</a>
+                </li>
 
-        </ul>
+                <li>
+                  <a href="#">Location</a>
+                  <ul>
+                    <li><a href="#">PAU Cafeteria</a></li>
+                    <li><a href="#">SST Snack Bar</a></li>
+                    <li><a href="#">Rooftop</a></li>
+                  </ul>
+                </li>
+<!-- 
+                <select name="location" id="">Location</select>
+                  <option>SST Snack Bar</option> -->
 
-        <div class="btn">
-          <i class="fas fa-bars menu-btn"></i>
-        </div>
+              </ul>
 
-       
-      </div>
+            
+            </div>
 
-    <!-- </div> -->
+          <div id="display">
 
-
-    <div id="display">
-
+          </div>
     </div>
-
-    
-    <!-- <h1 class="pau">PAU CAFETERIA MENU</h1> -->
-
-    <!-- <div class="location">
-      Location: PAU CAFETERIA
-    </div> -->
-
-    <!-- <div class="menu" id="menu"> -->
-      <!-- <h1 class="menu-name">
-        Rice and Pasta Dishes
-      </h1>
-      
-      <div id="card-container">
-        <div class="card">
-          <img src="../img/jollofSpaghetti.jpg" alt="food" />
-          <h3>Jollof Spaghetti</h3>
-          <p>&#8358;300</p>
-        </div>
-      </div> -->
-    <!-- </div> -->
-
-
   </div>
 
-  <script type="text/javascript" src="./Javascript/Product.js"></script>
+  <script type="text/javascript" src="./dist/product.bundle.js"></script>
+  <script src="./dist/bundle.js"></script>
 </body>
 </html>

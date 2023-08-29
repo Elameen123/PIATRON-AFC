@@ -4,44 +4,117 @@ body {
   box-sizing: border-box;
   top: 0;
   left: 0;
-  background-color: lightblue;
+  background-color: rgb(161, 166, 172);
   scroll-behavior: smooth;
+  font-family: Arial, Helvetica, sans-serif;
   /* position: fixed; */
   /* height: 300vh; */
   /* overflow: hidden; */
   /* border: 1px solid red; */
 }
 
+/* Navigation Styles  */
+
 #navbar {
   width: 100%;
+  position: fixed;
   background-color: black;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: left;
   align-items: center;
-  height: 7rem;
+  height: 6rem;
+  z-index: 1000;
 }
 
 .links {
-  width: 60%;
+  width: 30%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  justify-self: end;
   padding: 0.5rem 0;
-  flex-direction: row;
-  /* height: 100%; */
-  /* border: 1px solid yellow; */
+  flex-direction: row; 
+  list-style-type: none;
+  /* border: 1px solid red; */
+  margin-right: 2.8rem;
 }
 
- /* ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 50%;
-  height: 100%;
-  border: 1px solid yellow;
+.links li {
+  position: relative;
+  float: left;
+}
+
+.links li:first-child {
+  display: none;
+}
+
+.links li a {
+  font-size: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  color: white;
+  display: block;
+  text-decoration: none;
   margin: 0;
-} */
+  transition: 0.5s ease;
+}
+
+.links li a:hover {
+  color: steelblue;
+  border: 1px solid steelblue;
+  border-radius: 3px;
+  /* background-color: white; */
+}
+
+.links li a:active{
+  color: crimson;
+  border: 1px solid crimson;
+  border-radius: 3px;
+}
+
+.links li ul {
+  position: absolute;
+  left: 0;
+  width: 10.1rem;
+  background-color: white;
+  font-size: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.links li ul li {
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0;
+  font-size: 0.7rem;
+}
+
+.links li ul li:first-child {
+  display: block;
+}
+
+.link:hover {
+  border: none;
+}
+
+.links li ul li a {
+  font-size: 1rem;
+  transition: 0.3s ease;
+  color: steelblue;
+}
+
+.links li ul li a:hover {
+  border: ipx solid black;
+  background-color: black;
+  color: white;
+  border-radius: none;
+}
+
+.links ul li:focus-within > ul, .links li:hover > ul {
+  display: initial;
+}
 
 .btn {
   color: white;
@@ -70,6 +143,10 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.location:first-child {
+  margin-top: 6rem;
+}
+
 .location .dropdown {
   float: right;
   font-size: 2rem;
@@ -78,9 +155,9 @@ body {
 }
 
 #navbar img {
-  width: 15rem;
+  width: 10rem;
   height: calc(100% - 0.5rem);
-  margin: 0.25rem 0rem 0.25rem 1rem;
+  margin: 0.25rem 0rem 0.25rem 0.25rem;
   color: skyblue;
 }
 
@@ -98,14 +175,26 @@ body {
 #menuDisplay #navbar .pau {
   color: whitesmoke;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 2.5rem;
+  font-weight: bolder;
+  font-size: 2.65rem;
   font-weight: 500;
   width: 100%;
-  text-align: center;
-  justify-self: center;
-  margin: 0;
+  text-align: left;
+  justify-self: left;
+  margin: 0  0 0 0.5rem;
   padding: 0;
   /* border: 1px solid red; */
+}
+
+#menu-bar {
+  display: none;
+}
+
+#navbar label {
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  display: none;
 }
 
 .menu {
@@ -145,20 +234,21 @@ body {
   width: 20%;
   height: 37.5vh;
   background: white;
-  border: 3px solid navy;
-  border-radius: 7px;
+  border:3.5px solid navy;
+  border-radius: 20px;
   float: left;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 2rem 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .card img {
   width: 100%;
   height: 65%;
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .card h3 {
@@ -179,96 +269,6 @@ body {
   padding: 0;
 }
 
-#Order-Button {
-  margin: 0rem 1rem;
-  padding: 1rem 2rem;
-  width: 4rem;
-  border: 1px solid goldenrod;
-  color: white;
-  background: goldenrod;
-  transition: 0.75s ease;
-  border-radius: 3px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 400;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-#Order-Button:hover {
-  background-color: transparent;
-  border: 1px solid orangered;
-  color: orangered;
-}
-
-#Register-Button {
-  margin: 0rem 1rem;
-  padding: 1rem 2rem;
-  width: 4rem;
-  border: 1px solid crimson;
-  color: white;
-  background: crimson;
-  transition: 0.75s ease;
-  border-radius: 3px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 400;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-#Register-Button:hover {
-  background-color: transparent;
-  border: 1px solid red;
-  color: red;
-}
-
-#Admin, #Login-Button {
-  margin: 0rem 1rem;
-  padding: 1rem 2rem;
-  width: 4rem;
-  border: 1px solid green;
-  color: whitesmoke;
-  background: green;
-  transition: 0.75s ease;
-  border-radius: 3px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 400;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-#Login-Button:hover {
-  background: transparent;
-  color: green;
-  border: 1px solid green;
-}
-
-#Admin {
-  background-color: steelblue;
-  border: 1px steelblue;
-}
-
-#Admin:hover {
-  background: transparent;
-  color: steelblue;
-  border: 1px solid steelblue;
-}
-
-#Admin a, #Register-Button a, #Order-Button a, #Login-Button a{
-  text-decoration: none;
-  text-transform: capitalize;
-  color: white;
-  font-size: 1rem;
-}
-
 
 /* Media Queries / Mobile Responsiveness  */
 @media only screen and (min-width: 1201px) and (max-width:1464px) {
@@ -276,6 +276,10 @@ body {
     width: 20%;
     height: 35vh;
     margin: 1.5rem 1.675rem;
+  }
+
+  #Register-Button {
+    display: none;
   }
 }
 
@@ -285,6 +289,10 @@ body {
     height: 35vh;
     margin: 1.5rem 1.3rem;
   }
+
+  #Register-Button {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 903px) and (max-width:1024px) {
@@ -292,6 +300,10 @@ body {
     width: 25%;
     height: 35vh;
     margin: 1.5rem 2rem;
+  }
+
+  #Register-Button {
+    display: none;
   }
 }
 
@@ -326,6 +338,7 @@ body {
 @media only screen and (min-width: 400px) and (max-width:499px) {
   .card-container {
     justify-content: center;
+    padding: 0;
   }
   
   .card {
@@ -346,6 +359,7 @@ body {
 @media only screen and (min-width: 0px) and (max-width:399px) {
   .card-container {
     justify-content: center;
+    margin: 0;
   }
   
   .card {
@@ -361,4 +375,60 @@ body {
   #Order-Button {
     display: none;
   }
+}
+
+
+@media screen and (max-width: 991px) {
+  #navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 2rem 0.5rem 0.25rem ;
+  }
+
+  #navbar label {
+    display: initial;
+    margin-right: 3rem;
+  }
+
+  #navbar .links {
+    position: absolute;
+    width: 40%;
+    top: 100%;
+    left: calc(100%  - 40%);
+    right: 0;
+    background: white;
+    color: black;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+
+
+  #navbar .links li {
+    width: 100%;
+  }
+
+  #navbar .links li a {
+    color: black;
+    background-color: #b8b8b8;
+    border-bottom: 1ps solid black;
+  }
+
+  #navbar .links li a:hover {
+    background-color: #b8b8b8;
+  }
+
+  #navbar .links li ul {
+    position: relative;
+    width: 100%;
+  }
+
+  #navbar .links li ul li {
+    background: #eee;
+  }
+
+  #menu-bar:checked ~ .links {
+    display: initial;
+  }
+
+
 }
