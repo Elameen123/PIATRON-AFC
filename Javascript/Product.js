@@ -1,8 +1,17 @@
+// const variable = "my_variable";
 
+// const setId = (items, variable) => {
+//   for (let i, item of enumerate(items)) {
+//     item["id"] = variable + str(i);
+//   }
+// };
+
+// setId(items, variable);
  
  const Lunch = [
     // Location: 'PAU CAFETERIA',
   {
+    id: 1,
     Location: 'PAU CAFETERIA',
     Menu: [
       {
@@ -223,6 +232,7 @@
     ]
   },
   {
+    id: 2,
     Location: 'SST Snack Bar',
     Menu: [
       {
@@ -308,6 +318,7 @@
   },
 
   {
+    id: 3,
     Location: 'TYD ROOFTOP',
     Menu: [
       {
@@ -392,6 +403,18 @@
   }
 ];
 
+const idName = "location";
+
+const setId = (items, variable) => {
+  items.forEach((item, index) => {
+    item["id"] = variable + index;
+  });
+};
+
+setId(Lunch, idName);
+
+// console.log(Lunch);
+
 // export default Lunch;
 
 
@@ -410,12 +433,17 @@ const hideFunction = () => {
       // <i class="fa fa-caret-down dropdown" aria-hidden="false"></i>
 
 
-
 const displayMenu = Lunch.map((data) => {
-  const {Location, Menu} = data;
-  
+  const {id, Location, Menu} = data;
+  // const giveID = (id) => {
+  //   id = "location" + id;
+  //   id = id.toString()
+  //   return id;
+  // }
+  // const lid = id;
+
     return `
-    <div class="location">
+      <div class="location" id="${id}">
       Location: ${Location}
 
     </div>
@@ -442,7 +470,89 @@ const displayMenu = Lunch.map((data) => {
       }
     </div>
   ` 
+
+  
   
 }).join("");
 
+// const sst = document.querySelector('#sst');
+// const rooftop = document.querySelector('#rooftop');
+// // body = document.querySelector('display');
+
+// sst.addEventListener('click', () => {
+//   body = document.querySelector('.displayContent');
+//   //  const divElement = document.querySelector('#location1')
+//    body.style.marginTop = '8rem';
+//    console.log('clicked')
+
+// });
+
+
 display.innerHTML = displayMenu;
+
+// const sst = document.querySelector('#sst');
+// const rooftop = document.querySelector('#rooftop');
+// // body = document.querySelector('display');
+
+// sst.addEventListener('click', () => {
+//   body = document.querySelector('#location1');
+//   //  const divElement = document.querySelector('#location1')
+//    body.style.paddingTop = '6rem';
+//    console.log('clicked')
+
+// });
+
+// let foodLocation = document.querySelectorAll('.location');
+// let navLinks = document.querySelectorAll('#scrollLocation')
+
+// window.onscroll = () => {
+//   foodLocation.forEach(loc => {
+//     let top = window.scrollY;
+//     let offset  = loc.offsetTop - 100;
+//     let height  = loc.offsetHeight;
+//     let id = loc.getAttribute('id');
+
+//     if (top >= offset && top < offset + height) {
+//       navLinks.forEach(links=> {
+//         document.querySelector('#scrollLocation a[href*=' + id + ']')
+//       });
+//     }
+//   });
+// };
+
+// const foodLocation = ('location');
+
+// const giveID = (id) => {
+//   const locationData = "location" + id;
+//     const locationID = locationData.toString()
+//     return locationID;
+// }
+
+// const setID = 
+
+// const cafeteria = document.getElementById('PAU CAFETERIA');
+// const sst = document.getElementById('SST SNACK BAR');
+// const rooftop = document.getElementById('TYD ROOFTOP');
+
+// const cafeteriaButton = document.getElementById('cafeteriaB');
+// const sstButton = document.getElementById('sstB');
+// const rooftopButton = document.getElementById('rooftopB');
+
+// cafeteriaButton.addEventListener('click', () => {
+//   const cafeteria = document.getElementById('location');
+
+//     cafeteria.scrollIntoView();
+// });
+
+// sstButton.addEventListener('click', () => {
+//   const sst = document.getElementById('SST SNACK BAR');
+
+//   sst.scrollIntoView();
+// });
+
+// rooftopButton.addEventListener('click', () => {
+//   const rooftop = document.getElementById('TYD ROOFTOP');
+  
+//   rooftop.scrollIntoView();
+// });
+

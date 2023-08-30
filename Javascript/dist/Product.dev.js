@@ -1,7 +1,15 @@
 "use strict";
 
+// const variable = "my_variable";
+// const setId = (items, variable) => {
+//   for (let i, item of enumerate(items)) {
+//     item["id"] = variable + str(i);
+//   }
+// };
+// setId(items, variable);
 var Lunch = [// Location: 'PAU CAFETERIA',
 {
+  id: 1,
   Location: 'PAU CAFETERIA',
   Menu: [{
     id: 1,
@@ -175,6 +183,7 @@ var Lunch = [// Location: 'PAU CAFETERIA',
     }]
   }]
 }, {
+  id: 2,
   Location: 'SST Snack Bar',
   Menu: [{
     id: 1,
@@ -241,6 +250,7 @@ var Lunch = [// Location: 'PAU CAFETERIA',
     }]
   }]
 }, {
+  id: 3,
   Location: 'TYD ROOFTOP',
   Menu: [{
     id: 1,
@@ -306,7 +316,17 @@ var Lunch = [// Location: 'PAU CAFETERIA',
       price: 300
     }]
   }]
-}]; // export default Lunch;
+}];
+var idName = "location";
+
+var setId = function setId(items, variable) {
+  items.forEach(function (item, index) {
+    item["id"] = variable + index;
+  });
+};
+
+setId(Lunch, idName); // console.log(Lunch);
+// export default Lunch;
 
 /* The code you provided is a JavaScript code that creates a dynamic menu display based on the data
 stored in the `Lunch` array. */
@@ -321,12 +341,76 @@ var hideFunction = function hideFunction() {
 
 
 var displayMenu = Lunch.map(function (data) {
-  var Location = data.Location,
-      Menu = data.Menu;
-  return "\n    <div class=\"location\">\n      Location: ".concat(Location, "\n\n    </div>\n\n    <div class=\"menu id=\"menu>\n      ").concat(Menu.map(function (list) {
+  var id = data.id,
+      Location = data.Location,
+      Menu = data.Menu; // const giveID = (id) => {
+  //   id = "location" + id;
+  //   id = id.toString()
+  //   return id;
+  // }
+  // const lid = id;
+
+  return "\n      <div class=\"location\" id=\"".concat(id, "\">\n      Location: ").concat(Location, "\n\n    </div>\n\n    <div class=\"menu id=\"menu>\n      ").concat(Menu.map(function (list) {
     return "\n\n          <h1 class=\"menu-name\">\n            ".concat(list.menuType, "\n          </h1>\n\n          <div id=\"card-container\">\n              ").concat(list.menuList.map(function (item) {
       return "\n              <div class=\"card\">\n                <img src=\"".concat(item.image, "\" alt=\"food\" />\n                <h3>").concat(item.name, "</h3>\n                <p>&#8358;").concat(item.price, "</p>\n              </div>\n            ");
     }).join(''), "\n          </div>\n\n        ");
   }).join(''), "\n    </div>\n  ");
-}).join("");
-display.innerHTML = displayMenu;
+}).join(""); // const sst = document.querySelector('#sst');
+// const rooftop = document.querySelector('#rooftop');
+// // body = document.querySelector('display');
+// sst.addEventListener('click', () => {
+//   body = document.querySelector('.displayContent');
+//   //  const divElement = document.querySelector('#location1')
+//    body.style.marginTop = '8rem';
+//    console.log('clicked')
+// });
+
+display.innerHTML = displayMenu; // const sst = document.querySelector('#sst');
+// const rooftop = document.querySelector('#rooftop');
+// // body = document.querySelector('display');
+// sst.addEventListener('click', () => {
+//   body = document.querySelector('#location1');
+//   //  const divElement = document.querySelector('#location1')
+//    body.style.paddingTop = '6rem';
+//    console.log('clicked')
+// });
+// let foodLocation = document.querySelectorAll('.location');
+// let navLinks = document.querySelectorAll('#scrollLocation')
+// window.onscroll = () => {
+//   foodLocation.forEach(loc => {
+//     let top = window.scrollY;
+//     let offset  = loc.offsetTop - 100;
+//     let height  = loc.offsetHeight;
+//     let id = loc.getAttribute('id');
+//     if (top >= offset && top < offset + height) {
+//       navLinks.forEach(links=> {
+//         document.querySelector('#scrollLocation a[href*=' + id + ']')
+//       });
+//     }
+//   });
+// };
+// const foodLocation = ('location');
+// const giveID = (id) => {
+//   const locationData = "location" + id;
+//     const locationID = locationData.toString()
+//     return locationID;
+// }
+// const setID = 
+// const cafeteria = document.getElementById('PAU CAFETERIA');
+// const sst = document.getElementById('SST SNACK BAR');
+// const rooftop = document.getElementById('TYD ROOFTOP');
+// const cafeteriaButton = document.getElementById('cafeteriaB');
+// const sstButton = document.getElementById('sstB');
+// const rooftopButton = document.getElementById('rooftopB');
+// cafeteriaButton.addEventListener('click', () => {
+//   const cafeteria = document.getElementById('location');
+//     cafeteria.scrollIntoView();
+// });
+// sstButton.addEventListener('click', () => {
+//   const sst = document.getElementById('SST SNACK BAR');
+//   sst.scrollIntoView();
+// });
+// rooftopButton.addEventListener('click', () => {
+//   const rooftop = document.getElementById('TYD ROOFTOP');
+//   rooftop.scrollIntoView();
+// });

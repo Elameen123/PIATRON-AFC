@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../CSS/test.css">
 </head>
 <body>
- <div id="sidebar">
+ <!-- <div id="sidebar">
   <ul>
     <li><a href="#">Home</a></li>
     <li><a href="#">About</a></li>
@@ -28,16 +28,44 @@
     </li>
     <li><a href="#">Contact</a></li>
   </ul>
-</div>
+</div> -->
+
+
 
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('.submenu').hide();
+    alert('page is working properly');
+  //   $(document).ready(function() {
+  //     $('.submenu').hide();
 
-      $('ul li a').click(function() {
-        $(this).closest('li').find('ul.submenu').slideToggle("fast");
-      });
+  //     $('ul li a').click(function() {
+  //       $(this).closest('li').find('ul.submenu').slideToggle("fast");
+  //     });
+  // });
+
+  const body = document.querySelector('body');
+
+  const headers = [
+  { id: "header-1", text: "Header 1" },
+  { id: "header-2", text: "Header 2" },
+  { id: "header-3", text: "Header 3" },
+];
+
+const button = document.createElement("button");
+
+
+const buttons = headers.map(header => {
+  // const button = document.createElement("button");
+  button.textContent = header.text;
+  button.addEventListener("click", () => {
+    // Scroll to the header with the specified id.
+    const headerElement = document.getElementById(header.id);
+    headerElement.scrollIntoView();
   });
+  return button;
+});
+
+// Append the buttons to the document.
+  document.body.appendChild(button);
 
   </script>
   

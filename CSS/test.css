@@ -1,4 +1,4 @@
-#sidebar {
+/* #sidebar {
   width: 200px;
   float: left;
 }
@@ -20,4 +20,9 @@ a {
 
 a:hover {
   text-decoration: underline;
+} */
+
+body {
+  background: white;
+  color: black;
 }
