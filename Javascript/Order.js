@@ -1,52 +1,81 @@
-// console.log('Order.js is bundled');
-
-import { initializeApp } from 'firebase/app';
-import {getDatabase, ref, set, child, update, remove, get} from 'firebase/database';
-// import { getDatabase } from "firebase/database";
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCQ34GgMwoq85P34gsRQT0bo6PK7Tpf6yc",
-  authDomain: "piatron-a9a6d.firebaseapp.com",
-  projectId: "piatron-a9a6d",
-  storageBucket: "piatron-a9a6d.appspot.com",
-  messagingSenderId: "1065060850773",
-  appId: "1:1065060850773:web:83866aa3bac2f552e808dc",
-  measurementId: "G-F8CJX083LX"
-
-  // databaseURL: "food-counter-4a98e-default-rtdb.firebaseio.com",
-};
+import { db } from '../Javascript/index.js';
+import { ref, get, child, update, onValue } from 'firebase/database';
 
 const listCart = [];
 const Enter  = document.querySelector('.Enter');
 
 const cartItem = document.querySelector('#cartItem');
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
-const db = getDatabase();
+// const db = getDatabase();
 
 const cart = document.querySelector('.cart-icon');
 
-const dbref = ref(db);
 
-get(child(dbref, "PAU/Location/SST/")).then((snapshot) => {
+// let initialFetchComplete = false;
+
+// const dbref = ref(db, "PAU/Location/SST/" );
+
 var Menu = [];
 
-    // console.log(snapshot);
 
-snapshot.forEach(food => {
-    Menu.push(food.val());
-});
+function getAllData(){
 
-console.log(Menu);
+  const dbRef =ref(db);
 
-const cartContainer = document.getElementById('cart-container');
+  get(child(dbRef, "PAU/Location/SST/")).then((snapshot) => {
+
+    if (snapshot.exists()) {
+
+    
+      snapshot.forEach(food => {
+          Menu.push(food.val());
+      });
+
+      // displayCart(Menu);
+    } 
+    
+    else {
+      console.log("No data available");
+    }
+
+    // displayCart(Menu);
+
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+}
+
+getAllData();
+
+// displayCart(Menu);
+
+// const dbrefactive = ref(db,"PAU/Location/SST/" );
+
+// onValue(dbrefactive, (snapshot) => {
+//   var newMenu = [];
+    
+//   snapshot.forEach(newfood => {
+//       newMenu.push(newfood.val());
+//   });
+    
+//         // console.log(newMenu);
+//         // reloadCart();
+//   });
+
+// onValue();
 
 
-function displayCart() {
 
-  Menu.forEach((item) => {
+function displayCart(MenuItem) {
+
+  const cartContainer = document.getElementById('cart-container');
+  cartContainer.innerHTML = ' ';
+
+  MenuItem.forEach((item) => {
     const cartCard = document.createElement('div');
     cartCard.classList.add('cart-card');
     cartCard.innerHTML = `
@@ -56,7 +85,7 @@ function displayCart() {
           <h3>${item.name}</h3>
           <p>&#8358;${item.price}</p>
         </div>
-        <p style="color: red">Quantity Available : ${item.qty}</p>
+        <p style="color: red">Quantity Available : ${item.qty - item.sales}</p>
         <div class="clickButtons">
           <button type="button" class="number1" data-item="1">1</button>
           <button type="button" class="number2" data-item="2">2</button>
@@ -83,7 +112,7 @@ function displayCart() {
       // console.log ('item is clicking');
 
       if (listCart[item.id] == null) {
-        addToCart(item.id);
+        addToCart(item.id, MenuItem);
         // changeQuantity(item.id, itemOne);
         listCart[item.id].quantity = itemOne;
         reloadCart();
@@ -110,7 +139,7 @@ function displayCart() {
     console.log ('item is clicking');
 
     if (listCart[item.id] == null) {
-      addToCart(item.id);
+      addToCart(item.id, MenuItem);
       listCart[item.id].quantity = itemTwo;
       reloadCart();
 
@@ -132,7 +161,7 @@ function displayCart() {
   console.log ('item is clicking');
 
   if (listCart[item.id] == null) {
-    addToCart(item.id);
+    addToCart(item.id, MenuItem);
     listCart[item.id].quantity = itemThree;
     reloadCart();
 
@@ -154,7 +183,7 @@ number4.addEventListener('click', () => {
   console.log ('item is clicking');
 
   if (listCart[item.id] == null) {
-    addToCart(item.id);
+    addToCart(item.id, MenuItem);
     listCart[item.id].quantity = itemFour;
     reloadCart();
 
@@ -176,7 +205,7 @@ number5.addEventListener('click', () => {
   console.log ('item is clicking');
 
   if (listCart[item.id] == null) {
-    addToCart(item.id);
+    addToCart(item.id, MenuItem);
     listCart[item.id].quantity = itemFive;
     reloadCart();
 
@@ -190,10 +219,6 @@ number5.addEventListener('click', () => {
     // console.log(listCart[item.id].quantity);
 
   }
-  // quantity.innerText = itemName;
-  // reloadCart();
-
-  // console.log(itemName);
 });
 
     //  cartCard.addEventListener('click', () => {
@@ -214,10 +239,7 @@ number5.addEventListener('click', () => {
 
 }
 
-console.log(Menu);
-
-displayCart();
-function addToCart(id) {
+function addToCart(id, Menu) {
   console.log('Item ' + id + ' is added to cart')
   if (listCart[id] == null) {
     listCart[id] = Menu[id];
@@ -291,9 +313,58 @@ function changeQuantity(id, quantity) {
   reloadCart();
 }
 
-});
+function updateAndDisplayData() {
+  const dbrefactive = ref(db,"PAU/Location/SST/" );
 
-// console.log(listCart);
+  onValue(dbrefactive, (snapshot) => {
+    const newMenu = [];
+
+    if (snapshot.val()) {
+      snapshot.forEach(item => {
+        newMenu.push(item.val());
+      });
+
+      Menu = newMenu;
+
+      displayCart(Menu);
+      // reloadCart();
+    }
+
+      
+    // console.log(snapshot.val());
+    // console.log(newMenu);
+    // Menu = newMenu;
+    // displayCart(Menu);
+    console.log(Menu);      // console.log(newMenu);
+    });
+}
+
+
+// function displayNewQuantity(id, qty) {
+
+//   const dbrefactive = ref(db,"PAU/Location/SST/" );
+
+//   onValue(dbrefactive, (snapshot) => {
+//     var newMenu = [];
+      
+//     snapshot.forEach(newfood => {
+//         newMenu.push(newfood.val());
+//     });
+
+//     newMenu.forEach(newfood => {
+//       const newQty = 0;
+//       if (newfood.id === id) {
+//         newQty = newfood.qty;
+//         return newQty;
+//       }
+//       else {
+//         return qty;
+//       }
+//     })
+
+//       })
+
+// }
 
 
 const sideBar = document.querySelector('.cart-sidebar');
@@ -318,24 +389,34 @@ cartCount.addEventListener('click', () => {
 
 const uploadToDataBase = () => {
   listCart.forEach((list) => {
+
     update(ref(db, "PAU/Location/SST/" + list.name), {
-      qty: list.qty - list.quantity
+      sales: list.sales + list.quantity
     }).then(() => {
+      // reloadCart();
       // console.log(snapshot);
       console.log('Upload Successful');
-      window.location.reload();
+      // reloadCart();
+      // window.location.reload();
     })
     .catch((error) => {
-      alert('unsuccessful , error: ' + error);
+      alert('Unsuccessful , error: ' + error);
     })
   })
     
   }
 
 Enter.addEventListener('click', () => {
+    // reloadCart();
     uploadToDataBase();
-    console.log('Upload Successful');
+    // console.log('Upload Successful');
+    // reloadCart();
   });
+
+
+// reloadCart();
+updateAndDisplayData();
+
 
 // windows.onload = () => {
 //   sideBar.style.display = 'none';

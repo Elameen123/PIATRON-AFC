@@ -1,0 +1,63 @@
+{
+  "SST": {
+      "chicken-pie": {
+          "id": 0,
+          "image": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2Fchickenpie.jpg?alt=media&token=a56fe417-fde1-46f4-bcb7-be3d5e8e3cb1",
+          "mp": 100,
+          "name": "chicken-pie",
+          "price": 550,
+          "qty": 50,
+          "sales": 5
+      },
+      "meat-pie": {
+          "id": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2Fmeatpie.jpg?alt=media&token=5c163831-323e-4747-8309-d5a052e0581a",
+          "mp": 100,
+          "name": "meat-pie",
+          "price": 550,
+          "qty": 50,
+          "sales": 5
+      }
+  },
+  "id":1,
+  "cafeteria": {
+      "fried-rice": {
+          "id": 0,
+          "image": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2FfriedRice.jpg?alt=media&token=e9bb34e7-aec7-4cd3-b52d-f2d5b83cc702",
+          "mp": 180,
+          "name": "fried-rice",
+          "price": 300,
+          "qty": 30,
+          "sales": 0
+      },
+      "jollof-rice": {
+          "id": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2FjollofRice.jpg?alt=media&token=14c7193f-c450-41ca-8dc1-505f3c3e8a58",
+          "mp": 180,
+          "name": "jollof-rice",
+          "price": 300,
+          "qty": 30,
+          "sales": 5
+      }
+  },
+  "roof-top": {
+      "chicken-pie": {
+          "id": 0,
+          "image": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2Fchickenpie.jpg?alt=media&token=a56fe417-fde1-46f4-bcb7-be3d5e8e3cb1",
+          "mp": 100,
+          "name": "chicken-pie",
+          "price": 550,
+          "qty": 50,
+          "sales": 3
+      },
+      "meat-pie": {
+          "id": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2Fmeatpie.jpg?alt=media&token=5c163831-323e-4747-8309-d5a052e0581a",
+          "mp": 100,
+          "name": "meat-pie",
+          "price": 550,
+          "qty": 50,
+          "sales": 4
+      }
+  }
+}

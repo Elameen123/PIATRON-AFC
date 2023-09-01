@@ -6,6 +6,9 @@
 //   }
 // };
 
+// import { db } from '../Javascript/index.js';
+// import { ref, get, child, update  } from 'firebase/database';
+
 // setId(items, variable);
  
  const Lunch = [
@@ -403,6 +406,139 @@
   }
 ];
 
+// import { db } from '../Javascript/index.js';
+
+// import { onValue, ref } from 'firebase/database';
+
+
+// // const Data = [];
+
+// const itemLocation = ['SST', 'cafeteria', 'roof-top'];
+
+// function displayCurrentData() {
+//   // const Data = [];
+//   const dbmain = ref(db,"PAU/Location/" );
+
+//   onValue(dbmain, (snapshot) => {
+//     const newData = [];
+//     console.log(snapshot.val());
+    
+
+//     if (snapshot.val()) {
+//       snapshot.forEach(item => {
+//         newData.push(item.val());
+//         // oldData.append(item.val());
+//       });
+
+//       // Data = newData;
+
+//       const Data = newData.map(obj => Object.values(obj));
+
+//       displayData(Data, itemLocation);
+//     }
+//     });
+// };
+
+function displayData(data, itemLocation) {
+// console.log(itemLocation);
+
+const menu = document.getElementById('display');
+menu.innerHTML = " ";
+
+let itemContainer = document.createElement('div');
+itemContainer.setAttribute('id', 'card-container');
+itemContainer.innerHTML = " ";
+
+for (let i = 0; i < data.length; i++) {
+  let Location = document.createElement('div');
+    Location.classList.add('location');
+    Location.innerHTML = `
+    <div class="location">
+      Location: ${itemLocation[i]}
+    </div>
+    `;
+
+  data[i].forEach(listItem => {
+    let itemCard = document.createElement('div');
+    itemCard.classList.add('card');
+    itemCard.innerHTML =  `
+              <img src="${listItem.image}" alt="food" />
+              <h3>${listItem.name}</h3>
+              <p>&#8358;${listItem.price}</p>
+              <p style="color: red">Quantity Available : ${listItem.qty - listItem.sales}</p>
+    `;
+
+    itemContainer.appendChild(itemCard)
+  })
+
+  menu.appendChild(Location);
+  menu.appendChild(itemContainer);
+}
+
+
+
+
+// console.log(testArray)
+// console.log(itemLocation)
+
+//   for (var i = 0; i < data.length; i++) {
+//     const testArray = data[i].map(obj => Object.values(obj));
+//     // console.log(testArray[i]);
+//     // testArray = Object.values(data);
+    // let Location = document.createElement('div');
+    // Location.classList.add('location');
+    // Location.innerHTML = `
+    // <div class="location">
+    //   Location: ${itemLocation[i]}
+    // </div>
+
+    // `;
+
+    // let itemCard = document.createElement('div');
+    // itemCard.classList.add('item-display');
+    // itemCard.innerHTML =  `
+    // <div class="menu id="menu>
+    //   <div id="card-container">
+    //     ${
+    //       testArray[i].map(list => `
+    //         <div class="card">
+    //           <img src="${list.image}" alt="food" />
+    //           <h3>${list.name}</h3>
+    //           <p>&#8358;${list.price}</p>
+    //           <p style="color: red">Quantity Available : ${list.qty - list.sales}</p>
+    //         </div>
+    //       `).join('')
+    //     }
+    //   </div>
+    // </div>
+
+    // `;
+
+    // menu.append(Location);
+    // menu.append(itemCard);
+//   // const itemLocation = ['SST', 'cafeteria', 'roof-top'];
+// }
+
+
+
+// display.innerHTML = displayMenu;
+
+};
+
+
+
+// var dataRef = db.ref('PAU/Location/');
+// var save = [];
+
+// dataRef.on('value', function(getData1){
+//   var Data = getData1.val();
+//   save.push(Data);
+// });
+
+// console.log(save);
+
+
+
 const idName = "location";
 
 const setId = (items, variable) => {
@@ -421,7 +557,7 @@ setId(Lunch, idName);
 
 /* The code you provided is a JavaScript code that creates a dynamic menu display based on the data
 stored in the `Lunch` array. */
-const menu = document.getElementById('display');
+// const menu = document.getElementById('display');
 
 const hideFunction = () => {
   document.getElementsByClassName("menu.name").style.display = "none";
@@ -432,127 +568,95 @@ const hideFunction = () => {
 
       // <i class="fa fa-caret-down dropdown" aria-hidden="false"></i>
 
+function displayMenu(Lunch) {
+  const menu = document.getElementById('display');
+  menu.innerHTML = ' ';
+      Lunch.forEach((data) => {
+        const {id, Location, Menu} = data;
+        const container = document.createElement('div');
+        container.innerHTML = `
+        <div class="location" id="${id}">
+        Location: ${Location}
+  
+      </div>
+  
+      <div class="menu id="menu>
+        ${
+          Menu.map(list => `
+  
+            <h1 class="menu-name">
+              ${list.menuType}
+            </h1>
+  
+            <div id="card-container">
+                ${list.menuList.map(item => `
+                <div class="card">
+                  <img src="${item.image}" alt="food" />
+                  <h3>${item.name}</h3>
+                  <p>&#8358;${item.price}</p>
+                </div>
+              `).join('')}
+            </div>
+  
+          `).join('')
+        }
+      </div>
+        `;
 
-const displayMenu = Lunch.map((data) => {
-  const {id, Location, Menu} = data;
-  // const giveID = (id) => {
-  //   id = "location" + id;
-  //   id = id.toString()
-  //   return id;
-  // }
-  // const lid = id;
+        menu.append(container);
+      })
+    ;
 
-    return `
-      <div class="location" id="${id}">
-      Location: ${Location}
 
-    </div>
+}
 
-    <div class="menu id="menu>
-      ${
-        Menu.map(list => `
+displayMenu(Lunch);
 
-          <h1 class="menu-name">
-            ${list.menuType}
-          </h1>
+// const displayMenu = Lunch.forEach((data) => {
+//   const we = 0;
+//   const {id, Location, Menu} = data;
+//   // const giveID = (id) => {
+//   //   id = "location" + id;
+//   //   id = id.toString()
+//   //   return id;
+//   // }
+//   // const lid = id;
 
-          <div id="card-container">
-              ${list.menuList.map(item => `
-              <div class="card">
-                <img src="${item.image}" alt="food" />
-                <h3>${item.name}</h3>
-                <p>&#8358;${item.price}</p>
-              </div>
-            `).join('')}
-          </div>
+//     return `
+//       <div class="location" id="${id}">
+//       Location: ${Location}
 
-        `).join('')
-      }
-    </div>
-  ` 
+//     </div>
+
+//     <div class="menu id="menu>
+//       ${
+//         Menu.map(list => `
+
+//           <h1 class="menu-name">
+//             ${list.menuType}
+//           </h1>
+
+//           <div id="card-container">
+//               ${list.menuList.map(item => `
+//               <div class="card">
+//                 <img src="${item.image}" alt="food" />
+//                 <h3>${item.name}</h3>
+//                 <p>&#8358;${item.price}</p>
+//               </div>
+//             `).join('')}
+//           </div>
+
+//         `).join('')
+//       }
+//     </div>
+//   ` 
 
   
   
-}).join("");
-
-// const sst = document.querySelector('#sst');
-// const rooftop = document.querySelector('#rooftop');
-// // body = document.querySelector('display');
-
-// sst.addEventListener('click', () => {
-//   body = document.querySelector('.displayContent');
-//   //  const divElement = document.querySelector('#location1')
-//    body.style.marginTop = '8rem';
-//    console.log('clicked')
-
-// });
+// })
 
 
-display.innerHTML = displayMenu;
+// display.innerHTML = displayMenu;
 
-// const sst = document.querySelector('#sst');
-// const rooftop = document.querySelector('#rooftop');
-// // body = document.querySelector('display');
-
-// sst.addEventListener('click', () => {
-//   body = document.querySelector('#location1');
-//   //  const divElement = document.querySelector('#location1')
-//    body.style.paddingTop = '6rem';
-//    console.log('clicked')
-
-// });
-
-// let foodLocation = document.querySelectorAll('.location');
-// let navLinks = document.querySelectorAll('#scrollLocation')
-
-// window.onscroll = () => {
-//   foodLocation.forEach(loc => {
-//     let top = window.scrollY;
-//     let offset  = loc.offsetTop - 100;
-//     let height  = loc.offsetHeight;
-//     let id = loc.getAttribute('id');
-
-//     if (top >= offset && top < offset + height) {
-//       navLinks.forEach(links=> {
-//         document.querySelector('#scrollLocation a[href*=' + id + ']')
-//       });
-//     }
-//   });
-// };
-
-// const foodLocation = ('location');
-
-// const giveID = (id) => {
-//   const locationData = "location" + id;
-//     const locationID = locationData.toString()
-//     return locationID;
-// }
-
-// const setID = 
-
-// const cafeteria = document.getElementById('PAU CAFETERIA');
-// const sst = document.getElementById('SST SNACK BAR');
-// const rooftop = document.getElementById('TYD ROOFTOP');
-
-// const cafeteriaButton = document.getElementById('cafeteriaB');
-// const sstButton = document.getElementById('sstB');
-// const rooftopButton = document.getElementById('rooftopB');
-
-// cafeteriaButton.addEventListener('click', () => {
-//   const cafeteria = document.getElementById('location');
-
-//     cafeteria.scrollIntoView();
-// });
-
-// sstButton.addEventListener('click', () => {
-//   const sst = document.getElementById('SST SNACK BAR');
-
-//   sst.scrollIntoView();
-// });
-
-// rooftopButton.addEventListener('click', () => {
-//   const rooftop = document.getElementById('TYD ROOFTOP');
-  
-//   rooftop.scrollIntoView();
-// });
+// displayCurrentData();
 

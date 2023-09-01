@@ -6,6 +6,8 @@
 //     item["id"] = variable + str(i);
 //   }
 // };
+// import { db } from '../Javascript/index.js';
+// import { ref, get, child, update  } from 'firebase/database';
 // setId(items, variable);
 var Lunch = [// Location: 'PAU CAFETERIA',
 {
@@ -316,7 +318,95 @@ var Lunch = [// Location: 'PAU CAFETERIA',
       price: 300
     }]
   }]
-}];
+}]; // import { db } from '../Javascript/index.js';
+// import { onValue, ref } from 'firebase/database';
+// // const Data = [];
+// const itemLocation = ['SST', 'cafeteria', 'roof-top'];
+// function displayCurrentData() {
+//   // const Data = [];
+//   const dbmain = ref(db,"PAU/Location/" );
+//   onValue(dbmain, (snapshot) => {
+//     const newData = [];
+//     console.log(snapshot.val());
+//     if (snapshot.val()) {
+//       snapshot.forEach(item => {
+//         newData.push(item.val());
+//         // oldData.append(item.val());
+//       });
+//       // Data = newData;
+//       const Data = newData.map(obj => Object.values(obj));
+//       displayData(Data, itemLocation);
+//     }
+//     });
+// };
+
+function displayData(data, itemLocation) {
+  // console.log(itemLocation);
+  var menu = document.getElementById('display');
+  menu.innerHTML = " ";
+  var itemContainer = document.createElement('div');
+  itemContainer.setAttribute('id', 'card-container');
+  itemContainer.innerHTML = " ";
+
+  for (var i = 0; i < data.length; i++) {
+    var Location = document.createElement('div');
+    Location.classList.add('location');
+    Location.innerHTML = "\n    <div class=\"location\">\n      Location: ".concat(itemLocation[i], "\n    </div>\n    ");
+    data[i].forEach(function (listItem) {
+      var itemCard = document.createElement('div');
+      itemCard.classList.add('card');
+      itemCard.innerHTML = "\n              <img src=\"".concat(listItem.image, "\" alt=\"food\" />\n              <h3>").concat(listItem.name, "</h3>\n              <p>&#8358;").concat(listItem.price, "</p>\n              <p style=\"color: red\">Quantity Available : ").concat(listItem.qty - listItem.sales, "</p>\n    ");
+      itemContainer.appendChild(itemCard);
+    });
+    menu.appendChild(Location);
+    menu.appendChild(itemContainer);
+  } // console.log(testArray)
+  // console.log(itemLocation)
+  //   for (var i = 0; i < data.length; i++) {
+  //     const testArray = data[i].map(obj => Object.values(obj));
+  //     // console.log(testArray[i]);
+  //     // testArray = Object.values(data);
+  // let Location = document.createElement('div');
+  // Location.classList.add('location');
+  // Location.innerHTML = `
+  // <div class="location">
+  //   Location: ${itemLocation[i]}
+  // </div>
+  // `;
+  // let itemCard = document.createElement('div');
+  // itemCard.classList.add('item-display');
+  // itemCard.innerHTML =  `
+  // <div class="menu id="menu>
+  //   <div id="card-container">
+  //     ${
+  //       testArray[i].map(list => `
+  //         <div class="card">
+  //           <img src="${list.image}" alt="food" />
+  //           <h3>${list.name}</h3>
+  //           <p>&#8358;${list.price}</p>
+  //           <p style="color: red">Quantity Available : ${list.qty - list.sales}</p>
+  //         </div>
+  //       `).join('')
+  //     }
+  //   </div>
+  // </div>
+  // `;
+  // menu.append(Location);
+  // menu.append(itemCard);
+  //   // const itemLocation = ['SST', 'cafeteria', 'roof-top'];
+  // }
+  // display.innerHTML = displayMenu;
+
+}
+
+; // var dataRef = db.ref('PAU/Location/');
+// var save = [];
+// dataRef.on('value', function(getData1){
+//   var Data = getData1.val();
+//   save.push(Data);
+// });
+// console.log(save);
+
 var idName = "location";
 
 var setId = function setId(items, variable) {
@@ -330,8 +420,7 @@ setId(Lunch, idName); // console.log(Lunch);
 
 /* The code you provided is a JavaScript code that creates a dynamic menu display based on the data
 stored in the `Lunch` array. */
-
-var menu = document.getElementById('display');
+// const menu = document.getElementById('display');
 
 var hideFunction = function hideFunction() {
   document.getElementsByClassName("menu.name").style.display = "none";
@@ -340,77 +429,55 @@ var hideFunction = function hideFunction() {
 // <i class="fa fa-caret-down dropdown" aria-hidden="false"></i>
 
 
-var displayMenu = Lunch.map(function (data) {
-  var id = data.id,
-      Location = data.Location,
-      Menu = data.Menu; // const giveID = (id) => {
-  //   id = "location" + id;
-  //   id = id.toString()
-  //   return id;
-  // }
-  // const lid = id;
+function displayMenu(Lunch) {
+  var menu = document.getElementById('display');
+  menu.innerHTML = ' ';
+  Lunch.forEach(function (data) {
+    var id = data.id,
+        Location = data.Location,
+        Menu = data.Menu;
+    var container = document.createElement('div');
+    container.innerHTML = "\n        <div class=\"location\" id=\"".concat(id, "\">\n        Location: ").concat(Location, "\n  \n      </div>\n  \n      <div class=\"menu id=\"menu>\n        ").concat(Menu.map(function (list) {
+      return "\n  \n            <h1 class=\"menu-name\">\n              ".concat(list.menuType, "\n            </h1>\n  \n            <div id=\"card-container\">\n                ").concat(list.menuList.map(function (item) {
+        return "\n                <div class=\"card\">\n                  <img src=\"".concat(item.image, "\" alt=\"food\" />\n                  <h3>").concat(item.name, "</h3>\n                  <p>&#8358;").concat(item.price, "</p>\n                </div>\n              ");
+      }).join(''), "\n            </div>\n  \n          ");
+    }).join(''), "\n      </div>\n        ");
+    menu.append(container);
+  });
+}
 
-  return "\n      <div class=\"location\" id=\"".concat(id, "\">\n      Location: ").concat(Location, "\n\n    </div>\n\n    <div class=\"menu id=\"menu>\n      ").concat(Menu.map(function (list) {
-    return "\n\n          <h1 class=\"menu-name\">\n            ".concat(list.menuType, "\n          </h1>\n\n          <div id=\"card-container\">\n              ").concat(list.menuList.map(function (item) {
-      return "\n              <div class=\"card\">\n                <img src=\"".concat(item.image, "\" alt=\"food\" />\n                <h3>").concat(item.name, "</h3>\n                <p>&#8358;").concat(item.price, "</p>\n              </div>\n            ");
-    }).join(''), "\n          </div>\n\n        ");
-  }).join(''), "\n    </div>\n  ");
-}).join(""); // const sst = document.querySelector('#sst');
-// const rooftop = document.querySelector('#rooftop');
-// // body = document.querySelector('display');
-// sst.addEventListener('click', () => {
-//   body = document.querySelector('.displayContent');
-//   //  const divElement = document.querySelector('#location1')
-//    body.style.marginTop = '8rem';
-//    console.log('clicked')
-// });
-
-display.innerHTML = displayMenu; // const sst = document.querySelector('#sst');
-// const rooftop = document.querySelector('#rooftop');
-// // body = document.querySelector('display');
-// sst.addEventListener('click', () => {
-//   body = document.querySelector('#location1');
-//   //  const divElement = document.querySelector('#location1')
-//    body.style.paddingTop = '6rem';
-//    console.log('clicked')
-// });
-// let foodLocation = document.querySelectorAll('.location');
-// let navLinks = document.querySelectorAll('#scrollLocation')
-// window.onscroll = () => {
-//   foodLocation.forEach(loc => {
-//     let top = window.scrollY;
-//     let offset  = loc.offsetTop - 100;
-//     let height  = loc.offsetHeight;
-//     let id = loc.getAttribute('id');
-//     if (top >= offset && top < offset + height) {
-//       navLinks.forEach(links=> {
-//         document.querySelector('#scrollLocation a[href*=' + id + ']')
-//       });
-//     }
-//   });
-// };
-// const foodLocation = ('location');
-// const giveID = (id) => {
-//   const locationData = "location" + id;
-//     const locationID = locationData.toString()
-//     return locationID;
-// }
-// const setID = 
-// const cafeteria = document.getElementById('PAU CAFETERIA');
-// const sst = document.getElementById('SST SNACK BAR');
-// const rooftop = document.getElementById('TYD ROOFTOP');
-// const cafeteriaButton = document.getElementById('cafeteriaB');
-// const sstButton = document.getElementById('sstB');
-// const rooftopButton = document.getElementById('rooftopB');
-// cafeteriaButton.addEventListener('click', () => {
-//   const cafeteria = document.getElementById('location');
-//     cafeteria.scrollIntoView();
-// });
-// sstButton.addEventListener('click', () => {
-//   const sst = document.getElementById('SST SNACK BAR');
-//   sst.scrollIntoView();
-// });
-// rooftopButton.addEventListener('click', () => {
-//   const rooftop = document.getElementById('TYD ROOFTOP');
-//   rooftop.scrollIntoView();
-// });
+displayMenu(Lunch); // const displayMenu = Lunch.forEach((data) => {
+//   const we = 0;
+//   const {id, Location, Menu} = data;
+//   // const giveID = (id) => {
+//   //   id = "location" + id;
+//   //   id = id.toString()
+//   //   return id;
+//   // }
+//   // const lid = id;
+//     return `
+//       <div class="location" id="${id}">
+//       Location: ${Location}
+//     </div>
+//     <div class="menu id="menu>
+//       ${
+//         Menu.map(list => `
+//           <h1 class="menu-name">
+//             ${list.menuType}
+//           </h1>
+//           <div id="card-container">
+//               ${list.menuList.map(item => `
+//               <div class="card">
+//                 <img src="${item.image}" alt="food" />
+//                 <h3>${item.name}</h3>
+//                 <p>&#8358;${item.price}</p>
+//               </div>
+//             `).join('')}
+//           </div>
+//         `).join('')
+//       }
+//     </div>
+//   ` 
+// })
+// display.innerHTML = displayMenu;
+// displayCurrentData();
