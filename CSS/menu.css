@@ -131,12 +131,13 @@ body {
 }
 
 .location {
-  width: calc(100% - 4rem);
+  width: calc(100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 3rem;
-  padding: 0.5rem 2rem;
+  height: 2rem;
+  padding: 0.5rem 0rem;
+  /* margin: 1rem 0; */
   background-color: rgb(24, 72, 161);
   color: whitesmoke;
   font-size: 1.5rem;
@@ -199,7 +200,7 @@ body {
 }
 
 .menu {
-  width: calc(100% - 4rem);
+  width: calc(100%);
   height: auto;
   display: flex;
   flex-direction: column;
@@ -268,6 +269,15 @@ body {
   font-weight: 600;
   margin: 0;
   padding: 0;
+}
+
+.display-container {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-rows: 1fr;
+  row-gap: 5rem;
+  
 }
 
 

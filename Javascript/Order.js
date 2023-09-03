@@ -241,66 +241,206 @@ number5.addEventListener('click', () => {
 
 function addToCart(id, Menu) {
   console.log('Item ' + id + ' is added to cart')
-  if (listCart[id] == null) {
-    listCart[id] = Menu[id];
-    listCart[id].quantity = 1;
+  const existingItem = listCart.find(item => item.id === id);
+
+  if (!existingItem) {
+    const newItem = { ...Menu[id], quantity: 1 };
+    listCart.push(newItem);
+  } else {
+    existingItem.quantity++;
   }
 
-    reloadCart();
-    console.log(listCart);
+  reloadCart();
 }
+
+// function addToCart(id, Menu) {
+//   console.log('Item ' + id + ' is added to cart')
+//   if (listCart[id] == null) {
+//     listCart[id] = Menu[id];
+//     listCart[id].quantity = 1;
+//   }
+
+//     reloadCart();
+//     console.log(listCart);
+// }
+
+const printList  = document.createElement('div');
+printList.setAttribute('id', 'printList');
 
 function reloadCart() {
   const total = document.querySelector('#total');
+  const quantity = document.querySelector('#cart-count');
 
-  const quantity  = document.querySelector('#cart-count');
-
+  printList.innerHTML = ' ';
   cartItem.innerHTML = " ";
   let count = 0;
   let totalPrice = 0.00;
 
-  for (const id in listCart) {
-    if (listCart.hasOwnProperty(id)) {
-      const item = listCart[id];
+  for (let i = 0; i < listCart.length; i++) {
+    const item = listCart[i];
 
-      totalPrice += item.price * item.quantity;
-      count += item.quantity;
+    totalPrice += item.price * item.quantity;
+    count += item.quantity;
 
-      let cartList = document.createElement('div');
-      cartList.setAttribute('id', 'cartLists');
-      cartList.innerHTML = `
-        <h3>${item.name}</h3>
-        <div hidden>${item.id}</div>
+    let cartList = document.createElement('div');
+    cartList.setAttribute('id', 'cartLists');
+    cartList.innerHTML = `
+      <h3>${item.name}</h3>
+      <div hidden>${item.id}</div>
+      <div class="count">
+        <button class='minus' type="button">-</button>
+        <p>${item.quantity}</p>
+        <button class='plus' type="button">+</button>
+      </div>
+    `;
 
-        <div class="count">
-          <button class='minus' type="button">-</button>
-          <p>${item.quantity}</p>
-          <button class='plus' type="button">+</button>
-        </div>
-      `;
+    cartItem.appendChild(cartList);
 
-      cartItem.appendChild(cartList);
-      // Attach event listeners to the buttons
-      const minusButton = cartList.querySelector('.minus');
-      const plusButton = cartList.querySelector('.plus');
+    // Print List
+    const printCard = document.createElement('div');
+    printCard.setAttribute('class', 'printCard');
+    printCard.innerHTML = `
+      <h5>${item.name}</h5>
+      <p>${item.quantity}</p>
+      <p>${item.price}</p>
+    `;
 
-      // Add a click event listener for the minus button
-      minusButton.addEventListener('click', () => {
-        // Call a function with the item ID and the action you want (e.g., decrement quantity)
-        changeQuantity(item.id, item.quantity - 1);
-      });
+    printList.appendChild(printCard);
+    // Attach event listeners to the buttons
+    const minusButton = cartList.querySelector('.minus');
+    const plusButton = cartList.querySelector('.plus');
 
-      // Add a click event listener for the plus button
-      plusButton.addEventListener('click', () => {
-        // Call a function with the item ID and the action you want (e.g., increment quantity)
-        changeQuantity(item.id, item.quantity + 1);
-      });
-    }
+    // Add a click event listener for the minus button
+    minusButton.addEventListener('click', () => {
+      // Call a function with the item ID and the action you want (e.g., decrement quantity)
+      changeQuantity(item.id, item.quantity - 1);
+    });
 
+    // Add a click event listener for the plus button
+    plusButton.addEventListener('click', () => {
+      // Call a function with the item ID and the action you want (e.g., increment quantity)
+      changeQuantity(item.id, item.quantity + 1);
+    });
   }
 
-  total.innerText = totalPrice;
+  total.innerText = totalPrice.toFixed(2);
   quantity.innerText = count;
+}
+
+
+// function reloadCart() {
+//   const total = document.querySelector('#total');
+
+//   const quantity  = document.querySelector('#cart-count');
+
+//   printList.innerHTML = ' ';
+
+//   cartItem.innerHTML = " ";
+//   let count = 0;
+//   let totalPrice = 0.00;
+
+//   for (const id in listCart) {
+//     if (listCart.hasOwnProperty(id)) {
+//       const item = listCart[id];
+
+//       totalPrice += item.price * item.quantity;
+//       count += item.quantity;
+
+//       let cartList = document.createElement('div');
+//       cartList.setAttribute('id', 'cartLists');
+//       cartList.innerHTML = `
+//         <h3>${item.name}</h3>
+//         <div hidden>${item.id}</div>
+
+//         <div class="count">
+//           <button class='minus' type="button">-</button>
+//           <p>${item.quantity}</p>
+//           <button class='plus' type="button">+</button>
+//         </div>
+//       `;
+
+//       cartItem.appendChild(cartList);
+
+//       // Print List
+
+//       const printCard = document.createElement('div');
+//       printCard.setAttribute('class', 'printCard');
+//       printCard.innerHTML = `
+//         <h5>${item.name}</h5>
+//         <p>${item.quantity}</p>
+//         <p>${item.price}</p>
+//       `;
+
+//       printList.appendChild(printCard);
+//       // Attach event listeners to the buttons
+//       const minusButton = cartList.querySelector('.minus');
+//       const plusButton = cartList.querySelector('.plus');
+
+//       // Add a click event listener for the minus button
+//       minusButton.addEventListener('click', () => {
+//         // Call a function with the item ID and the action you want (e.g., decrement quantity)
+//         changeQuantity(item.id, item.quantity - 1);
+//       });
+
+//       // Add a click event listener for the plus button
+//       plusButton.addEventListener('click', () => {
+//         // Call a function with the item ID and the action you want (e.g., increment quantity)
+//         changeQuantity(item.id, item.quantity + 1);
+//       });
+//     }
+
+//   }
+
+//   total.innerText = totalPrice.toFixed(2);
+//   quantity.innerText = count;
+// }
+
+
+
+const printSection = document.getElementById('printSection'); 
+
+
+function printReceipt() {
+  const orderReceipt = document.createElement('div');
+  orderReceipt.setAttribute('id', 'orderReceipt');
+  orderReceipt.innerHTML = `
+    <h2>PAU CAFETERIA </h2>
+    <h3>Order</h3>
+    <div class="printItem">
+      <h4>Item</h4>
+      <h4>Qty</h4>
+      <h4>Price</h4>
+    </div>
+    <hr/>
+    ${printList.innerHTML}
+    <hr>
+    <div class="printTotal">
+    <p>Total</p>
+    <b>&#8358;<span id="total">${total.innerHTML}</span></b>
+    </div>
+  `;
+
+  printSection.appendChild(orderReceipt);
+
+  const bodyElements = document.querySelectorAll("body > *");
+  bodyElements.forEach(element => {
+      if (element !== printSection) {
+          element.style.display = "none";
+      }
+  });
+
+  // Print the section
+  window.print();
+
+  // Restore the visibility of all elements
+  bodyElements.forEach(element => {
+      element.style.display = "";
+  });
+
+  // Remove the added orderReceipt element
+  printSection.removeChild(orderReceipt);
+
+
 }
 
 function changeQuantity(id, quantity) {
@@ -327,44 +467,14 @@ function updateAndDisplayData() {
       Menu = newMenu;
 
       displayCart(Menu);
-      // reloadCart();
+      reloadCart();
     }
 
       
-    // console.log(snapshot.val());
-    // console.log(newMenu);
-    // Menu = newMenu;
-    // displayCart(Menu);
-    console.log(Menu);      // console.log(newMenu);
+    
+    console.log(Menu); 
     });
 }
-
-
-// function displayNewQuantity(id, qty) {
-
-//   const dbrefactive = ref(db,"PAU/Location/SST/" );
-
-//   onValue(dbrefactive, (snapshot) => {
-//     var newMenu = [];
-      
-//     snapshot.forEach(newfood => {
-//         newMenu.push(newfood.val());
-//     });
-
-//     newMenu.forEach(newfood => {
-//       const newQty = 0;
-//       if (newfood.id === id) {
-//         newQty = newfood.qty;
-//         return newQty;
-//       }
-//       else {
-//         return qty;
-//       }
-//     })
-
-//       })
-
-// }
 
 
 const sideBar = document.querySelector('.cart-sidebar');
@@ -409,8 +519,9 @@ const uploadToDataBase = () => {
 Enter.addEventListener('click', () => {
     // reloadCart();
     uploadToDataBase();
+    printReceipt();
     // console.log('Upload Successful');
-    // reloadCart();
+    reloadCart();
   });
 
 

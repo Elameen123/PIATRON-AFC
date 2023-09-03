@@ -7,7 +7,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-body {
+/* body {
   background-color: #5b6677;
 }
 
@@ -70,7 +70,7 @@ body {
 .sideMenu ul li {
   list-style-type: none;
   margin-bottom: 5px;
-  /* transition: 0.3s ease-in-out; */
+  transition: 0.3s ease-in-out;
 }
 
 .sideMenu ul li a {
@@ -126,3 +126,127 @@ body {
   padding: 10px 8px;
   font-size: 10px;
 } 
+
+/* Add your CSS styles here */
+
+/* Sidebar Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar-container {
+  height: 100%;
+}
+
+#sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+  position: fixed;
+  overflow-y: auto;
+  transition: 0.3s;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.user-img img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-details {
+  font-size: 14px;
+}
+
+.side-nav {
+  padding: 20px;
+}
+
+.sideMenu .title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 8px 0;
+}
+
+ul li a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+/* Submenu Styles */
+.sub-side-menu {
+  display: none;
+  background-color: #444;
+  padding-left: 20px;
+}
+
+.sub-side-menu ul li {
+  padding: 8px 0;
+}
+
+.sub-side-menu ul li a {
+  color: #ccc;
+}
+
+/* Active Menu Item */
+.active {
+  background-color: #555;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+  #sidebar {
+      width: 100%;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: -100%;
+  }
+
+  .active {
+      background-color: transparent;
+  }
+
+  .arrow {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 20px;
+      transition: transform 0.3s;
+  }
+
+  .sub-side-menu.active {
+      display: block;
+  }
+
+  .sub-side-menu ul li {
+      padding: 8px 20px;
+  }
+
+  #sidebar.active {
+      left: 0;
+  }
+}

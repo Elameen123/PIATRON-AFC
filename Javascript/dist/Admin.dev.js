@@ -9,31 +9,31 @@
 //       alert("Doesn't Work");
 //   }
 // }
-console.log('Admin.js is bundled');
-$('.sideMenu > ul > li').click(function () {
-  $('.sideMenu > ul > li > ul > li').click(function () {
-    // remove active from already active 
-    $(this).siblings().removeClass('active'); // Add active to Clicked 
-
-    $(this).toggleClass('active'); // If it has sub menu, open it 
-
-    $(this).find('ul').slideToggle(); // Close other sub menu if any is open 
-
-    $(this).siblings().find('ul').slideUp(); // remove active class of sub menu items 
-
-    $(this).siblings().find('ul').find('li').removeClass('active');
-  }); // remove active from already active 
-
-  $(this).siblings().removeClass('active'); // Add active to Clicked 
-
-  $(this).toggleClass('active'); // If it has sub menu, open it 
-
-  $(this).find('ul').slideToggle(); // Close other sub menu if any is open 
-
-  $(this).siblings().find('ul').slideUp(); // remove active class of sub menu items 
-
-  $(this).siblings().find('ul').find('li').removeClass('active');
-}); // $('.sub-side-menu > li').click(function () {
+console.log('Admin.js is bundled'); // $('.sideMenu > ul > li').click(function () {
+//   $('.sideMenu > ul > li > ul > li').click(function () {
+//     // remove active from already active 
+//   $(this).siblings().removeClass('active'); 
+//   // Add active to Clicked 
+//   $(this).toggleClass('active');
+//   // If it has sub menu, open it 
+//   $(this).find('ul').slideToggle();
+//   // Close other sub menu if any is open 
+//   $(this).siblings().find('ul').slideUp();
+//   // remove active class of sub menu items 
+//   $(this).siblings().find('ul').find('li').removeClass('active');
+//   });
+//   // remove active from already active 
+//   $(this).siblings().removeClass('active'); 
+//   // Add active to Clicked 
+//   $(this).toggleClass('active');
+//   // If it has sub menu, open it 
+//   $(this).find('ul').slideToggle();
+//   // Close other sub menu if any is open 
+//   $(this).siblings().find('ul').slideUp();
+//   // remove active class of sub menu items 
+//   $(this).siblings().find('ul').find('li').removeClass('active');
+// });
+// $('.sub-side-menu > li').click(function () {
 //   // remove active from already active 
 //   $(this).siblings().removeClass('active');
 //   // $(this).siblings().find('ul').removeClass('active'); 
@@ -59,3 +59,18 @@ $('.sideMenu > ul > li').click(function () {
 //     $(this).find('ul').slideToggle();
 //   });
 // });
+// Add JavaScript interactivity here
+
+var sidebar = document.getElementById('sidebar');
+var menuToggle = document.querySelector('.arrow');
+var subMenus = document.querySelectorAll('.sub-side-menu');
+menuToggle.addEventListener('click', function () {
+  sidebar.classList.toggle('active');
+  menuToggle.classList.toggle('ph-caret-right');
+  menuToggle.classList.toggle('ph-caret-down');
+});
+subMenus.forEach(function (subMenu) {
+  subMenu.previousElementSibling.addEventListener('click', function () {
+    subMenu.classList.toggle('active');
+  });
+});

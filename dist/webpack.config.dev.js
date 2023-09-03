@@ -8,6 +8,8 @@ module.exports = {
     index: './Javascript/index.js',
     order: './Javascript/Order.js',
     configure: './Javascript/configure.js',
+    login: './Javascript/Login.js',
+    register: './Javascript/Register.js',
     admin: './Javascript/Admin.js',
     product: './Javascript/Product.js'
   },

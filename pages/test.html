@@ -8,64 +8,63 @@
   <link rel="stylesheet" href="../CSS/test.css">
 </head>
 <body>
- <!-- <div id="sidebar">
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li>
-      <a href="#">Products</a>
-      <ul>
-        <li><a href="#">Product 1</a></li>
-        <li><a href="#">Product 2</a></li>
-        <li>
-          <a href="#">Product 3</a>
-          <ul>
-            <li><a href="#">Subproduct 1</a></li>
-            <li><a href="#">Subproduct 2</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#">Contact</a></li>
-  </ul>
-</div> -->
+  <div class="receipt">
+    <h1>Receipt</h1>
+    <div class="items">
+        <!-- Items will be populated here using JavaScript -->
+    </div>
 
+    <hr>
+    <div class="total">
+        <p>Total: $<span id="totalAmount">0.00</span></p>
+    </div>
+</div>
+<button type="button" id="printButton">Print Receipt</button>
 
 
   <script type="text/javascript">
-    alert('page is working properly');
-  //   $(document).ready(function() {
-  //     $('.submenu').hide();
+   document.addEventListener("DOMContentLoaded", function () {
+    // Sample cart data (you can replace this with your cart data)
+    const cartItems = [
+        { name: "Product 1", price: 10.99 },
+        { name: "Product 2", price: 15.99 },
+        { name: "Product 3", price: 7.99 },
+    ];
 
-  //     $('ul li a').click(function() {
-  //       $(this).closest('li').find('ul.submenu').slideToggle("fast");
-  //     });
-  // });
+    // Function to calculate the total price
+    function calculateTotal() {
+        let total = 0;
+        cartItems.forEach(item => {
+            total += item.price;
+        });
+        return total.toFixed(2);
+    }
 
-  const body = document.querySelector('body');
+    // Function to populate the receipt
+    function populateReceipt() {
+        const itemsContainer = document.querySelector(".items");
+        const totalAmountElement = document.getElementById("totalAmount");
 
-  const headers = [
-  { id: "header-1", text: "Header 1" },
-  { id: "header-2", text: "Header 2" },
-  { id: "header-3", text: "Header 3" },
-];
+        cartItems.forEach(item => {
+            const itemElement = document.createElement("p");
+            itemElement.textContent = `${item.name}: $${item.price.toFixed(2)}`;
+            itemsContainer.appendChild(itemElement);
+        });
 
-const button = document.createElement("button");
+        const totalAmount = calculateTotal();
+        totalAmountElement.textContent = totalAmount;
+    }
 
+    // Print receipt
+    const printButton = document.getElementById("printButton");
+    printButton.addEventListener("click", () => {
+        window.print();
+    });
 
-const buttons = headers.map(header => {
-  // const button = document.createElement("button");
-  button.textContent = header.text;
-  button.addEventListener("click", () => {
-    // Scroll to the header with the specified id.
-    const headerElement = document.getElementById(header.id);
-    headerElement.scrollIntoView();
-  });
-  return button;
+    // Populate the receipt
+    populateReceipt();
 });
 
-// Append the buttons to the document.
-  document.body.appendChild(button);
 
   </script>
   

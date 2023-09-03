@@ -417,118 +417,231 @@ const itemLocation = ['SST', 'cafeteria', 'roof-top'];
 
 console.log(itemLocation);
 
-function displayCurrentData() {
+// function displayCurrentData() {
 
-  console.log('working');
-  // const Data = [];
-  const dbmain = ref(db,"PAU/Location/" );
+//   console.log('working');
+//   // const Data = [];
+//   const dbmain = ref(db,"PAU/Location/" );
 
-  onValue(dbmain, (snapshot) => {
-    const newData = [];
-    console.log(snapshot.val());
+//   onValue(dbmain, (snapshot) => {
+//     const newData = [];
+//     console.log(snapshot.val());
     
 
-    if (snapshot.val()) {
-      snapshot.forEach(item => {
-        newData.push(item.val());
-        // oldData.append(item.val());
-      });
+//     if (snapshot.val()) {
+//       snapshot.forEach(item => {
+//         newData.push(item.val());
+//         // oldData.append(item.val());
+//       });
 
-      // Data = newData;
+    
 
-      const Data = newData.map(obj => Object.values(obj));
+//       // Data = newData;
 
-      displayData(Data, itemLocation);
+//       const Data = newData.map(obj => Object.values(obj));
+
+//       displayData(Data, itemLocation);
+//     }
+//     });
+// };
+
+function displayCurrentData() {
+  const dbmain = ref(db, "PAU/Location/");
+
+  onValue(dbmain, (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      const newData = [];
+
+      for (const location in data) {
+        if (data.hasOwnProperty(location)) {
+          const locationData = data[location];
+          const locationInfo = { id: location, Location: location, Menu: [] };
+
+          for (const itemKey in locationData) {
+            if (locationData.hasOwnProperty(itemKey)) {
+              const item = locationData[itemKey];
+              const menuItem = {
+                id: item.id,
+                name: item.name,
+                image: item.image,
+                price: item.price,
+                unitMassPortion: item.mp + 'g',
+                qty: item.qty,
+                sales: item.sales,
+              };
+              locationInfo.Menu.push({
+                id: itemKey,
+                menuType: itemKey,
+                menuList: [menuItem],
+              });
+            }
+          }
+
+          newData.push(locationInfo);
+        }
+      }
+
+      const idName = "location";
+
+      const setId = (items, variable) => {
+        items.forEach((item, index) => {
+          item["id"] = variable + index;
+        });
+      };
+
+      setId(newData, idName);
+      console.log(newData);
+      displayData(newData, itemLocation);
     }
-    });
-};
+  });
+}
 
 function displayData(data, itemLocation) {
-// console.log(itemLocation);
+  const menu = document.getElementById('display');
+  menu.innerHTML = '';
 
-const menu = document.getElementById('display');
-menu.innerHTML = " ";
+  for (let i = 0; i < data.length; i++) {
+    const displayContainer = document.createElement('div');
+    displayContainer.classList.add('display-container');
 
-let itemContainer = document.createElement('div');
-itemContainer.setAttribute('id', 'card-container');
-itemContainer.innerHTML = " ";
-
-for (let i = 0; i < data.length; i++) {
-  let Location = document.createElement('div');
+    const Location = document.createElement('div');
     Location.classList.add('location');
     Location.innerHTML = `
-    <div class="location">
-      Location: ${itemLocation[i]}
-    </div>
-    `;
-  const filteredData = data[i].filter(item => item.location === itemLocation[i]);
-
-  filteredData.forEach(listItem => {
-    let itemCard = document.createElement('div');
-    itemCard.classList.add('card');
-    itemCard.innerHTML =  `
-              <img src="${listItem.image}" alt="food" />
-              <h3>${listItem.name}</h3>
-              <p>&#8358;${listItem.price}</p>
-              <p style="color: red">Quantity Available : ${listItem.qty - listItem.sales}</p>
+      <div class="location">
+        Location: ${itemLocation[i]}
+      </div>
     `;
 
-    itemContainer.appendChild(itemCard)
-  })
+    displayContainer.appendChild(Location);
 
-  menu.appendChild(Location);
-  menu.appendChild(itemContainer);
+    const itemContainer = document.createElement('div');
+    itemContainer.setAttribute('id', 'card-container');
+    itemContainer.innerHTML = '';
+
+    data[i].Menu.forEach((menuType) => {
+      menuType.menuList.forEach((listItem) => {
+        const itemCard = document.createElement('div');
+        itemCard.classList.add('card');
+        itemCard.innerHTML = `
+          <img src="${listItem.image}" alt="food" />
+          <h3>${listItem.name}</h3>
+          <p>&#8358;${listItem.price}</p>
+          <p style="color: red">Quantity Available: ${listItem.qty - listItem.sales}</p>
+        `;
+
+        itemContainer.appendChild(itemCard);
+      });
+    });
+
+    displayContainer.appendChild(itemContainer);
+    menu.appendChild(displayContainer);
+  }
 }
 
 
 
+// function displayData(data, itemLocation) {
+// // console.log(itemLocation);
 
-// console.log(testArray)
-// console.log(itemLocation)
+// const menu = document.getElementById('display');
+// menu.innerHTML = " ";
 
-//   for (var i = 0; i < data.length; i++) {
-//     const testArray = data[i].map(obj => Object.values(obj));
-//     // console.log(testArray[i]);
-//     // testArray = Object.values(data);
-    // let Location = document.createElement('div');
-    // Location.classList.add('location');
-    // Location.innerHTML = `
-    // <div class="location">
-    //   Location: ${itemLocation[i]}
-    // </div>
+// // const itemContainer = document.createElement('div');
+// // itemContainer.setAttribute('id', 'card-container');
+// // itemContainer.innerHTML = " ";
 
-    // `;
+// for (let i = 0; i < data.length; i++) {
 
-    // let itemCard = document.createElement('div');
-    // itemCard.classList.add('item-display');
-    // itemCard.innerHTML =  `
-    // <div class="menu id="menu>
-    //   <div id="card-container">
-    //     ${
-    //       testArray[i].map(list => `
-    //         <div class="card">
-    //           <img src="${list.image}" alt="food" />
-    //           <h3>${list.name}</h3>
-    //           <p>&#8358;${list.price}</p>
-    //           <p style="color: red">Quantity Available : ${list.qty - list.sales}</p>
-    //         </div>
-    //       `).join('')
-    //     }
-    //   </div>
-    // </div>
+//   const displayContainer = document.createElement('div');
+//   displayContainer.classList.add('display-container');
 
-    // `;
+//   const Location = document.createElement('div');
+//     Location.classList.add('location');
+//     Location.innerHTML = `
+//     <div class="location">
+//       Location: ${itemLocation[i]}
+//     </div>
+//     `;
 
-    // menu.append(Location);
-    // menu.append(itemCard);
-//   // const itemLocation = ['SST', 'cafeteria', 'roof-top'];
+//   displayContainer.appendChild(Location);
+
+//   const itemContainer = document.createElement('div');
+//   itemContainer.setAttribute('id', 'card-container');
+//   itemContainer.innerHTML = " ";
+//   // const filteredData = data[i].filter(item => item.location === itemLocation[i]);
+
+//   data[i].forEach(listItem => {
+//    if(listItem.location === itemLocation[i]){
+//       const itemCard = document.createElement('div');
+//       itemCard.classList.add('card');
+//       itemCard.innerHTML =  `
+//                 <img src="${listItem.image}" alt="food" />
+//                 <h3>${listItem.name}</h3>
+//                 <p>&#8358;${listItem.price}</p>
+//                 <p style="color: red">Quantity Available : ${listItem.qty - listItem.sales}</p>
+//       `;
+
+//       itemContainer.appendChild(itemCard);
+//    }
+//   })
+
+//   // displayContainer.appendChild(Location);
+//   displayContainer.appendChild(itemContainer);
+
+//   menu.appendChild(displayContainer);
+// }
 // }
 
 
 
-// display.innerHTML = displayMenu;
 
-};
+// // console.log(testArray)
+// // console.log(itemLocation)
+
+// //   for (var i = 0; i < data.length; i++) {
+// //     const testArray = data[i].map(obj => Object.values(obj));
+// //     // console.log(testArray[i]);
+// //     // testArray = Object.values(data);
+//     // let Location = document.createElement('div');
+//     // Location.classList.add('location');
+//     // Location.innerHTML = `
+//     // <div class="location">
+//     //   Location: ${itemLocation[i]}
+//     // </div>
+
+//     // `;
+
+//     // let itemCard = document.createElement('div');
+//     // itemCard.classList.add('item-display');
+//     // itemCard.innerHTML =  `
+//     // <div class="menu id="menu>
+//     //   <div id="card-container">
+//     //     ${
+//     //       testArray[i].map(list => `
+//     //         <div class="card">
+//     //           <img src="${list.image}" alt="food" />
+//     //           <h3>${list.name}</h3>
+//     //           <p>&#8358;${list.price}</p>
+//     //           <p style="color: red">Quantity Available : ${list.qty - list.sales}</p>
+//     //         </div>
+//     //       `).join('')
+//     //     }
+//     //   </div>
+//     // </div>
+
+//     // `;
+
+//     // menu.append(Location);
+//     // menu.append(itemCard);
+// //   // const itemLocation = ['SST', 'cafeteria', 'roof-top'];
+// // }
+
+
+
+// // display.innerHTML = displayMenu;
+
+// };
 
 
 
@@ -557,17 +670,6 @@ for (let i = 0; i < data.length; i++) {
 // // console.log(Lunch);
 
 // // export default Lunch;
-
-
-
-// /* The code you provided is a JavaScript code that creates a dynamic menu display based on the data
-// stored in the `Lunch` array. */
-// // const menu = document.getElementById('display');
-
-// const hideFunction = () => {
-//   document.getElementsByClassName("menu.name").style.display = "none";
-//   document.getElementsById("card-container").style.display = "none";
-// }
 
 // // const display = Menu.forEach()
 

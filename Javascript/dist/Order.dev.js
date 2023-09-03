@@ -4,6 +4,12 @@ var _index = require("../Javascript/index.js");
 
 var _database = require("firebase/database");
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var listCart = [];
 var Enter = document.querySelector('.Enter');
 var cartItem = document.querySelector('#cartItem'); // const app = initializeApp(firebaseConfig);
@@ -149,52 +155,151 @@ function displayCart(MenuItem) {
 
 function addToCart(id, Menu) {
   console.log('Item ' + id + ' is added to cart');
+  var existingItem = listCart.find(function (item) {
+    return item.id === id;
+  });
 
-  if (listCart[id] == null) {
-    listCart[id] = Menu[id];
-    listCart[id].quantity = 1;
+  if (!existingItem) {
+    var newItem = _objectSpread({}, Menu[id], {
+      quantity: 1
+    });
+
+    listCart.push(newItem);
+  } else {
+    existingItem.quantity++;
   }
 
   reloadCart();
-  console.log(listCart);
-}
+} // function addToCart(id, Menu) {
+//   console.log('Item ' + id + ' is added to cart')
+//   if (listCart[id] == null) {
+//     listCart[id] = Menu[id];
+//     listCart[id].quantity = 1;
+//   }
+//     reloadCart();
+//     console.log(listCart);
+// }
+
+
+var printList = document.createElement('div');
+printList.setAttribute('id', 'printList');
 
 function reloadCart() {
   var total = document.querySelector('#total');
   var quantity = document.querySelector('#cart-count');
+  printList.innerHTML = ' ';
   cartItem.innerHTML = " ";
   var count = 0;
   var totalPrice = 0.00;
 
-  for (var id in listCart) {
-    if (listCart.hasOwnProperty(id)) {
-      (function () {
-        var item = listCart[id];
-        totalPrice += item.price * item.quantity;
-        count += item.quantity;
-        var cartList = document.createElement('div');
-        cartList.setAttribute('id', 'cartLists');
-        cartList.innerHTML = "\n        <h3>".concat(item.name, "</h3>\n        <div hidden>").concat(item.id, "</div>\n\n        <div class=\"count\">\n          <button class='minus' type=\"button\">-</button>\n          <p>").concat(item.quantity, "</p>\n          <button class='plus' type=\"button\">+</button>\n        </div>\n      ");
-        cartItem.appendChild(cartList); // Attach event listeners to the buttons
+  var _loop = function _loop(i) {
+    var item = listCart[i];
+    totalPrice += item.price * item.quantity;
+    count += item.quantity;
+    var cartList = document.createElement('div');
+    cartList.setAttribute('id', 'cartLists');
+    cartList.innerHTML = "\n      <h3>".concat(item.name, "</h3>\n      <div hidden>").concat(item.id, "</div>\n      <div class=\"count\">\n        <button class='minus' type=\"button\">-</button>\n        <p>").concat(item.quantity, "</p>\n        <button class='plus' type=\"button\">+</button>\n      </div>\n    ");
+    cartItem.appendChild(cartList); // Print List
 
-        var minusButton = cartList.querySelector('.minus');
-        var plusButton = cartList.querySelector('.plus'); // Add a click event listener for the minus button
+    var printCard = document.createElement('div');
+    printCard.setAttribute('class', 'printCard');
+    printCard.innerHTML = "\n      <h5>".concat(item.name, "</h5>\n      <p>").concat(item.quantity, "</p>\n      <p>").concat(item.price, "</p>\n    ");
+    printList.appendChild(printCard); // Attach event listeners to the buttons
 
-        minusButton.addEventListener('click', function () {
-          // Call a function with the item ID and the action you want (e.g., decrement quantity)
-          changeQuantity(item.id, item.quantity - 1);
-        }); // Add a click event listener for the plus button
+    var minusButton = cartList.querySelector('.minus');
+    var plusButton = cartList.querySelector('.plus'); // Add a click event listener for the minus button
 
-        plusButton.addEventListener('click', function () {
-          // Call a function with the item ID and the action you want (e.g., increment quantity)
-          changeQuantity(item.id, item.quantity + 1);
-        });
-      })();
-    }
+    minusButton.addEventListener('click', function () {
+      // Call a function with the item ID and the action you want (e.g., decrement quantity)
+      changeQuantity(item.id, item.quantity - 1);
+    }); // Add a click event listener for the plus button
+
+    plusButton.addEventListener('click', function () {
+      // Call a function with the item ID and the action you want (e.g., increment quantity)
+      changeQuantity(item.id, item.quantity + 1);
+    });
+  };
+
+  for (var i = 0; i < listCart.length; i++) {
+    _loop(i);
   }
 
-  total.innerText = totalPrice;
+  total.innerText = totalPrice.toFixed(2);
   quantity.innerText = count;
+} // function reloadCart() {
+//   const total = document.querySelector('#total');
+//   const quantity  = document.querySelector('#cart-count');
+//   printList.innerHTML = ' ';
+//   cartItem.innerHTML = " ";
+//   let count = 0;
+//   let totalPrice = 0.00;
+//   for (const id in listCart) {
+//     if (listCart.hasOwnProperty(id)) {
+//       const item = listCart[id];
+//       totalPrice += item.price * item.quantity;
+//       count += item.quantity;
+//       let cartList = document.createElement('div');
+//       cartList.setAttribute('id', 'cartLists');
+//       cartList.innerHTML = `
+//         <h3>${item.name}</h3>
+//         <div hidden>${item.id}</div>
+//         <div class="count">
+//           <button class='minus' type="button">-</button>
+//           <p>${item.quantity}</p>
+//           <button class='plus' type="button">+</button>
+//         </div>
+//       `;
+//       cartItem.appendChild(cartList);
+//       // Print List
+//       const printCard = document.createElement('div');
+//       printCard.setAttribute('class', 'printCard');
+//       printCard.innerHTML = `
+//         <h5>${item.name}</h5>
+//         <p>${item.quantity}</p>
+//         <p>${item.price}</p>
+//       `;
+//       printList.appendChild(printCard);
+//       // Attach event listeners to the buttons
+//       const minusButton = cartList.querySelector('.minus');
+//       const plusButton = cartList.querySelector('.plus');
+//       // Add a click event listener for the minus button
+//       minusButton.addEventListener('click', () => {
+//         // Call a function with the item ID and the action you want (e.g., decrement quantity)
+//         changeQuantity(item.id, item.quantity - 1);
+//       });
+//       // Add a click event listener for the plus button
+//       plusButton.addEventListener('click', () => {
+//         // Call a function with the item ID and the action you want (e.g., increment quantity)
+//         changeQuantity(item.id, item.quantity + 1);
+//       });
+//     }
+//   }
+//   total.innerText = totalPrice.toFixed(2);
+//   quantity.innerText = count;
+// }
+
+
+var printSection = document.getElementById('printSection');
+
+function printReceipt() {
+  var orderReceipt = document.createElement('div');
+  orderReceipt.setAttribute('id', 'orderReceipt');
+  orderReceipt.innerHTML = "\n    <h2>PAU CAFETERIA </h2>\n    <h3>Order</h3>\n    <div class=\"printItem\">\n      <h4>Item</h4>\n      <h4>Qty</h4>\n      <h4>Price</h4>\n    </div>\n    <hr/>\n    ".concat(printList.innerHTML, "\n    <hr>\n    <div class=\"printTotal\">\n    <p>Total</p>\n    <b>&#8358;<span id=\"total\">").concat(total.innerHTML, "</span></b>\n    </div>\n  ");
+  printSection.appendChild(orderReceipt);
+  var bodyElements = document.querySelectorAll("body > *");
+  bodyElements.forEach(function (element) {
+    if (element !== printSection) {
+      element.style.display = "none";
+    }
+  }); // Print the section
+
+  window.print(); // Restore the visibility of all elements
+
+  bodyElements.forEach(function (element) {
+    element.style.display = "";
+  }); // Remove the added orderReceipt element
+
+  printSection.removeChild(orderReceipt);
 }
 
 function changeQuantity(id, quantity) {
@@ -217,35 +322,13 @@ function updateAndDisplayData() {
         newMenu.push(item.val());
       });
       Menu = newMenu;
-      displayCart(Menu); // reloadCart();
-    } // console.log(snapshot.val());
-    // console.log(newMenu);
-    // Menu = newMenu;
-    // displayCart(Menu);
+      displayCart(Menu);
+      reloadCart();
+    }
 
-
-    console.log(Menu); // console.log(newMenu);
+    console.log(Menu);
   });
-} // function displayNewQuantity(id, qty) {
-//   const dbrefactive = ref(db,"PAU/Location/SST/" );
-//   onValue(dbrefactive, (snapshot) => {
-//     var newMenu = [];
-//     snapshot.forEach(newfood => {
-//         newMenu.push(newfood.val());
-//     });
-//     newMenu.forEach(newfood => {
-//       const newQty = 0;
-//       if (newfood.id === id) {
-//         newQty = newfood.qty;
-//         return newQty;
-//       }
-//       else {
-//         return qty;
-//       }
-//     })
-//       })
-// }
-
+}
 
 var sideBar = document.querySelector('.cart-sidebar');
 var cartCount = document.querySelector('#cart-count');
@@ -278,8 +361,10 @@ var uploadToDataBase = function uploadToDataBase() {
 
 Enter.addEventListener('click', function () {
   // reloadCart();
-  uploadToDataBase(); // console.log('Upload Successful');
-  // reloadCart();
+  uploadToDataBase();
+  printReceipt(); // console.log('Upload Successful');
+
+  reloadCart();
 }); // reloadCart();
 
 updateAndDisplayData(); // windows.onload = () => {

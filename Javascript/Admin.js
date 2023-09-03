@@ -9,32 +9,32 @@
 // }
 console.log('Admin.js is bundled');
 
-$('.sideMenu > ul > li').click(function () {
+// $('.sideMenu > ul > li').click(function () {
 
-  $('.sideMenu > ul > li > ul > li').click(function () {
-    // remove active from already active 
-  $(this).siblings().removeClass('active'); 
-  // Add active to Clicked 
-  $(this).toggleClass('active');
-  // If it has sub menu, open it 
-  $(this).find('ul').slideToggle();
-  // Close other sub menu if any is open 
-  $(this).siblings().find('ul').slideUp();
-  // remove active class of sub menu items 
-  $(this).siblings().find('ul').find('li').removeClass('active');
-  });
+//   $('.sideMenu > ul > li > ul > li').click(function () {
+//     // remove active from already active 
+//   $(this).siblings().removeClass('active'); 
+//   // Add active to Clicked 
+//   $(this).toggleClass('active');
+//   // If it has sub menu, open it 
+//   $(this).find('ul').slideToggle();
+//   // Close other sub menu if any is open 
+//   $(this).siblings().find('ul').slideUp();
+//   // remove active class of sub menu items 
+//   $(this).siblings().find('ul').find('li').removeClass('active');
+//   });
   
-  // remove active from already active 
-  $(this).siblings().removeClass('active'); 
-  // Add active to Clicked 
-  $(this).toggleClass('active');
-  // If it has sub menu, open it 
-  $(this).find('ul').slideToggle();
-  // Close other sub menu if any is open 
-  $(this).siblings().find('ul').slideUp();
-  // remove active class of sub menu items 
-  $(this).siblings().find('ul').find('li').removeClass('active');
-});
+//   // remove active from already active 
+//   $(this).siblings().removeClass('active'); 
+//   // Add active to Clicked 
+//   $(this).toggleClass('active');
+//   // If it has sub menu, open it 
+//   $(this).find('ul').slideToggle();
+//   // Close other sub menu if any is open 
+//   $(this).siblings().find('ul').slideUp();
+//   // remove active class of sub menu items 
+//   $(this).siblings().find('ul').find('li').removeClass('active');
+// });
 
 // $('.sub-side-menu > li').click(function () {
 //   // remove active from already active 
@@ -65,3 +65,20 @@ $('.sideMenu > ul > li').click(function () {
 //     $(this).find('ul').slideToggle();
 //   });
 // });
+
+// Add JavaScript interactivity here
+const sidebar = document.getElementById('sidebar');
+const menuToggle = document.querySelector('.arrow');
+const subMenus = document.querySelectorAll('.sub-side-menu');
+
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    menuToggle.classList.toggle('ph-caret-right');
+    menuToggle.classList.toggle('ph-caret-down');
+});
+
+subMenus.forEach((subMenu) => {
+    subMenu.previousElementSibling.addEventListener('click', () => {
+        subMenu.classList.toggle('active');
+    });
+});
