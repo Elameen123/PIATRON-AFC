@@ -19,12 +19,47 @@ const cart = document.querySelector('.cart-icon');
 
 var Menu = [];
 
+// const queryString = window.location.search;
+// const urlParams = new URLSearchParams(queryString);
+
+// if (urlParams.has('data')) {
+//   const dataStr = urlParams.get('data');
+//   const data = JSON.parse(dataStr);
+//   console.log(data);
+// }
+
+
+// Get the URL query parameters
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+let data;
+
+// Check if the "data" parameter is present in the URL
+if (urlParams.has('data')) {
+  // Get the value of the "data" parameter and parse it as JSON
+  const dataStr = urlParams.get('data');
+  data = JSON.parse(dataStr);
+
+} else {
+  console.log("No data parameter found in the URL.");
+}
+
+// Now, you can access the data properties
+const location = data.location;
+const clickedMenuItem = data.clickedMenuItem; 
+const dataLocation = data.dataLocation;
+
+const locationHeader = document.querySelector('.bucket-list');
+
+locationHeader.innerText = clickedMenuItem;
+
 
 function getAllData(){
 
   const dbRef =ref(db);
 
-  get(child(dbRef, "PAU/Location/SST/")).then((snapshot) => {
+  get(child(dbRef, location)).then((snapshot) => {
 
     if (snapshot.exists()) {
 
@@ -239,161 +274,161 @@ number5.addEventListener('click', () => {
 
 }
 
-function addToCart(id, Menu) {
-  console.log('Item ' + id + ' is added to cart')
-  const existingItem = listCart.find(item => item.id === id);
-
-  if (!existingItem) {
-    const newItem = { ...Menu[id], quantity: 1 };
-    listCart.push(newItem);
-  } else {
-    existingItem.quantity++;
-  }
-
-  reloadCart();
-}
-
 // function addToCart(id, Menu) {
 //   console.log('Item ' + id + ' is added to cart')
-//   if (listCart[id] == null) {
-//     listCart[id] = Menu[id];
-//     listCart[id].quantity = 1;
+//   const existingItem = listCart.find(item => item.id === id);
+
+//   if (!existingItem) {
+//     const newItem = { ...Menu[id], quantity: 1 };
+//     listCart.push(newItem);
+//   } else {
+//     existingItem.quantity++;
 //   }
 
-//     reloadCart();
-//     console.log(listCart);
+//   reloadCart();
 // }
+
+function addToCart(id, Menu) {
+  console.log('Item ' + id + ' is added to cart')
+  if (listCart[id] == null) {
+    listCart[id] = Menu[id];
+    listCart[id].quantity = 1;
+  }
+
+    reloadCart();
+    console.log(listCart);
+}
 
 const printList  = document.createElement('div');
 printList.setAttribute('id', 'printList');
 
-function reloadCart() {
-  const total = document.querySelector('#total');
-  const quantity = document.querySelector('#cart-count');
-
-  printList.innerHTML = ' ';
-  cartItem.innerHTML = " ";
-  let count = 0;
-  let totalPrice = 0.00;
-
-  for (let i = 0; i < listCart.length; i++) {
-    const item = listCart[i];
-
-    totalPrice += item.price * item.quantity;
-    count += item.quantity;
-
-    let cartList = document.createElement('div');
-    cartList.setAttribute('id', 'cartLists');
-    cartList.innerHTML = `
-      <h3>${item.name}</h3>
-      <div hidden>${item.id}</div>
-      <div class="count">
-        <button class='minus' type="button">-</button>
-        <p>${item.quantity}</p>
-        <button class='plus' type="button">+</button>
-      </div>
-    `;
-
-    cartItem.appendChild(cartList);
-
-    // Print List
-    const printCard = document.createElement('div');
-    printCard.setAttribute('class', 'printCard');
-    printCard.innerHTML = `
-      <h5>${item.name}</h5>
-      <p>${item.quantity}</p>
-      <p>${item.price}</p>
-    `;
-
-    printList.appendChild(printCard);
-    // Attach event listeners to the buttons
-    const minusButton = cartList.querySelector('.minus');
-    const plusButton = cartList.querySelector('.plus');
-
-    // Add a click event listener for the minus button
-    minusButton.addEventListener('click', () => {
-      // Call a function with the item ID and the action you want (e.g., decrement quantity)
-      changeQuantity(item.id, item.quantity - 1);
-    });
-
-    // Add a click event listener for the plus button
-    plusButton.addEventListener('click', () => {
-      // Call a function with the item ID and the action you want (e.g., increment quantity)
-      changeQuantity(item.id, item.quantity + 1);
-    });
-  }
-
-  total.innerText = totalPrice.toFixed(2);
-  quantity.innerText = count;
-}
-
-
 // function reloadCart() {
 //   const total = document.querySelector('#total');
-
-//   const quantity  = document.querySelector('#cart-count');
+//   const quantity = document.querySelector('#cart-count');
 
 //   printList.innerHTML = ' ';
-
 //   cartItem.innerHTML = " ";
 //   let count = 0;
 //   let totalPrice = 0.00;
 
-//   for (const id in listCart) {
-//     if (listCart.hasOwnProperty(id)) {
-//       const item = listCart[id];
+//   for (let i = 0; i < listCart.length; i++) {
+//     const item = listCart[i];
 
-//       totalPrice += item.price * item.quantity;
-//       count += item.quantity;
+//     totalPrice += item.price * item.quantity;
+//     count += item.quantity;
 
-//       let cartList = document.createElement('div');
-//       cartList.setAttribute('id', 'cartLists');
-//       cartList.innerHTML = `
-//         <h3>${item.name}</h3>
-//         <div hidden>${item.id}</div>
-
-//         <div class="count">
-//           <button class='minus' type="button">-</button>
-//           <p>${item.quantity}</p>
-//           <button class='plus' type="button">+</button>
-//         </div>
-//       `;
-
-//       cartItem.appendChild(cartList);
-
-//       // Print List
-
-//       const printCard = document.createElement('div');
-//       printCard.setAttribute('class', 'printCard');
-//       printCard.innerHTML = `
-//         <h5>${item.name}</h5>
+//     let cartList = document.createElement('div');
+//     cartList.setAttribute('id', 'cartLists');
+//     cartList.innerHTML = `
+//       <h3>${item.name}</h3>
+//       <div hidden>${item.id}</div>
+//       <div class="count">
+//         <button class='minus' type="button">-</button>
 //         <p>${item.quantity}</p>
-//         <p>${item.price}</p>
-//       `;
+//         <button class='plus' type="button">+</button>
+//       </div>
+//     `;
 
-//       printList.appendChild(printCard);
-//       // Attach event listeners to the buttons
-//       const minusButton = cartList.querySelector('.minus');
-//       const plusButton = cartList.querySelector('.plus');
+//     cartItem.appendChild(cartList);
 
-//       // Add a click event listener for the minus button
-//       minusButton.addEventListener('click', () => {
-//         // Call a function with the item ID and the action you want (e.g., decrement quantity)
-//         changeQuantity(item.id, item.quantity - 1);
-//       });
+//     // Print List
+//     const printCard = document.createElement('div');
+//     printCard.setAttribute('class', 'printCard');
+//     printCard.innerHTML = `
+//       <h5>${item.name}</h5>
+//       <p>${item.quantity}</p>
+//       <p>${item.price}</p>
+//     `;
 
-//       // Add a click event listener for the plus button
-//       plusButton.addEventListener('click', () => {
-//         // Call a function with the item ID and the action you want (e.g., increment quantity)
-//         changeQuantity(item.id, item.quantity + 1);
-//       });
-//     }
+//     printList.appendChild(printCard);
+//     // Attach event listeners to the buttons
+//     const minusButton = cartList.querySelector('.minus');
+//     const plusButton = cartList.querySelector('.plus');
 
+//     // Add a click event listener for the minus button
+//     minusButton.addEventListener('click', () => {
+//       // Call a function with the item ID and the action you want (e.g., decrement quantity)
+//       changeQuantity(item.id, item.quantity - 1);
+//     });
+
+//     // Add a click event listener for the plus button
+//     plusButton.addEventListener('click', () => {
+//       // Call a function with the item ID and the action you want (e.g., increment quantity)
+//       changeQuantity(item.id, item.quantity + 1);
+//     });
 //   }
 
 //   total.innerText = totalPrice.toFixed(2);
 //   quantity.innerText = count;
 // }
+
+
+function reloadCart() {
+  const total = document.querySelector('#total');
+
+  const quantity  = document.querySelector('#cart-count');
+
+  printList.innerHTML = ' ';
+
+  cartItem.innerHTML = " ";
+  let count = 0;
+  let totalPrice = 0.00;
+
+  for (const id in listCart) {
+    if (listCart.hasOwnProperty(id)) {
+      const item = listCart[id];
+
+      totalPrice += item.price * item.quantity;
+      count += item.quantity;
+
+      let cartList = document.createElement('div');
+      cartList.setAttribute('id', 'cartLists');
+      cartList.innerHTML = `
+        <h3>${item.name}</h3>
+        <div hidden>${item.id}</div>
+
+        <div class="count">
+          <button class='minus' type="button">-</button>
+          <p>${item.quantity}</p>
+          <button class='plus' type="button">+</button>
+        </div>
+      `;
+
+      cartItem.appendChild(cartList);
+
+      // Print List
+
+      const printCard = document.createElement('div');
+      printCard.setAttribute('class', 'printCard');
+      printCard.innerHTML = `
+        <h5>${item.name}</h5>
+        <p>${item.quantity}</p>
+        <p>${item.price}</p>
+      `;
+
+      printList.appendChild(printCard);
+      // Attach event listeners to the buttons
+      const minusButton = cartList.querySelector('.minus');
+      const plusButton = cartList.querySelector('.plus');
+
+      // Add a click event listener for the minus button
+      minusButton.addEventListener('click', () => {
+        // Call a function with the item ID and the action you want (e.g., decrement quantity)
+        changeQuantity(item.id, item.quantity - 1);
+      });
+
+      // Add a click event listener for the plus button
+      plusButton.addEventListener('click', () => {
+        // Call a function with the item ID and the action you want (e.g., increment quantity)
+        changeQuantity(item.id, item.quantity + 1);
+      });
+    }
+
+  }
+
+  total.innerText = totalPrice.toFixed(2);
+  quantity.innerText = count;
+}
 
 
 
@@ -454,7 +489,7 @@ function changeQuantity(id, quantity) {
 }
 
 function updateAndDisplayData() {
-  const dbrefactive = ref(db,"PAU/Location/SST/" );
+  const dbrefactive = ref(db, location );
 
   onValue(dbrefactive, (snapshot) => {
     const newMenu = [];
@@ -500,7 +535,7 @@ cartCount.addEventListener('click', () => {
 const uploadToDataBase = () => {
   listCart.forEach((list) => {
 
-    update(ref(db, "PAU/Location/SST/" + list.name), {
+    update(ref(db, "PAU/Location/"+ dataLocation + "/" + list.name), {
       sales: list.sales + list.quantity
     }).then(() => {
       // reloadCart();

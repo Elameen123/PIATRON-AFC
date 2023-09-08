@@ -11,18 +11,19 @@
   <!-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script> -->
 
   <link rel="stylesheet" href="../CSS/Admin.css">
+  <link rel="stylesheet" href="../CSS/configure.css">
   <link rel = "icon" href = ".,/img/piatron-title.jpeg" type = "">
   <title>Admin Page</title>
 </head>
 <body>
-  <!-- <div id="sidebar-container">
+  <div id="sidebar-container">
     <div id="sidebar">
       <div class="sidebar-header">
         <div class="user-img">
           <img src="../img/user-image.png" alt="User Image">
         </div>
 
-        <div class="user-details">div>
+        <div class="user-details">
           <p class="title">Cafeteria Staff</p>
           <p class="name">Mary Jane</p>
         </div>
@@ -38,6 +39,15 @@
                 <i class='bx bx-home icon'></i>
                 <span class="text">
                   Home
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="dashboard">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">
+                  Dashboard
                 </span>
               </a>
             </li>
@@ -104,135 +114,428 @@
                 </span>
                 <i class="arrow ph-bold ph-caret-down"></i>
               </a>
-              <ul class="sub-side-menu">
-                <li>
+              <ul class="sub-side-menu admin-order">
+                <li data-location="cafeteria">
                   <a href="#">
-                    <span class="text">PAU Cafeteria</span>
+                    <span class="text" >PAU Cafeteria</span>
                   </a>
                 </li>
 
-                <li>
+                <li data-location="SST">
                   <a href="#">
                     <span class="text">SST Snack Bar</span>
                   </a>
                 </li>
 
-                <li>
+                <li data-location="roof-top">
                   <a href="#">
                     <span class="text">TYD Rooftop</span>
                   </a>
                 </li>
+
               </ul>
             </li>
 
             <li>
-              <p class="test">This is a paragraph.</p>
+              <a href="#">
+                <i class='bx bxs-food-menu'></i>
+                <span class="text" id="add-menu-group">
+                  Create Menu Group
+                </span>
+              </a>
 
-              <button type="button">Toggle slideUp() and slideDown()</button>
+              <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <!-- <span class="close-menu-group">&times;</span> -->
+                  <form action="">
+                    <div class="group-name">
+                      <h2>Add a New Menu Group</h2>
+                      <input type="text" name="" id="menuName" placeholder="Menu Group Name" required>
+                      <p id="nameError" hidden></p>
+                    </div>
+                    <div class="group-list">
+                      <ul>
+                        <h4>
+                          Rice & Pasta Dishes
+                        </h4>
+                        <li>
+                          <label for="Fried-Rice">Fried Rice</label>
+                          <input type="checkbox" name="rice" id="rice" value="Fried Rice">
+                        </li>
+              
+                        <li>
+                          <label for="Jollof-Rice">Jollof Rice</label>
+                          <input type="checkbox" name="rice" id="rice" value="Jollof Rice">
+                        </li>
+              
+                        <li>
+                          <label for="Rice-Beans">Rice and Beans</label>
+                          <input type="checkbox" name="rice" id="rice" value="Rice and Beans">
+                        </li>
+              
+                        <li>
+                          <label for="spaghetti">Jollof Spaghetti</label>
+                          <input type="checkbox" name="rice" id="rice" value="Jollof Spaghetti">
+                        </li>
+              
+                      </ul>
+              
+                      <ul>
+                        <h4>
+                          Side Dishes
+                        </h4>
+                        <li>
+                          <label for="Fried-Plantain">Fried Plantain</label>
+                          <input type="checkbox" name="side" id="side" value="Fried Plantain">
+                        </li>
+              
+                        <li>
+                          <label for="pottage">Yam Pottage</label>
+                          <input type="checkbox" name="side" id="side" value="Yam Pottage">
+                        </li>
+              
+                        <li>
+                          <label for="potato">Sweet Potato</label>
+                          <input type="checkbox" name="side" id="side" value="Sweet Potato">
+                        </li>
+              
+                        <li>
+                          <label for="beans">Savoury Beans</label>
+                          <input type="checkbox" name="side" id="side" value="Savoury Beans">
+                        </li>
+              
+                      </ul>
+              
+                      <ul>
+                        <h4>
+                          Soups & Swallows
+                        </h4>
+                        <li>
+                          <label for="eba">Eba</label>
+                          <input type="checkbox" name="swallow" id="swallow" value="Eba">
+                        </li>
+              
+                        <li>
+                          <label for="semo">Semo</label>
+                          <input type="checkbox" name="swallow" id="swallow" value="Semo">
+                        </li>
+              
+                        <li>
+                          <label for="egusi">Egusi Soup</label>
+                          <input type="checkbox" name="swallow" id="swallow" value="Egusi Soup">
+                        </li>
+              
+                        <li>
+                          <label for="oha">Oha Soup</label>
+                          <input type="checkbox" name="swallow" id="swallow" value="Oha Soup">
+                        </li>
+              
+                        <li>
+                          <label for="okro">Okro Soup</label>
+                          <input type="checkbox" name="swallow" id="swallow" value="Okro Soup">
+                        </li>
+              
+                        <li>
+                          <label for="nsala">Nsala Soup</label>
+                          <input type="checkbox" name="swallow" id="swallow" value="Nsala Soup">
+                        </li>
+              
+                      </ul>
+              
+                      <ul>
+                        <h4>
+                          Proteins
+                        </h4>
+                        <li>
+                          <label for="casserole">Chicken Casserole</label>
+                          <input type="checkbox" name="protein" id="protein" value="Chicken Casserole">
+                        </li>
+              
+                        <li>
+                          <label for="wing">Chicken Wing</label>
+                          <input type="checkbox" name="protein" id="protein" value="Chicken Wing">
+                        </li>
+              
+                        <li>
+                          <label for="Hotdog">Hotdog</label>
+                          <input type="checkbox" name="protein" id="protein" value="Hotdog">
+                        </li>
+              
+                        <li>
+                          <label for="egg">Boiled Egg</label>
+                          <input type="checkbox" name="protein" id="protein" value="Boiled Egg">
+                        </li>
+              
+                        <li>
+                          <label for="beef">Fried Beef</label>
+                          <input type="checkbox" name="protein" id="protein" value="Fried Beef">
+                        </li>
+              
+                        <li>
+                          <label for="fish">Fried Fish</label>
+                          <input type="checkbox" name="protein" id="protein" value="Fried Fish">
+                        </li>
+              
+                      </ul>
+                      
+                      <ul>
+                        <h4>
+                          Beverages
+                        </h4>
+                        <li>
+                          <label for="water">Bottled Water</label>
+                          <input type="checkbox" name="drinks" id="drinks" value="Bottled Water">
+                        </li>
+              
+                        <li>
+                          <label for="freshyo">Freshyo</label>
+                          <input type="checkbox" name="drinks" id="drinks" value="Freshyo">
+                        </li>
+              
+                        <li>
+                          <label for="Viju">Viju Choco</label>
+                          <input type="checkbox" name="drinks" id="drinks" value="Viju Choco">
+                        </li>
+              
+                        <li>
+                          <label for="malt">Can/Glass Malt</label>
+                          <input type="checkbox" name="drinks" id="drinks" value="Can/Glass Malt">
+                        </li>
+              
+                      </ul>
+                    </div>
+              
+                    <div class="button-group">
+                      <button type="button" class="close-menu-group">Close</button>
+                      <div id="choose-location">
+                        <h3>Location</h3>
+
+                        <div id="row-location">
+                          <input type="radio" data-location="SST" name="location" id="sst-button">
+                          <label for="sst">SST</label>
+                        </div>
+
+                        <div id="row-location">
+                          <input type="radio" data-location="roof-top" name="location" id="rooftop-button">
+                          <label for="roof-top">TYD Rooftop</label>
+                        </div>
+
+                        <div id="row-location">
+                          <input type="radio" data-location="cafeteria" name="location" id="cafeteria-button">
+                          <label for="cafeteria">Cafeteria</label>
+                        </div>
+                      </div>
+
+                      <div id="choose-category">
+                        <h3>Meal Category</h3>
+
+                        <div id="row-category">
+                          <input type="radio" data-category="breakfast" name="category" id="breakfast">
+                          <label for="breakfast">Breakfast</label>
+                        </div>
+
+                        <div id="row-category">
+                          <input type="radio" name="category" data-category="lunch" id="lunch">
+                          <label for="lunch">Lunch</label>
+                        </div>
+
+                      </div>
+                      <button type="submit" class="add-menu-group">Create Menu Group</button>
+                    </div>
+                  </form>
+                </div>
+              
+              </div>
+
+              <!-- <script src="../dist/configure.bundle.js" type="text/javascript"></script> -->
+              
+            </li>
+
+            <li>
+              <a href="#foodModal" id="add-food-item">
+                <i class='bx bx-plus'></i>
+                <span class="text">
+                  New Food Item
+                </span>
+              </a>
+
+              <div id="foodModal" class="foodModal">
+                <div class="food-modal-content">
+                      <span id="cancelModal">&#215</span>
+                  <div class="foodHeader">
+                     <h2>
+                      New Food Item
+                    </h2>
+
+                  </div>
+
+                  <form action="" class="food-form">
+                    <div class="food-detail">
+                      <label for="food-name">Food Name</label>
+                      <input type="text" name="food-name" id="food-name" required placeholder="Food Name">
+                    </div>
+
+                    <div class="food-detail">
+                      <label for="food-unit-mass">Food Unit Mass</label>
+                      <input type="number" name="food-unit-mass" id="food-unit-mass" required placeholder="Food Unit Mass in gram">
+                    </div>
+
+                    <div class="food-detail">
+                      <label for="food-price">Food Price</label>
+                      <input type="number" name="food-price" id="food-price" required placeholder="Food Price">
+                    </div>
+
+                    <div class="food-detail">
+                      <label for="food-image">Food Image</label>
+                      <input type="file" name="food-image" id="food-image" required placeholder="Food Image">
+                    </div>
+
+                    <div class="food-detail-submit">
+                      <button type="submit"> Add Food</button>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
             </li>
 
           </ul>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 
+  <div id="main-container">
+    <div class="main-header">
+      <div class="main-title">
+        <span>Primary</span>
+        <h2>Dashboard</h2>
+      </div>
 
-  <div id="sidebar-container">
-    <div id="sidebar">
-        <div class="sidebar-header">
-            <div class="user-img">
-                <img src="../img/user-image.png" alt="User Image">
-            </div>
-            <div class="user-details">
-                <p class="title">Cafeteria Staff</p>
-                <p class="name">Mary Jane</p>
-            </div>
-        </div>
-        <div id="side-nav">
-            <div class="sideMenu">
-                <p class="title">Main</p>
-                <ul>
-                    <li class="active">
-                        <a href="../index.html">
-                            <i class='bx bx-home icon'></i>
-                            <span class="text">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bxl-product-hunt icon'></i>
-                            <span class="text">Production</span>
-                            <i class="arrow ph-bold ph-caret-down"></i>
-                        </a>
-                        <ul class="sub-side-menu">
-                            <li>
-                                <a href="#">
-                                    <span class="text">Breakfast</span>
-                                    <i class="arrow ph-bold ph-caret-down"></i>
-                                </a>
-                                <ul class="sub-sub-side-menu">
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">PAU Cafeteria</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">Lunch</span>
-                                    <i class="arrow ph-bold ph-caret-down"></i>
-                                </a>
-                                <ul class="sub-sub-side-menu">
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">PAU Cafeteria</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">SST Snack Bar</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">TYD Rooftop</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='ph-bold ph-chart-bar icon'></i>
-                            <span class="text">Income</span>
-                            <i class="arrow ph-bold ph-caret-down"></i>
-                        </a>
-                        <ul class="sub-side-menu">
-                            <li>
-                                <a href="#">
-                                    <span class="text">PAU Cafeteria</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">SST Snack Bar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">TYD Rooftop</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+      <button type="button">Create Menu</button>
     </div>
-</div>
+
+    <div class="main-card-container">
+      <h3 class="main-card-title">
+        Today's Data
+      </h3>
+      <div class="main-card-wrapper">
+
+        <div class="display-card">
+          <div class="main-card-header">
+            <div class="amount">
+              <span class="title">
+                Total Quantity Sold
+              </span>
+
+              <span class="amount-value">20</span>
+            </div>
+            <i class='bx bx-check' id="main-card-icon"></i>
+          </div>
+        </div>
+
+        <div class="display-card">
+          <div class="main-card-header">
+            <div class="amount">
+              <span class="title">
+                Total Income
+              </span>
+
+              <span class="amount-value">&#8358;500.00</span>
+            </div>
+
+            <i class="ph-bold ph-currency-ngn" id="main-card-icon"></i>
+          </div>
+        </div>
+
+        <div class="display-card">
+          <div class="main-card-header">
+            <div class="amount">
+              <span class="title">
+                Total Order
+              </span>
+
+              <span class="amount-value">50</span>
+            </div>
+            <i class='bx bx-list-ul' id="main-card-icon"></i>
+          </div>
+        </div>
+
+        <div class="display-card">
+          <div class="main-card-header">
+            <div class="amount">
+              <span class="title">
+                Most Demanded Product
+              </span>
+
+              <span class="amount-value">Rice & Beans</span>
+            </div>
+
+            <i class='bx bx-bar-chart-alt-2' id="main-card-icon"></i>
+            
+          </div>
+        </div>
+
+        <div class="display-card">
+          <div class="main-card-header">
+            <div class="amount">
+              <span class="title">
+                Least Demanded Product
+              </span>
+
+              <span class="amount-value">Savoury Beans</span>
+            </div>
+    
+            <i class='bx bxs-bar-chart-alt-2' id="main-card-icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabular-wrapper">
+      <h3 class="main-card-title">
+        Product Data
+      </h3>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Quantity Produced</th>
+              <th>Quantity Sold</th>
+              <th>TimeStamp</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Action</th>
+
+            </tr>
+
+            <tbody>
+              <tr>
+                <td>2023-09-08</td>
+                <td>Jollof-Rice</td>
+                <td>50</td>
+                <td>3</td>
+                <td>11:38</td>
+                <td>&#8358;900.00</td>
+                <td>Moderate</td>
+                <td><button type="button">
+                  Edit
+                </button></td>
+
+              </tr>
+            </tbody>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
 
 
   <!-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script> -->
@@ -246,6 +549,7 @@
     ></script>
   </script>
   <script src="../dist/admin.bundle.js" type="text/javascript"></script>
+
 </body>
 </html>
 

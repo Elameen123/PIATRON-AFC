@@ -7,12 +7,12 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* body {
-  background-color: #5b6677;
+body {
+  display: flex;
 }
 
 #sidebar-container {
-  width: 100%;
+  width: 256px;
   min-height: 100vh;
 }
 
@@ -22,10 +22,39 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: #efff;
+  background-color: steelblue;
   padding: 1.5rem;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  /* border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; */
+}
+
+.button-group #choose-location, .button-group #choose-category {
+  width: 12.5%;
+  height: 7rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-color: #3e5f91;
+}
+
+.button-group #choose-location h3, .button-group #choose-category h3 {
+  color: ghostwhite;
+  font-size: 0.9rem;
+  margin: 0.5rem;
+
+}
+
+#row-location, #row-category {
+  width: 98%;
+  height: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: lightskyblue;
+  margin: 0.25rem;
+  font-size: 0.75rem;
 }
 
 #sidebar .sidebar-header {
@@ -51,7 +80,7 @@
 .user-details .title, .sideMenu .title {
   font-size: 10px;
   font-weight: 500;
-  color: #757575;
+  color: ghostwhite;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
@@ -59,6 +88,7 @@
 .user-details .name {
   font-size: 14px;
   font-weight: 500;
+  color: ghostwhite;
 }
 
 #side-nav {
@@ -80,7 +110,7 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  color: #757575;
+  color: ghostwhite;
   padding: 12px 8px;
   border-radius: 8px;
   text-transform: uppercase;
@@ -88,7 +118,7 @@
 }
 
 .sideMenu ul li > a:hover, .sideMenu ul li.active > a {
-  color: #000;
+  color: steelblue;
   background-color: rgb(238, 242, 248);
 }
 
@@ -119,134 +149,288 @@
 
 .sideMenu .sub-side-menu li a {
   padding: 10px 8px;
-  font-size: 12px;
+  font-size: 12.5px;
 }
 
 .sideMenu .sub-side-menu .sub-sub-side-menu li a {
   padding: 10px 8px;
-  font-size: 10px;
-} 
-
-/* Add your CSS styles here */
-
-/* Sidebar Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  font-size: 11px;
 }
 
-#sidebar-container {
-  height: 100%;
+/* NEW FOOD ITEM MODAL */
+.food-form .food-detail input {
+  margin: 0.5rem 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid whitesmoke;
+  width: 100%;
+  padding: 0.5rem 0;
+  color: whitesmoke;
+  outline: none;
 }
 
-#sidebar {
-  width: 250px;
-  height: 100%;
-  background-color: #333;
-  color: #fff;
+.foodModal {
   position: fixed;
-  overflow-y: auto;
-  transition: 0.3s;
+  top: -20%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.5rem;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  border: 1px solid rgb(33, 63, 87);
+  transition: 0.2s ease-in;
+  border-radius: 5px;
 }
 
-.sidebar-header {
+.foodModal:target {
+  opacity: 1;
+  top: 0;
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.food-detail {
+  width: 100%;
+  height: 4rem;
   display: flex;
-  align-items: center;
-  padding: 20px;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* border: 1px solid red; */
+  margin: 1rem 0;
 }
 
-.user-img img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
+.food-modal-content {
+  width: 550px;
+  position: relative;
+  margin: 10% auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 7px;
+  background-color: rgb(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  color: white;
+  box-shadow: 0 0 15px rgba(8, 7, 16, 0.6);
 }
 
-.user-details {
-  font-size: 14px;
+.foodModal .foodHeader {
+  width: 100%;
 }
 
-.side-nav {
-  padding: 20px;
+.foodModal .foodHeader h2 {
+  position: relative;
+  text-align: center;
 }
 
-.sideMenu .title {
+.foodModal .food-modal-content span{
+  color: white;
+  background-color: red;
+  padding: 0.4rem;
+  width: 1rem;
+  height: 0.5rem;
+  text-align: right;
+  position: relative;
+  border-radius: 5px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-left: 95%;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  padding: 8px 0;
-}
-
-ul li a {
-  text-decoration: none;
-  color: #fff;
+.food-detail-submit {
+  width: 100%;
+  height: auto;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.icon {
-  margin-right: 10px;
+.food-detail-submit button {
+  margin: 2rem;
+  padding: 1rem 2rem;
+  width: 10rem;
+  border: 1px solid rgb(47, 87, 121);
+  color: whitesmoke;
+  background: rgb(47, 87, 121);
+  transition: 0.75s ease;
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-/* Submenu Styles */
-.sub-side-menu {
-  display: none;
-  background-color: #444;
-  padding-left: 20px;
+#main-container {
+  /* position: relative; */
+  background-color: lightblue;
+  width: calc(100% - 256px);
+  padding: 1rem;
 }
 
-.sub-side-menu ul li {
-  padding: 8px 0;
+.main-header {
+  /* position: relative; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 10px;
+  padding: 3px 2rem;
+  /* height: 7rem; */
+  margin-bottom: 1rem;
 }
 
-.sub-side-menu ul li a {
-  color: #ccc;
+.main-header button {
+    margin: 2rem;
+    padding: 1rem 2rem;
+    width: 10rem;
+    border: 1px solid royalblue;
+    color: whitesmoke;
+    background: royalblue;
+    transition: 0.75s ease;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-/* Active Menu Item */
-.active {
-  background-color: #555;
+.main-title {
+  color: #3e5f91;
 }
 
-/* Responsive Sidebar */
-@media (max-width: 768px) {
-  #sidebar {
-      width: 100%;
-      z-index: 1;
-      position: absolute;
-      top: 0;
-      left: -100%;
-  }
-
-  .active {
-      background-color: transparent;
-  }
-
-  .arrow {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 20px;
-      transition: transform 0.3s;
-  }
-
-  .sub-side-menu.active {
-      display: block;
-  }
-
-  .sub-side-menu ul li {
-      padding: 8px 20px;
-  }
-
-  #sidebar.active {
-      left: 0;
-  }
+.main-card-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
 }
+
+.main-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.main-card-title {
+  color: #3e5f91;
+  padding-bottom: 10px;
+  font-size: 15px;
+}
+
+.display-card {
+  background-color: lightsteelblue;
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 295px;
+  height: 155px;
+  display: flex;
+  margin-right: 0.2rem;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s ease-in-out;
+}
+
+.display-card:hover {
+  transform: translateY(-5px);
+}
+
+.main-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.amount {
+  display: flex;
+  flex-direction: column;
+}
+
+.amount .title {
+  color: navy;
+  margin: 0  0 1rem 0;
+}
+
+.amount-value {
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+}
+
+#main-card-icon {
+  color: whitesmoke;
+  padding: 1rem;
+  height: 55px;
+  width: 55px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background-color: #3e5f91;
+}
+
+.tabular-wrapper {
+  background-color: #ffff;
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: steelblue;
+  color: white;
+}
+
+th {
+  padding: 15px;
+  text-align: center; 
+  vertical-align: middle; 
+  /* border: 1px solid #ddd; */
+}
+
+tbody {
+  background-color: #f2f2f2;
+}
+
+td {
+  padding: 15px;
+  font-size: 14px;
+  color: #333;
+  text-align: center; 
+  vertical-align: middle;
+  /* border: 1px solid #ddd; */
+}
+
+tr:nth-child(even) {
+  background-color: #fff;
+}
+
+tfoot {
+  background-color: steelblue;
+  font-weight: bold;
+  color: white;
+}
+
+tfoot td {
+  padding: 15px;
+}
+
+.table-container button {
+  color: rgb(2, 201, 2);
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  background-color: transparent;
+  border: transparent;
+
+}
+
