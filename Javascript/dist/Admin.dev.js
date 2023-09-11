@@ -92,7 +92,7 @@ $(document).ready(function () {
     radio.addEventListener("click", handleRadioGroupClick);
   });
   form.submit(function _callee(e) {
-    var errors, menuList, fetchData, riceList, sideList, swallowList, proteinList, drinksList, snacksList, data, _i, _data, item, itemName, itemData, dataToWrite, menuGroupRef;
+    var errors, menuList, fetchData, riceList, sideList, swallowList, proteinList, drinksList, snacksList, data, _i, _menuList, item, itemName, itemData, dataToWrite, menuGroupRef;
 
     return regeneratorRuntime.async(function _callee$(_context2) {
       while (1) {
@@ -234,7 +234,7 @@ $(document).ready(function () {
             }, {
               "Jollof Rice": {
                 "food": "Jollof Rice",
-                "id": "1",
+                "id": 1,
                 "img": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2FjollofRice.jpg?alt=media&token=846bbe69-8d87-4e74-8f9a-ce16dc4b792b",
                 "mass_per_portion": "185g",
                 "price": "300",
@@ -252,7 +252,7 @@ $(document).ready(function () {
             }, {
               "Fried Plantain": {
                 "food": "Fried Plantain",
-                "id": 32,
+                "id": 30,
                 "img": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2FfriedPlantain.jpg?alt=media&token=6022d2a0-1ef0-46f6-b270-d4e382bebcc7",
                 "mass_per_portion": "25g",
                 "price": "100",
@@ -502,15 +502,15 @@ $(document).ready(function () {
                 "menuType": "Drinks"
               }
             }];
-            _i = 0, _data = data;
+            _i = 0, _menuList = menuList;
 
           case 27:
-            if (!(_i < _data.length)) {
+            if (!(_i < _menuList.length)) {
               _context2.next = 46;
               break;
             }
 
-            item = _data[_i];
+            item = _menuList[_i];
             itemName = Object.keys(item)[0];
             itemData = item[itemName];
             dataToWrite = _defineProperty({}, itemName, itemData);
@@ -522,7 +522,7 @@ $(document).ready(function () {
             return regeneratorRuntime.awrap((0, _database.set)(menuGroupRef, dataToWrite));
 
           case 37:
-            console.log('Item uploaded to the database');
+            console.log('Menu Group uploaded to the database');
             _context2.next = 43;
             break;
 
@@ -658,7 +658,7 @@ $(document).ready(function () {
   });
 });
 var salesDate = new Date();
-var currentDate = "".concat(salesDate.getFullYear()).concat(salesDate.getMonth() + 1).concat(salesDate.getDate());
+var currentDate = "".concat(salesDate.getFullYear()).concat((salesDate.getMonth() + 1).toString().padStart(2, '0')).concat(salesDate.getDate().toString().padStart(2, '0'));
 
 var readSalesReport = function readSalesReport() {
   var salesList = document.getElementById('salesData');
@@ -673,11 +673,24 @@ var readSalesReport = function readSalesReport() {
     }
 
     console.log(salesData);
+    salesData.reverse();
+    var income = document.getElementById('income');
+    var order = document.getElementById('order');
+    var Quantity = document.getElementById('totalQuantity');
+    var totalIncome = 0;
+    var totalOrder = 0;
+    var totalQuantity = 0;
     salesData.forEach(function (sales) {
+      totalIncome = totalIncome + parseInt(sales.price * sales.quantity);
+      totalOrder++;
+      totalQuantity = totalQuantity + sales.quantity;
       var salesRow = document.createElement('tr');
       salesRow.innerHTML = "\n          <td>".concat(sales.date, "</td>\n          <td>").concat(sales.name, "</td>\n          <td>").concat(sales.quantity, "</td>\n          <td>").concat(sales.timestamp, "</td>\n          <td>&#8358;").concat(sales.price * sales.quantity, ".00</td>\n          <td>").concat(sales.location, "</td>\n          <td>Moderate</td>\n          <td><button type=\"button\">\n            Edit\n          </button></td>\n      ");
       salesList.appendChild(salesRow);
     });
+    income.innerHTML = '&#8358;' + totalIncome.toFixed(2);
+    order.innerHTML = totalOrder;
+    Quantity.innerHTML = totalQuantity;
   });
 };
 

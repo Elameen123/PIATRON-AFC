@@ -470,7 +470,10 @@
         <h2>Dashboard</h2>
       </div>
 
-      <button type="button">Create Menu</button>
+      <div class="main-header-button">
+        <button type="button" class="reset">Reset Menu</button>
+        <button type="button">Create Menu</button>
+      </div>
     </div>
 
     <div class="main-card-container">
@@ -486,7 +489,7 @@
                 Total Quantity Sold
               </span>
 
-              <span class="amount-value">20</span>
+              <span class="amount-value" id="totalQuantity">20</span>
             </div>
             <i class='bx bx-check' id="main-card-icon"></i>
           </div>
@@ -499,7 +502,7 @@
                 Total Income
               </span>
 
-              <span class="amount-value">&#8358;500.00</span>
+              <span class="amount-value" id="income">&#8358;500.00</span>
             </div>
 
             <i class="ph-bold ph-currency-ngn" id="main-card-icon"></i>
@@ -513,7 +516,7 @@
                 Total Order
               </span>
 
-              <span class="amount-value">50</span>
+              <span class="amount-value" id="order">50</span>
             </div>
             <i class='bx bx-list-ul' id="main-card-icon"></i>
           </div>

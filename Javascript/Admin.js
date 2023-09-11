@@ -232,7 +232,7 @@ const data = [
   {
       "Jollof Rice": {
           "food": "Jollof Rice",
-          "id": "1",
+          "id": 1,
           "img": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2FjollofRice.jpg?alt=media&token=846bbe69-8d87-4e74-8f9a-ce16dc4b792b",
           "mass_per_portion": "185g",
           "price": "300",
@@ -252,7 +252,7 @@ const data = [
   {
       "Fried Plantain": {
           "food": "Fried Plantain",
-          "id": 32,
+          "id": 30,
           "img": "https://firebasestorage.googleapis.com/v0/b/piatron-a9a6d.appspot.com/o/All-Foods%2FfriedPlantain.jpg?alt=media&token=6022d2a0-1ef0-46f6-b270-d4e382bebcc7",
           "mass_per_portion": "25g",
           "price": "100",
@@ -531,7 +531,7 @@ const data = [
   }
 ]
 
-for (const item of data) {
+for (const item of menuList) {
   const itemName = Object.keys(item)[0];
   const itemData = item[itemName];
   const dataToWrite = {
@@ -554,7 +554,7 @@ for (const item of data) {
     );
 
     await set(menuGroupRef, dataToWrite);
-    console.log('Item uploaded to the database');
+    console.log('Menu Group uploaded to the database');
   } catch (error) {
     console.error('Error uploading to the database', error);
   }
@@ -735,7 +735,7 @@ $(document).ready(function () {
 });
 
 const salesDate = new Date();
-const currentDate = `${salesDate.getFullYear()}${salesDate.getMonth() + 1}${salesDate.getDate()}`;
+const currentDate = `${salesDate.getFullYear()}${(salesDate.getMonth() + 1).toString().padStart(2, '0')}${salesDate.getDate().toString().padStart(2, '0')}`;
 
 const readSalesReport = () => {
   const salesList = document.getElementById('salesData');
@@ -751,7 +751,20 @@ const readSalesReport = () => {
     }
     console.log(salesData);
 
+    salesData.reverse();
+
+    const income = document.getElementById('income');
+    const order = document.getElementById('order');
+    const Quantity = document.getElementById('totalQuantity');
+
+    let totalIncome = 0;
+    let totalOrder = 0;
+    let totalQuantity = 0;
+
     salesData.forEach((sales) => {
+      totalIncome = totalIncome + parseInt(sales.price * sales.quantity);
+      totalOrder++;
+      totalQuantity = totalQuantity + sales.quantity;
       const salesRow = document.createElement('tr');
 
       salesRow.innerHTML = `
@@ -770,6 +783,12 @@ const readSalesReport = () => {
       salesList.appendChild(salesRow);
 
     });
+
+    income.innerHTML = '&#8358;' + totalIncome.toFixed(2);
+    order.innerHTML = totalOrder;
+    Quantity.innerHTML = totalQuantity;
+
+
   })
 }
 

@@ -519,8 +519,7 @@ function updateAndDisplayData() {
 
       displayCart(newMenu);
       // console.log(newMenu);
-      // listCart.length = 0;
-      // reloadCart();
+      reloadCart();
     }
 
       
@@ -571,9 +570,9 @@ const uploadToDataBase = () => {
 
 const updateSalesReport = () => {
   const date = new Date();
-  const currentDate = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  const entryDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  const timeStamp = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+  const currentDate = `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+  const entryDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+  const timeStamp = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
   listCart.forEach((item) => {
     set(ref(db, "PAU-sales-report/" + currentDate + "/"+ item.name + '/'), {
       name : item.name,
@@ -594,6 +593,7 @@ Enter.addEventListener('click', () => {
     // reloadCart();
     uploadToDataBase();
     updateSalesReport();
+    // listCart.length = 0;
     // printReceipt();
     // console.log('Upload Successful');
     reloadCart();

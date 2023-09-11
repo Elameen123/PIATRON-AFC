@@ -360,8 +360,8 @@ function updateAndDisplayData() {
         newMenu.push(item.val()); // console.log(item.val());
       });
       displayCart(newMenu); // console.log(newMenu);
-      // listCart.length = 0;
-      // reloadCart();
+
+      reloadCart();
     } // console.log(Menu); 
 
   });
@@ -398,9 +398,9 @@ var uploadToDataBase = function uploadToDataBase() {
 
 var updateSalesReport = function updateSalesReport() {
   var date = new Date();
-  var currentDate = "".concat(date.getFullYear()).concat(date.getMonth() + 1).concat(date.getDate());
-  var entryDate = "".concat(date.getFullYear(), "-").concat(date.getMonth() + 1, "-").concat(date.getDate());
-  var timeStamp = "".concat(date.getHours(), ":").concat(date.getMinutes(), ":").concat(date.getSeconds());
+  var currentDate = "".concat(date.getFullYear()).concat((date.getMonth() + 1).toString().padStart(2, '0')).concat(date.getDate().toString().padStart(2, '0'));
+  var entryDate = "".concat(date.getFullYear(), "-").concat((date.getMonth() + 1).toString().padStart(2, '0'), "-").concat(date.getDate().toString().padStart(2, '0'));
+  var timeStamp = "".concat(date.getHours().toString().padStart(2, '0'), ":").concat(date.getMinutes().toString().padStart(2, '0'), ":").concat(date.getSeconds().toString().padStart(2, '0'));
   listCart.forEach(function (item) {
     (0, _database.set)((0, _database.ref)(_index.db, "PAU-sales-report/" + currentDate + "/" + item.name + '/'), {
       name: item.name,
@@ -420,7 +420,8 @@ var updateSalesReport = function updateSalesReport() {
 Enter.addEventListener('click', function () {
   // reloadCart();
   uploadToDataBase();
-  updateSalesReport(); // printReceipt();
+  updateSalesReport(); // listCart.length = 0;
+  // printReceipt();
   // console.log('Upload Successful');
 
   reloadCart();
