@@ -44,6 +44,7 @@ function getAllData() {
   var dbRef = (0, _database.ref)(_index.db);
   (0, _database.get)((0, _database.child)(dbRef, location)).then(function (snapshot) {
     if (snapshot.exists()) {
+      console.log(snapshot.val());
       snapshot.forEach(function (food) {
         Menu.push(food.val());
       }); // displayCart(Menu);
@@ -56,7 +57,9 @@ function getAllData() {
   });
 }
 
-getAllData(); // displayCart(Menu);
+getAllData();
+console.log(Menu);
+console.log(Menu.price); // displayCart(Menu);
 // const dbrefactive = ref(db,"PAU/Location/SST/" );
 // onValue(dbrefactive, (snapshot) => {
 //   var newMenu = [];
@@ -188,8 +191,13 @@ function addToCart(id, Menu) {
   console.log('Item ' + id + ' is added to cart');
 
   if (listCart[id] == null) {
-    listCart[id] = Menu[id];
-    listCart[id].quantity = 1;
+    Menu.forEach(function (item) {
+      if (item.id == id) {
+        listCart[id] = item;
+        listCart[id].quantity = 1;
+        console.log(item.name + ' is added to cart');
+      }
+    });
   }
 
   reloadCart();
@@ -253,7 +261,12 @@ function reloadCart() {
   printList.innerHTML = ' ';
   cartItem.innerHTML = " ";
   var count = 0;
-  var totalPrice = 0.00;
+  var totalPrice = 0.00; // if (listCart.length = 0) {
+  //   printList.innerHTML = ' ';
+  //   cartItem.innerHTML = " ";
+  //   count = 0;
+  //   totalPrice = 0.00;
+  // }
 
   for (var id in listCart) {
     if (listCart.hasOwnProperty(id)) {
@@ -291,28 +304,41 @@ function reloadCart() {
   quantity.innerText = count;
 }
 
-var printSection = document.getElementById('printSection');
-
-function printReceipt() {
-  var orderReceipt = document.createElement('div');
-  orderReceipt.setAttribute('id', 'orderReceipt');
-  orderReceipt.innerHTML = "\n    <h2>PAU CAFETERIA </h2>\n    <h3>Order</h3>\n    <div class=\"printItem\">\n      <h4>Item</h4>\n      <h4>Qty</h4>\n      <h4>Price</h4>\n    </div>\n    <hr/>\n    ".concat(printList.innerHTML, "\n    <hr>\n    <div class=\"printTotal\">\n    <p>Total</p>\n    <b>&#8358;<span id=\"total\">").concat(total.innerHTML, "</span></b>\n    </div>\n  ");
-  printSection.appendChild(orderReceipt);
-  var bodyElements = document.querySelectorAll("body > *");
-  bodyElements.forEach(function (element) {
-    if (element !== printSection) {
-      element.style.display = "none";
-    }
-  }); // Print the section
-
-  window.print(); // Restore the visibility of all elements
-
-  bodyElements.forEach(function (element) {
-    element.style.display = "";
-  }); // Remove the added orderReceipt element
-
-  printSection.removeChild(orderReceipt);
-}
+var printSection = document.getElementById('printSection'); // function printReceipt() {
+//   const orderReceipt = document.createElement('div');
+//   orderReceipt.setAttribute('id', 'orderReceipt');
+//   orderReceipt.innerHTML = `
+//     <h2>PAU CAFETERIA </h2>
+//     <h3>Order</h3>
+//     <div class="printItem">
+//       <h4>Item</h4>
+//       <h4>Qty</h4>
+//       <h4>Price</h4>
+//     </div>
+//     <hr/>
+//     ${printList.innerHTML}
+//     <hr>
+//     <div class="printTotal">
+//     <p>Total</p>
+//     <b>&#8358;<span id="total">${total.innerHTML}</span></b>
+//     </div>
+//   `;
+//   printSection.appendChild(orderReceipt);
+//   const bodyElements = document.querySelectorAll("body > *");
+//   bodyElements.forEach(element => {
+//       if (element !== printSection) {
+//           element.style.display = "none";
+//       }
+//   });
+//   // Print the section
+//   window.print();
+//   // Restore the visibility of all elements
+//   bodyElements.forEach(element => {
+//       element.style.display = "";
+//   });
+//   // Remove the added orderReceipt element
+//   printSection.removeChild(orderReceipt);
+// }
 
 function changeQuantity(id, quantity) {
   if (quantity === 0) {
@@ -331,14 +357,13 @@ function updateAndDisplayData() {
 
     if (snapshot.val()) {
       snapshot.forEach(function (item) {
-        newMenu.push(item.val());
+        newMenu.push(item.val()); // console.log(item.val());
       });
-      Menu = newMenu;
-      displayCart(Menu);
-      reloadCart();
-    }
+      displayCart(newMenu); // console.log(newMenu);
+      // listCart.length = 0;
+      // reloadCart();
+    } // console.log(Menu); 
 
-    console.log(Menu);
   });
 }
 
@@ -371,10 +396,32 @@ var uploadToDataBase = function uploadToDataBase() {
   });
 };
 
+var updateSalesReport = function updateSalesReport() {
+  var date = new Date();
+  var currentDate = "".concat(date.getFullYear()).concat(date.getMonth() + 1).concat(date.getDate());
+  var entryDate = "".concat(date.getFullYear(), "-").concat(date.getMonth() + 1, "-").concat(date.getDate());
+  var timeStamp = "".concat(date.getHours(), ":").concat(date.getMinutes(), ":").concat(date.getSeconds());
+  listCart.forEach(function (item) {
+    (0, _database.set)((0, _database.ref)(_index.db, "PAU-sales-report/" + currentDate + "/" + item.name + '/'), {
+      name: item.name,
+      timestamp: timeStamp,
+      date: entryDate,
+      price: item.price,
+      quantity: item.quantity,
+      location: dataLocation
+    }).then(function () {
+      console.log('Sales Report updated');
+    })["catch"](function () {
+      'Sales report upload unsuccessful , error: ' + error;
+    });
+  });
+};
+
 Enter.addEventListener('click', function () {
   // reloadCart();
   uploadToDataBase();
-  printReceipt(); // console.log('Upload Successful');
+  updateSalesReport(); // printReceipt();
+  // console.log('Upload Successful');
 
   reloadCart();
 }); // reloadCart();

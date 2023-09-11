@@ -1,5 +1,5 @@
 import { db } from '../Javascript/index.js';
-import { ref, get, child, update, onValue } from 'firebase/database';
+import { ref, get, child, update, onValue, set } from 'firebase/database';
 
 const listCart = [];
 const Enter  = document.querySelector('.Enter');
@@ -63,7 +63,7 @@ function getAllData(){
 
     if (snapshot.exists()) {
 
-    
+      console.log(snapshot.val());
       snapshot.forEach(food => {
           Menu.push(food.val());
       });
@@ -85,6 +85,8 @@ function getAllData(){
 }
 
 getAllData();
+console.log(Menu);
+console.log(Menu.price);
 
 // displayCart(Menu);
 
@@ -102,7 +104,6 @@ getAllData();
 //   });
 
 // onValue();
-
 
 
 function displayCart(MenuItem) {
@@ -291,8 +292,14 @@ number5.addEventListener('click', () => {
 function addToCart(id, Menu) {
   console.log('Item ' + id + ' is added to cart')
   if (listCart[id] == null) {
-    listCart[id] = Menu[id];
-    listCart[id].quantity = 1;
+    Menu.forEach((item) => {
+      if (item.id == id) {
+        listCart[id] = item;
+        listCart[id].quantity = 1;
+        console.log(item.name + ' is added to cart');
+      }
+    }
+    );
   }
 
     reloadCart();
@@ -374,6 +381,14 @@ function reloadCart() {
   let count = 0;
   let totalPrice = 0.00;
 
+  // if (listCart.length = 0) {
+  //   printList.innerHTML = ' ';
+
+  //   cartItem.innerHTML = " ";
+  //   count = 0;
+  //   totalPrice = 0.00;
+  // }
+
   for (const id in listCart) {
     if (listCart.hasOwnProperty(id)) {
       const item = listCart[id];
@@ -407,6 +422,7 @@ function reloadCart() {
       `;
 
       printList.appendChild(printCard);
+
       // Attach event listeners to the buttons
       const minusButton = cartList.querySelector('.minus');
       const plusButton = cartList.querySelector('.plus');
@@ -435,48 +451,48 @@ function reloadCart() {
 const printSection = document.getElementById('printSection'); 
 
 
-function printReceipt() {
-  const orderReceipt = document.createElement('div');
-  orderReceipt.setAttribute('id', 'orderReceipt');
-  orderReceipt.innerHTML = `
-    <h2>PAU CAFETERIA </h2>
-    <h3>Order</h3>
-    <div class="printItem">
-      <h4>Item</h4>
-      <h4>Qty</h4>
-      <h4>Price</h4>
-    </div>
-    <hr/>
-    ${printList.innerHTML}
-    <hr>
-    <div class="printTotal">
-    <p>Total</p>
-    <b>&#8358;<span id="total">${total.innerHTML}</span></b>
-    </div>
-  `;
+// function printReceipt() {
+//   const orderReceipt = document.createElement('div');
+//   orderReceipt.setAttribute('id', 'orderReceipt');
+//   orderReceipt.innerHTML = `
+//     <h2>PAU CAFETERIA </h2>
+//     <h3>Order</h3>
+//     <div class="printItem">
+//       <h4>Item</h4>
+//       <h4>Qty</h4>
+//       <h4>Price</h4>
+//     </div>
+//     <hr/>
+//     ${printList.innerHTML}
+//     <hr>
+//     <div class="printTotal">
+//     <p>Total</p>
+//     <b>&#8358;<span id="total">${total.innerHTML}</span></b>
+//     </div>
+//   `;
 
-  printSection.appendChild(orderReceipt);
+//   printSection.appendChild(orderReceipt);
 
-  const bodyElements = document.querySelectorAll("body > *");
-  bodyElements.forEach(element => {
-      if (element !== printSection) {
-          element.style.display = "none";
-      }
-  });
+//   const bodyElements = document.querySelectorAll("body > *");
+//   bodyElements.forEach(element => {
+//       if (element !== printSection) {
+//           element.style.display = "none";
+//       }
+//   });
 
-  // Print the section
-  window.print();
+//   // Print the section
+//   window.print();
 
-  // Restore the visibility of all elements
-  bodyElements.forEach(element => {
-      element.style.display = "";
-  });
+//   // Restore the visibility of all elements
+//   bodyElements.forEach(element => {
+//       element.style.display = "";
+//   });
 
-  // Remove the added orderReceipt element
-  printSection.removeChild(orderReceipt);
+//   // Remove the added orderReceipt element
+//   printSection.removeChild(orderReceipt);
 
 
-}
+// }
 
 function changeQuantity(id, quantity) {
   if (quantity === 0) {
@@ -497,17 +513,19 @@ function updateAndDisplayData() {
     if (snapshot.val()) {
       snapshot.forEach(item => {
         newMenu.push(item.val());
+        // console.log(item.val());
       });
 
-      Menu = newMenu;
 
-      displayCart(Menu);
-      reloadCart();
+      displayCart(newMenu);
+      // console.log(newMenu);
+      // listCart.length = 0;
+      // reloadCart();
     }
 
       
     
-    console.log(Menu); 
+    // console.log(Menu); 
     });
 }
 
@@ -551,10 +569,32 @@ const uploadToDataBase = () => {
     
   }
 
+const updateSalesReport = () => {
+  const date = new Date();
+  const currentDate = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+  const entryDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  const timeStamp = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+  listCart.forEach((item) => {
+    set(ref(db, "PAU-sales-report/" + currentDate + "/"+ item.name + '/'), {
+      name : item.name,
+      timestamp : timeStamp,
+      date : entryDate,
+      price : item.price,
+      quantity : item.quantity,
+      location : dataLocation
+    }).then(() =>{
+      console.log('Sales Report updated');
+    }).catch(() =>{
+      'Sales report upload unsuccessful , error: ' + error
+    })
+  })
+}
+
 Enter.addEventListener('click', () => {
     // reloadCart();
     uploadToDataBase();
-    printReceipt();
+    updateSalesReport();
+    // printReceipt();
     // console.log('Upload Successful');
     reloadCart();
   });
