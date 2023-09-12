@@ -34,7 +34,17 @@
           <p class="title">Main</p>
 
           <ul>
-            <li class="active">
+
+            <li class="active" id="dashboard">
+              <a href="#main-container">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">
+                  Dashboard
+                </span>
+              </a>
+            </li>
+
+            <li>
               <a href="../index.html">
                 <i class='bx bx-home icon'></i>
                 <span class="text">
@@ -44,10 +54,19 @@
             </li>
 
             <li>
-              <a href="#" class="dashboard">
-                <i class='bx bxs-dashboard'></i>
+              <a href="#">
+                <i class='bx bxs-bell'></i>
                 <span class="text">
-                  Dashboard
+                  Notifications
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <i class='bx bxs-report'></i>
+                <span class="text">
+                  Generate Report
                 </span>
               </a>
             </li>
@@ -68,8 +87,8 @@
                   </a>
 
                   <ul class="sub-sub-side-menu">
-                    <li>
-                      <a href="#">
+                    <li id="cBreak">
+                      <a href="#cafeteriaBreakfast">
                         <span class="text">PAU Cafeteria</span>
                       </a>
                     </li>
@@ -85,19 +104,19 @@
 
                   <ul class="sub-sub-side-menu">
                     <li>
-                      <a href="#">
+                      <a href="#cafeteriaLunch">
                         <span class="text">PAU Cafeteria</span>
                       </a>
                     </li>
     
-                    <li>
-                      <a href="#">
+                    <li id="sLunch">
+                      <a href="#sstLunch">
                         <span class="text">SST Snack Bar</span>
                       </a>
                     </li>
     
                     <li>
-                      <a href="#">
+                      <a href="#rooftopLunch">
                         <span class="text">TYD Rooftop</span>
                       </a>
                     </li>
@@ -471,7 +490,7 @@
       </div>
 
       <div class="main-header-button">
-        <button type="button" class="reset">Reset Menu</button>
+        <button type="button" class="reset" id="reset-button">Reset Menu</button>
         <button type="button">Create Menu</button>
       </div>
     </div>
@@ -570,7 +589,7 @@
               <th>Amount</th>
               <th>Location</th>
               <th>Status</th>
-              <th>Action</th>
+              <!-- <th>Action</th> -->
 
             </tr>
 
@@ -595,9 +614,113 @@
     </div>
   </div>
 
+  <div id="cafeteriaBreakfast">
+    <div class="main-header">
+      <div class="main-title">
+        <span class="cafe">PAU Cafeteria</span>
+        <h2>Breakfast Production Dashboard</h2>
+      </div>
+    </div>
+
+    <div class="tabular-wrapper">
+      <h3 class="main-card-title">
+        Product Data
+      </h3>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <!-- <th>Quantity Produced</th> -->
+              <th>Quantity Produced</th>
+              <th>TimeStamp</th>
+              <th>Location</th>
+              <th>Action</th>
+
+            </tr>
+
+            <tbody id="productData">
+              <!-- <tr>
+                <td>2023-09-08</td>
+                <td>Jollof-Rice</td>
+                <td>3</td>
+                <td>11:38</td>
+                <td>&#8358;900.00</td>
+                <td>cafeteria</td>
+                <td>Moderate</td>
+                <td><button type="button">
+                  Edit
+                </button></td>
+
+              </tr> -->
+            </tbody>
+          </thead>
+        </table>
+      </div>
+    </div>
 
 
+  </div>
 
+  <!-- <div id="sstLunch">
+    <div class="main-header">
+      <div class="main-title">
+        <span class="cafe">SST SNACK BAR</span>
+        <h2>Lunch Production Dashboard</h2>
+      </div>
+    </div>
+
+    <div class="tabular-wrapper">
+      <h3 class="main-card-title">
+        Product Data
+      </h3>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Quantity Produced</th>
+              <th>Quantity Produced</th>
+              <th>TimeStamp</th>
+              <th>Location</th>
+              <th>Action</th>
+
+            </tr>
+
+            <tbody id="productData">
+              <tr>
+                <td>2023-09-08</td>
+                <td>Jollof-Rice</td>
+                <td>3</td>
+                <td>11:38</td>
+                <td>&#8358;900.00</td>
+                <td>cafeteria</td>
+                <td>Moderate</td>
+                <td><button type="button">
+                  Edit
+                </button></td>
+
+              </tr>
+            </tbody>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+
+  </div> -->
+
+<!-- <div id="notifications">
+
+</div> -->
+
+<!-- <div id="generateReport">
+
+</div> -->
   <!-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script> -->
 
   

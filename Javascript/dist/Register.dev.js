@@ -11,8 +11,8 @@ var auth = (0, _auth.getAuth)(); // ------------REFERENCES--------------
 var firstname = document.getElementById('firstname');
 var lastname = document.getElementById('firstname');
 var email = document.getElementById('email');
-var phoneNumber = document.getElementById('phoneNumber');
-var school = document.getElementById('school');
+var phoneNumber = document.getElementById('phoneNumber'); // const school = document.getElementById('school');
+
 var department = document.getElementById('department');
 var occupation = document.getElementById('occupation');
 var title = document.getElementById('title');
@@ -22,6 +22,7 @@ var confirmPin = document.getElementById('confirmPin'); // -------- Validation -
 function formValidation() {
   var nameregex = /^[a-zA-Z]+$/;
   var emailregex = /^[a-z.]+[a-z]+@(pau)\.edu\.ng$/;
+  var pingregex = /^[0-9]{4}$/;
 
   if (!nameregex.test(firstname.value) || !nameregex.test(lastname.value)) {
     alert('The name should only contain alphabets');
@@ -31,6 +32,15 @@ function formValidation() {
   if (emailregex.test(email.value)) {
     alert('enter a valid email address');
     return false;
+  }
+
+  if (pinregex.test(userPin.value) || pinregex.test(confirmPin.value)) {
+    alert('Your pin must be four numbers');
+    return false;
+  }
+
+  if (userPin.value !== confirmPin.value) {
+    alert('Please Re-confirm your pin');
   }
 
   return true;
@@ -44,11 +54,11 @@ function RegisterUser() {
 
   ;
   var dbref = (0, _database.ref)(_index.db);
-  (0, _database.get)((0, _database.child)(dbref, 'UsersList/' + email.value)).then(function (snapshot) {
+  (0, _database.get)((0, _database.child)(dbref, 'UsersList/' + firstname.value + '/')).then(function (snapshot) {
     if (snapshot.exists()) {
       alert('Account already exists');
     } else {
-      (0, _database.set)((0, _database.ref)(_index.db, "UsersList/" + email.value), {
+      (0, _database.set)((0, _database.ref)(_index.db, "UsersList/" + firstname.value + '/'), {
         fullname: firstname.value + " " + lastname.value,
         email: email.value,
         pin: userPin.value,
@@ -69,4 +79,6 @@ function RegisterUser() {
 
 
 var submitRegister = document.getElementById('submitRegister');
-submitRegister.addEventListener('click', RegisterUser);
+submitRegister.addEventListener('click', function (e) {
+  RegisterUser();
+});

@@ -408,7 +408,8 @@ var updateSalesReport = function updateSalesReport() {
       date: entryDate,
       price: item.price,
       quantity: item.quantity,
-      location: dataLocation
+      location: dataLocation,
+      qty: item.qty
     }).then(function () {
       console.log('Sales Report updated');
     })["catch"](function () {
@@ -424,6 +425,7 @@ Enter.addEventListener('click', function () {
   // printReceipt();
   // console.log('Upload Successful');
 
+  listCart = [];
   reloadCart();
 }); // reloadCart();
 

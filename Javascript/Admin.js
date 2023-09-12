@@ -1,4 +1,4 @@
-import { get, onValue, ref, set } from 'firebase/database';
+import { get, onValue, ref, set, child, update } from 'firebase/database';
 import { db, storage } from '../Javascript/index.js';
 import { ref as sRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
@@ -737,6 +737,8 @@ $(document).ready(function () {
 const salesDate = new Date();
 const currentDate = `${salesDate.getFullYear()}${(salesDate.getMonth() + 1).toString().padStart(2, '0')}${salesDate.getDate().toString().padStart(2, '0')}`;
 
+console.log(currentDate);
+
 const readSalesReport = () => {
   const salesList = document.getElementById('salesData');
   onValue( ref(db, "PAU-sales-report/" + currentDate + "/"), (snapshot) => {
@@ -761,12 +763,29 @@ const readSalesReport = () => {
     let totalOrder = 0;
     let totalQuantity = 0;
 
+    let progress  = 0;
+
     salesData.forEach((sales) => {
       totalIncome = totalIncome + parseInt(sales.price * sales.quantity);
       totalOrder++;
       totalQuantity = totalQuantity + sales.quantity;
-      const salesRow = document.createElement('tr');
+      progress  = ((sales.qty - sales.quantity) / sales.qty) * 100;
+      let status  = '';
 
+      if (progress === 0) {
+        status = 'Unavailable';
+      } else if (progress < 25) {
+        status = 'Low';
+      } else if (progress < 75) {
+        status = 'Moderate';
+      } else {
+        status = 'High';
+      }
+      // else {
+      //   return status = 'Unavailable';
+      // }
+
+      const salesRow = document.createElement('tr');
       salesRow.innerHTML = `
           <td>${sales.date}</td>
           <td>${sales.name}</td>
@@ -774,10 +793,7 @@ const readSalesReport = () => {
           <td>${sales.timestamp}</td>
           <td>&#8358;${sales.price * sales.quantity}.00</td>
           <td>${sales.location}</td>
-          <td>Moderate</td>
-          <td><button type="button">
-            Edit
-          </button></td>
+          <td>${status}</td>
       `;
 
       salesList.appendChild(salesRow);
@@ -793,6 +809,146 @@ const readSalesReport = () => {
 }
 
 readSalesReport();
+
+const resetDatabase = () => {
+  get(child(ref(db), 'PAU/Location/')).then((snapshot) => {
+    const getSnap = [];
+    if (snapshot.val()) {
+      getSnap.push(snapshot.val());
+    }
+
+    // console.log(getSnap)
+
+    getSnap.forEach((snap) => {
+      let firstKey = '';
+      let secondKey = '';
+
+      Object.keys(snap).forEach((subsectionKey) => {
+        // console.log('Subsection:', subsectionKey);
+        firstKey = subsectionKey;
+    
+        // Loop through the objects within each subsection
+        Object.keys(snap[subsectionKey]).forEach((objectKey) => {
+        // console.log('First key:', firstKey);
+        secondKey = objectKey;
+        // const objectData = snap[subsectionKey][objectKey];
+        // console.log(firstKey, secondKey, 'Quantity', objectData.qty,'Sales', objectData.sales);
+
+        update(ref(db, "PAU/Location/" + firstKey + "/" + secondKey + "/"), {
+          sales: 0,
+          qty : 0
+        }).then(() => {
+          console.log('Menu has been resetted');
+        }).catch((error) => {
+          console.log('Reset Unsuccessful, error: ' + error.message);
+        })
+
+
+          // console.log('Object Key:', objectKey);
+          // console.log('Subsection ID:', [objectKey].id, [objectKey].location);
+        });
+      });
+    });
+  })
+}
+
+// resetDatabase();
+const resetButton = document.querySelector('#reset-button');
+
+resetButton.addEventListener('click', () => {
+  resetDatabase();
+});
+
+const readProductionReport = (menuClass, location) => {
+  const productList = document.getElementById('productData');
+  onValue( ref(db, "PAU-production-report/" + currentDate + "/"), (snapshot) => {
+    const productData  = [];
+
+    console.log(snapshot.val());
+
+    if (snapshot.val()) {
+      snapshot.forEach((item) => {
+        productData.push(item.val());
+      });
+    }
+    // console.log(productData);
+
+    productData.reverse();
+    const date = new Date();
+
+    const productionDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+    const filteredData = productData.filter(item => item["menu-class"] === menuClass && item["location"] === location);
+
+    filteredData.forEach((product) => {
+  
+      // if (product.menuClass === menuClass && product.location === location) {
+        const productRow = document.createElement('tr');
+
+        productRow.innerHTML = `
+            <td>${productionDate}</td>
+            <td>${product.food}</td>
+            <td>${product.portions}</td>
+            <td>${product.time}</td>
+            <td>${product.location}</td>
+            <td><button type="button">
+              Edit
+            </button></td>
+        `;
+
+        productList.appendChild(productRow);
+      // }
+        
+    });
+  })
+}
+
+const cBreak = document.getElementById('cBreak');
+const mContainer = document.getElementById('main-container');
+const cafeteriaBreakfast = document.getElementById('cafeteriaBreakfast');
+// const sstLunch = document.getElementById('sstLunch');
+const dashboard = document.getElementById('dashboard');
+// const sLunch = document.getElementById('sLunch');
+
+cBreak.addEventListener('click', () => {
+  mContainer.style.display = 'none';
+  cafeteriaBreakfast.style.display = 'block';
+  sstLunch.style.display = 'none';
+
+
+  const cbreakfast = 'Breakfast';
+  const lcafeteria = 'cafeteria';
+
+  readProductionReport(cbreakfast, lcafeteria);
+})
+
+// sLunch.addEventListener('click', () => {
+//   mContainer.style.display = 'none';
+//   cafeteriaBreakfast.style.display = 'none';
+//   sstLunch.style.display = 'block';
+
+//   const lsst = 'Lunch';
+//   const sstl = 'SST';
+
+//   readProductionReport('Lunch', 'SST');
+// })
+
+dashboard.addEventListener('click', () => {
+  mContainer.style.display = 'block';
+  cafeteriaBreakfast.style.display = 'none';
+  // sstLunch.style.display = 'none';
+
+})
+
+window.onload = () => {
+  cafeteriaBreakfast.style.display = 'none';
+  // sstLunch.style.display = 'none';
+};
+
+const getNotification = () => {
+  onValue(ref(db, 'PAU/Location/'))
+}
+
 
 
 

@@ -1,7 +1,7 @@
 import { db } from '../Javascript/index.js';
 import { ref, get, child, update, onValue, set } from 'firebase/database';
 
-const listCart = [];
+let listCart = [];
 const Enter  = document.querySelector('.Enter');
 
 const cartItem = document.querySelector('#cartItem');
@@ -580,7 +580,8 @@ const updateSalesReport = () => {
       date : entryDate,
       price : item.price,
       quantity : item.quantity,
-      location : dataLocation
+      location : dataLocation,
+      qty: item.qty
     }).then(() =>{
       console.log('Sales Report updated');
     }).catch(() =>{
@@ -596,6 +597,7 @@ Enter.addEventListener('click', () => {
     // listCart.length = 0;
     // printReceipt();
     // console.log('Upload Successful');
+    listCart = [];
     reloadCart();
   });
 

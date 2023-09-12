@@ -659,6 +659,7 @@ $(document).ready(function () {
 });
 var salesDate = new Date();
 var currentDate = "".concat(salesDate.getFullYear()).concat((salesDate.getMonth() + 1).toString().padStart(2, '0')).concat(salesDate.getDate().toString().padStart(2, '0'));
+console.log(currentDate);
 
 var readSalesReport = function readSalesReport() {
   var salesList = document.getElementById('salesData');
@@ -680,12 +681,29 @@ var readSalesReport = function readSalesReport() {
     var totalIncome = 0;
     var totalOrder = 0;
     var totalQuantity = 0;
+    var progress = 0;
     salesData.forEach(function (sales) {
       totalIncome = totalIncome + parseInt(sales.price * sales.quantity);
       totalOrder++;
       totalQuantity = totalQuantity + sales.quantity;
+      progress = (sales.qty - sales.quantity) / sales.qty * 100;
+      var status = '';
+
+      if (progress === 0) {
+        status = 'Unavailable';
+      } else if (progress < 25) {
+        status = 'Low';
+      } else if (progress < 75) {
+        status = 'Moderate';
+      } else {
+        status = 'High';
+      } // else {
+      //   return status = 'Unavailable';
+      // }
+
+
       var salesRow = document.createElement('tr');
-      salesRow.innerHTML = "\n          <td>".concat(sales.date, "</td>\n          <td>").concat(sales.name, "</td>\n          <td>").concat(sales.quantity, "</td>\n          <td>").concat(sales.timestamp, "</td>\n          <td>&#8358;").concat(sales.price * sales.quantity, ".00</td>\n          <td>").concat(sales.location, "</td>\n          <td>Moderate</td>\n          <td><button type=\"button\">\n            Edit\n          </button></td>\n      ");
+      salesRow.innerHTML = "\n          <td>".concat(sales.date, "</td>\n          <td>").concat(sales.name, "</td>\n          <td>").concat(sales.quantity, "</td>\n          <td>").concat(sales.timestamp, "</td>\n          <td>&#8358;").concat(sales.price * sales.quantity, ".00</td>\n          <td>").concat(sales.location, "</td>\n          <td>").concat(status, "</td>\n      ");
       salesList.appendChild(salesRow);
     });
     income.innerHTML = '&#8358;' + totalIncome.toFixed(2);
@@ -695,3 +713,108 @@ var readSalesReport = function readSalesReport() {
 };
 
 readSalesReport();
+
+var resetDatabase = function resetDatabase() {
+  (0, _database.get)((0, _database.child)((0, _database.ref)(_index.db), 'PAU/Location/')).then(function (snapshot) {
+    var getSnap = [];
+
+    if (snapshot.val()) {
+      getSnap.push(snapshot.val());
+    } // console.log(getSnap)
+
+
+    getSnap.forEach(function (snap) {
+      var firstKey = '';
+      var secondKey = '';
+      Object.keys(snap).forEach(function (subsectionKey) {
+        // console.log('Subsection:', subsectionKey);
+        firstKey = subsectionKey; // Loop through the objects within each subsection
+
+        Object.keys(snap[subsectionKey]).forEach(function (objectKey) {
+          // console.log('First key:', firstKey);
+          secondKey = objectKey; // const objectData = snap[subsectionKey][objectKey];
+          // console.log(firstKey, secondKey, 'Quantity', objectData.qty,'Sales', objectData.sales);
+
+          (0, _database.update)((0, _database.ref)(_index.db, "PAU/Location/" + firstKey + "/" + secondKey + "/"), {
+            sales: 0,
+            qty: 0
+          }).then(function () {
+            console.log('Menu has been resetted');
+          })["catch"](function (error) {
+            console.log('Reset Unsuccessful, error: ' + error.message);
+          }); // console.log('Object Key:', objectKey);
+          // console.log('Subsection ID:', [objectKey].id, [objectKey].location);
+        });
+      });
+    });
+  });
+}; // resetDatabase();
+
+
+var resetButton = document.querySelector('#reset-button');
+resetButton.addEventListener('click', function () {
+  resetDatabase();
+});
+
+var readProductionReport = function readProductionReport(menuClass, location) {
+  var productList = document.getElementById('productData');
+  (0, _database.onValue)((0, _database.ref)(_index.db, "PAU-production-report/" + currentDate + "/"), function (snapshot) {
+    var productData = [];
+    console.log(snapshot.val());
+
+    if (snapshot.val()) {
+      snapshot.forEach(function (item) {
+        productData.push(item.val());
+      });
+    } // console.log(productData);
+
+
+    productData.reverse();
+    var date = new Date();
+    var productionDate = "".concat(date.getFullYear(), "-").concat((date.getMonth() + 1).toString().padStart(2, '0'), "-").concat(date.getDate().toString().padStart(2, '0'));
+    var filteredData = productData.filter(function (item) {
+      return item["menu-class"] === menuClass && item["location"] === location;
+    });
+    filteredData.forEach(function (product) {
+      // if (product.menuClass === menuClass && product.location === location) {
+      var productRow = document.createElement('tr');
+      productRow.innerHTML = "\n            <td>".concat(productionDate, "</td>\n            <td>").concat(product.food, "</td>\n            <td>").concat(product.portions, "</td>\n            <td>").concat(product.time, "</td>\n            <td>").concat(product.location, "</td>\n            <td><button type=\"button\">\n              Edit\n            </button></td>\n        ");
+      productList.appendChild(productRow); // }
+    });
+  });
+};
+
+var cBreak = document.getElementById('cBreak');
+var mContainer = document.getElementById('main-container');
+var cafeteriaBreakfast = document.getElementById('cafeteriaBreakfast'); // const sstLunch = document.getElementById('sstLunch');
+
+var dashboard = document.getElementById('dashboard'); // const sLunch = document.getElementById('sLunch');
+
+cBreak.addEventListener('click', function () {
+  mContainer.style.display = 'none';
+  cafeteriaBreakfast.style.display = 'block';
+  sstLunch.style.display = 'none';
+  var cbreakfast = 'Breakfast';
+  var lcafeteria = 'cafeteria';
+  readProductionReport(cbreakfast, lcafeteria);
+}); // sLunch.addEventListener('click', () => {
+//   mContainer.style.display = 'none';
+//   cafeteriaBreakfast.style.display = 'none';
+//   sstLunch.style.display = 'block';
+//   const lsst = 'Lunch';
+//   const sstl = 'SST';
+//   readProductionReport('Lunch', 'SST');
+// })
+
+dashboard.addEventListener('click', function () {
+  mContainer.style.display = 'block';
+  cafeteriaBreakfast.style.display = 'none'; // sstLunch.style.display = 'none';
+});
+
+window.onload = function () {
+  cafeteriaBreakfast.style.display = 'none'; // sstLunch.style.display = 'none';
+};
+
+var getNotification = function getNotification() {
+  (0, _database.onValue)((0, _database.ref)(_index.db, 'PAU/Location/'));
+};

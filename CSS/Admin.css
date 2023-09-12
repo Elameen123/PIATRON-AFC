@@ -201,6 +201,10 @@ body {
   margin: 1rem 0;
 }
 
+.food-detail input::placeholder {
+  color: lightgray;
+}
+
 .food-modal-content {
   width: 550px;
   position: relative;
@@ -259,7 +263,7 @@ body {
   cursor: pointer;
 }
 
-#main-container {
+#main-container, #cafeteriaBreakfast, #sstLunch {
   /* position: relative; */
   background-color: lightblue;
   width: calc(100% - 256px);
@@ -280,15 +284,18 @@ body {
 }
 
 .main-header-button {
-  width: 27.5%;
+  width: 50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  /* padding: 1rem 0; */
+  margin: 0 0 0 0;
+  /* border: 1px solid red; */
 }
 
 .main-header button {
-    margin: 2rem;
+    margin: 2rem 0.5rem;
     padding: 1rem 2rem;
-    width: 10rem;
+    width: 30%;
     border: 1px solid royalblue;
     color: whitesmoke;
     background: royalblue;
@@ -308,6 +315,11 @@ body {
 
 .main-title {
   color: #3e5f91;
+  margin: 1rem 0;
+}
+
+.main-title .cafe {
+  margin: 0.5rem 0;
 }
 
 .main-card-container {
