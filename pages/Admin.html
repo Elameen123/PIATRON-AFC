@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.6.4/jspdf.umd.min.js"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <!-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script> -->
@@ -62,8 +62,8 @@
               </a>
             </li>
 
-            <li>
-              <a href="#">
+            <li id="gReport">
+              <a href="#generateReport">
                 <i class='bx bxs-report'></i>
                 <span class="text">
                   Generate Report
@@ -718,9 +718,60 @@
 
 </div> -->
 
-<!-- <div id="generateReport">
+<div id="generateReport">
+  <div class="main-header">
+    <div class="main-title">
+      <span>Primary</span>
+      <h2>Dashboard</h2>
+    </div>
 
-</div> -->
+    <div class="main-header-button">
+      <input type="date" id="date-input">
+      <button id="search-button" type="button">Search</button>
+    </div>
+  </div>
+
+  <div class="tabular-wrapper">
+    <h3 class="main-card-title">
+      Product Data
+    </h3>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <!-- <th>Quantity Produced</th> -->
+            <th>Quantity Sold</th>
+            <th>TimeStamp</th>
+            <th>Amount</th>
+            <th>Location</th>
+            <th>Status</th>
+            <!-- <th>Action</th> -->
+
+          </tr>
+
+          <tbody id="results">
+            <!-- <tr>
+              <td>2023-09-08</td>
+              <td>Jollof-Rice</td>
+              <td>3</td>
+              <td>11:38</td>
+              <td>&#8358;900.00</td>
+              <td>cafeteria</td>
+              <td>Moderate</td>
+              <td><button type="button">
+                Edit
+              </button></td>
+
+            </tr> -->
+          </tbody>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
   <!-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script> -->
 
   

@@ -263,7 +263,7 @@ body {
   cursor: pointer;
 }
 
-#main-container, #cafeteriaBreakfast, #sstLunch {
+#main-container, #cafeteriaBreakfast, #generateReport {
   /* position: relative; */
   background-color: lightblue;
   width: calc(100% - 256px);
@@ -465,3 +465,14 @@ tfoot td {
 
 }
 
+#date-input {
+  width: 15rem;
+  padding: 0.5rem;
+}
+#search-button {
+  padding: 0.5rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}

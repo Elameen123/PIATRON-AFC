@@ -6,6 +6,10 @@ var _index = require("../Javascript/index.js");
 
 var _storage = require("firebase/storage");
 
+var _jspdf = _interopRequireDefault(require("jspdf"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -786,35 +790,78 @@ var readProductionReport = function readProductionReport(menuClass, location) {
 
 var cBreak = document.getElementById('cBreak');
 var mContainer = document.getElementById('main-container');
-var cafeteriaBreakfast = document.getElementById('cafeteriaBreakfast'); // const sstLunch = document.getElementById('sstLunch');
-
-var dashboard = document.getElementById('dashboard'); // const sLunch = document.getElementById('sLunch');
+var cafeteriaBreakfast = document.getElementById('cafeteriaBreakfast');
+var generateReport = document.getElementById('generateReport');
+var dashboard = document.getElementById('dashboard');
+var dateInput = document.getElementById('date-input');
+var searchButton = document.getElementById('search-button');
+var gReport = document.getElementById('gReport');
+var results = document.getElementById('results'); // const sLunch = document.getElementById('sLunch');
 
 cBreak.addEventListener('click', function () {
   mContainer.style.display = 'none';
   cafeteriaBreakfast.style.display = 'block';
-  sstLunch.style.display = 'none';
+  generateReport.style.display = 'none';
   var cbreakfast = 'Breakfast';
   var lcafeteria = 'cafeteria';
   readProductionReport(cbreakfast, lcafeteria);
-}); // sLunch.addEventListener('click', () => {
-//   mContainer.style.display = 'none';
-//   cafeteriaBreakfast.style.display = 'none';
-//   sstLunch.style.display = 'block';
-//   const lsst = 'Lunch';
-//   const sstl = 'SST';
-//   readProductionReport('Lunch', 'SST');
-// })
+});
+gReport.addEventListener('click', function () {
+  mContainer.style.display = 'none';
+  cafeteriaBreakfast.style.display = 'none';
+  generateReport.style.display = 'block';
+  searchButton.addEventListener('click', function () {
+    var date = dateInput.value;
+    var newDate = date.replace(/-/g, "");
+    console.log(date);
+    console.log(newDate);
+    var dataRef = (0, _database.ref)(_index.db, 'PAU-sales-report/' + newDate);
+    (0, _database.onValue)(dataRef, function (snapshot) {
+      if (snapshot.exists()) {
+        // Get all the data under that date
+        var data = snapshot.val();
+        console.log(data); // Send the data to a function that prepares it for printing
 
+        var html = prepareDataForPrinting(data); // // Print out the HTML details of the function in PDF format and download it on the user's computer
+
+        printToPDF(html);
+      } else {
+        // No data found for the given date
+        results.innerHTML = 'No data found for the given date.';
+      }
+    });
+  });
+
+  function prepareDataForPrinting(data) {
+    // Prepare the data for printing in HTML format
+    var html = "\n      <h1>Data for ".concat(data.date, "</h1>\n      <ul>");
+
+    for (var key in data) {
+      if (key !== 'date') {
+        html += "<li>".concat(key, ": ").concat(data[key], "</li>");
+      }
+    }
+
+    html += "</ul>";
+    return html;
+  }
+
+  function printToPDF(html) {
+    // Print the HTML details of the function in PDF format and download it on the user's computer
+    var pdf = new _jspdf["default"]();
+    pdf.fromHTML(html);
+    pdf.save('data.pdf');
+  }
+});
 dashboard.addEventListener('click', function () {
   mContainer.style.display = 'block';
-  cafeteriaBreakfast.style.display = 'none'; // sstLunch.style.display = 'none';
+  cafeteriaBreakfast.style.display = 'none';
+  generateReport.style.display = 'none';
 });
 
 window.onload = function () {
-  cafeteriaBreakfast.style.display = 'none'; // sstLunch.style.display = 'none';
-};
-
-var getNotification = function getNotification() {
-  (0, _database.onValue)((0, _database.ref)(_index.db, 'PAU/Location/'));
-};
+  cafeteriaBreakfast.style.display = 'none';
+  generateReport.style.display = 'none';
+}; // const getNotification = () => {
+//   onValue(ref(db, 'PAU/Location/'))
+// }

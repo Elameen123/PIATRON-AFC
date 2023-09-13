@@ -1,6 +1,7 @@
 import { get, onValue, ref, set, child, update } from 'firebase/database';
 import { db, storage } from '../Javascript/index.js';
 import { ref as sRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import jsPDF from 'jspdf';
 
 // Ensure the document is ready
 $(document).ready(function () {
@@ -906,14 +907,19 @@ const readProductionReport = (menuClass, location) => {
 const cBreak = document.getElementById('cBreak');
 const mContainer = document.getElementById('main-container');
 const cafeteriaBreakfast = document.getElementById('cafeteriaBreakfast');
-// const sstLunch = document.getElementById('sstLunch');
+const generateReport = document.getElementById('generateReport');
 const dashboard = document.getElementById('dashboard');
+const dateInput = document.getElementById('date-input');
+const searchButton = document.getElementById('search-button');
+const gReport = document.getElementById('gReport');
+const results = document.getElementById('results');
+
 // const sLunch = document.getElementById('sLunch');
 
 cBreak.addEventListener('click', () => {
   mContainer.style.display = 'none';
   cafeteriaBreakfast.style.display = 'block';
-  sstLunch.style.display = 'none';
+  generateReport.style.display = 'none';
 
 
   const cbreakfast = 'Breakfast';
@@ -922,32 +928,74 @@ cBreak.addEventListener('click', () => {
   readProductionReport(cbreakfast, lcafeteria);
 })
 
-// sLunch.addEventListener('click', () => {
-//   mContainer.style.display = 'none';
-//   cafeteriaBreakfast.style.display = 'none';
-//   sstLunch.style.display = 'block';
+gReport.addEventListener('click', () => {
+  mContainer.style.display = 'none';
+  cafeteriaBreakfast.style.display = 'none';
+  generateReport.style.display = 'block';
 
-//   const lsst = 'Lunch';
-//   const sstl = 'SST';
+  searchButton.addEventListener('click', () => {
+    const date  = dateInput.value;
+    const newDate = date.replace(/-/g, "");
 
-//   readProductionReport('Lunch', 'SST');
-// })
+    console.log(date);
+    console.log(newDate);
+
+    const dataRef = ref(db, 'PAU-sales-report/'+ newDate);
+  onValue(dataRef, (snapshot) => {
+    if (snapshot.exists()) {
+      // Get all the data under that date
+      const data = snapshot.val();
+      console.log(data)
+      // Send the data to a function that prepares it for printing
+      const html = prepareDataForPrinting(data);
+      // // Print out the HTML details of the function in PDF format and download it on the user's computer
+      printToPDF(html);
+    } else {
+      // No data found for the given date
+      results.innerHTML = 'No data found for the given date.';
+    }
+  });
+
+  })
+
+  function prepareDataForPrinting(data) {
+    // Prepare the data for printing in HTML format
+    let html = `
+      <h1>Data for ${data.date}</h1>
+      <ul>`;
+    for (const key in data) {
+      if (key !== 'date') {
+        html += `<li>${key}: ${data[key]}</li>`;
+      }
+    }
+    html += `</ul>`;
+    return html;
+  }
+  function printToPDF(html) {
+    // Print the HTML details of the function in PDF format and download it on the user's computer
+    const pdf = new jsPDF();
+    pdf.fromHTML(html);
+    pdf.save('data.pdf');
+  }
+
+})
 
 dashboard.addEventListener('click', () => {
   mContainer.style.display = 'block';
   cafeteriaBreakfast.style.display = 'none';
-  // sstLunch.style.display = 'none';
-
+  generateReport.style.display = 'none';
 })
+
+
 
 window.onload = () => {
   cafeteriaBreakfast.style.display = 'none';
-  // sstLunch.style.display = 'none';
+  generateReport.style.display = 'none';
 };
 
-const getNotification = () => {
-  onValue(ref(db, 'PAU/Location/'))
-}
+// const getNotification = () => {
+//   onValue(ref(db, 'PAU/Location/'))
+// }
 
 
 

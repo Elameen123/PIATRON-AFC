@@ -477,9 +477,10 @@ function displayData(data, itemLocation) {
   var _loop = function _loop(i) {
     var displayContainer = document.createElement('div');
     displayContainer.classList.add('display-container');
-    var Location = document.createElement('div');
-    Location.classList.add('location');
-    Location.innerHTML = "\n      <div class=\"location\">\n        Location: ".concat(itemLocation[i], "\n      </div>\n    ");
+    var nameLocation = 'location';
+    var Location = document.createElement('div'); // Location.classList.add('location');
+
+    Location.innerHTML = "\n      <div class=\"location\" id=\"".concat(nameLocation + i, "\">\n        Location: ").concat(itemLocation[i], "\n      </div>\n    ");
     displayContainer.appendChild(Location);
     var itemContainer = document.createElement('div');
     itemContainer.setAttribute('id', 'card-container');

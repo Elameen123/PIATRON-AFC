@@ -22,6 +22,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "firebase": "^10.3.0"
+    "firebase": "^10.3.0",
+    "jspdf": "^2.5.1"
   }
 }

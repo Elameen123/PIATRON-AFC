@@ -11,8 +11,8 @@ var auth = (0, _auth.getAuth)(); // ------------REFERENCES--------------
 var firstname = document.getElementById('firstname');
 var lastname = document.getElementById('firstname');
 var email = document.getElementById('email');
-var phoneNumber = document.getElementById('phoneNumber'); // const school = document.getElementById('school');
-
+var phoneNumber = document.getElementById('phoneNumber');
+var school = document.getElementById('school');
 var department = document.getElementById('department');
 var occupation = document.getElementById('occupation');
 var title = document.getElementById('title');
@@ -21,7 +21,7 @@ var confirmPin = document.getElementById('confirmPin'); // -------- Validation -
 
 function formValidation() {
   var nameregex = /^[a-zA-Z]+$/;
-  var emailregex = /^[a-z.]+[a-z]+@(pau)\.edu\.ng$/;
+  var emailregex = /^[a-zA-Z0-9._-]+@pau\.edu\.ng$/;
   var pingregex = /^[0-9]{4}$/;
 
   if (!nameregex.test(firstname.value) || !nameregex.test(lastname.value)) {
@@ -59,7 +59,8 @@ function RegisterUser() {
       alert('Account already exists');
     } else {
       (0, _database.set)((0, _database.ref)(_index.db, "UsersList/" + firstname.value + '/'), {
-        fullname: firstname.value + " " + lastname.value,
+        firstname: firstname.value,
+        lastname: lastname.value,
         email: email.value,
         pin: userPin.value,
         school: school.value,

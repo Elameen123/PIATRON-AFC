@@ -504,11 +504,13 @@ function displayData(data, itemLocation) {
   for (let i = 0; i < data.length; i++) {
     const displayContainer = document.createElement('div');
     displayContainer.classList.add('display-container');
+    
+    const nameLocation = 'location';
 
     const Location = document.createElement('div');
-    Location.classList.add('location');
+    // Location.classList.add('location');
     Location.innerHTML = `
-      <div class="location">
+      <div class="location" id="${nameLocation + i}">
         Location: ${itemLocation[i]}
       </div>
     `;

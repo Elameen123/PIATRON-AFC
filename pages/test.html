@@ -4,69 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
   <link rel="stylesheet" href="../CSS/test.css">
 </head>
 <body>
-  <div class="receipt">
-    <h1>Receipt</h1>
-    <div class="items">
-        <!-- Items will be populated here using JavaScript -->
-    </div>
 
-    <hr>
-    <div class="total">
-        <p>Total: $<span id="totalAmount">0.00</span></p>
-    </div>
-</div>
-<button type="button" id="printButton">Print Receipt</button>
+      <header>
+        <h1>Search Firebase Realtime Database</h1>
+        <input type="date" id="date-input">
+        <button id="search-button">Search</button>
+      </header>
+      <main>
+        <div id="results"></div>
+      </main>
+      <script src="../Javascript/test.js" type="module"></script>
+    
 
-
-  <script type="text/javascript">
-   document.addEventListener("DOMContentLoaded", function () {
-    // Sample cart data (you can replace this with your cart data)
-    const cartItems = [
-        { name: "Product 1", price: 10.99 },
-        { name: "Product 2", price: 15.99 },
-        { name: "Product 3", price: 7.99 },
-    ];
-
-    // Function to calculate the total price
-    function calculateTotal() {
-        let total = 0;
-        cartItems.forEach(item => {
-            total += item.price;
-        });
-        return total.toFixed(2);
-    }
-
-    // Function to populate the receipt
-    function populateReceipt() {
-        const itemsContainer = document.querySelector(".items");
-        const totalAmountElement = document.getElementById("totalAmount");
-
-        cartItems.forEach(item => {
-            const itemElement = document.createElement("p");
-            itemElement.textContent = `${item.name}: $${item.price.toFixed(2)}`;
-            itemsContainer.appendChild(itemElement);
-        });
-
-        const totalAmount = calculateTotal();
-        totalAmountElement.textContent = totalAmount;
-    }
-
-    // Print receipt
-    const printButton = document.getElementById("printButton");
-    printButton.addEventListener("click", () => {
-        window.print();
-    });
-
-    // Populate the receipt
-    populateReceipt();
-});
-
-
-  </script>
+  
   
 </body>
 </html>

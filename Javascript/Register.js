@@ -11,7 +11,7 @@ const firstname = document.getElementById('firstname');
 const lastname = document.getElementById('firstname');
 const email = document.getElementById('email');
 const phoneNumber = document.getElementById('phoneNumber');
-// const school = document.getElementById('school');
+const school = document.getElementById('school');
 const department = document.getElementById('department');
 const occupation = document.getElementById('occupation');
 const title = document.getElementById('title');
@@ -23,7 +23,7 @@ const confirmPin = document.getElementById('confirmPin');
 
 function formValidation() {
   let nameregex = /^[a-zA-Z]+$/;
-  let emailregex = /^[a-z.]+[a-z]+@(pau)\.edu\.ng$/;
+  let emailregex = /^[a-zA-Z0-9._-]+@pau\.edu\.ng$/;
 
   let pingregex = /^[0-9]{4}$/;
 
@@ -64,7 +64,8 @@ function RegisterUser() {
     }
     else {
       set(ref(db, "UsersList/"+ firstname.value + '/'), {
-        fullname: firstname.value + " " + lastname.value,
+        firstname: firstname.value,
+        lastname: lastname.value,
         email: email.value,
         pin: userPin.value,
         school: school.value,
