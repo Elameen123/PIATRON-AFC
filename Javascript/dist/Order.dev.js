@@ -418,16 +418,50 @@ var updateSalesReport = function updateSalesReport() {
   });
 };
 
-Enter.addEventListener('click', function () {
-  // reloadCart();
+var orderAlert = function orderAlert() {
+  var alert = document.getElementById("alert");
+  var close = document.getElementById("close"); // Function to show the alert
+
+  function showAlert() {
+    alert.style.display = "block";
+    setTimeout(hideAlert, 10000); // Hide after 10 seconds
+  } // Function to hide the alert
+
+
+  function hideAlert() {
+    alert.style.display = "none";
+  } // Show the alert when the page loads
+
+
+  showAlert(); // Close the alert when the close button is clicked
+
+  close.addEventListener("click", hideAlert);
+};
+
+var handleOrderClick = function handleOrderClick() {
   uploadToDataBase();
-  updateSalesReport(); // listCart.length = 0;
+  updateSalesReport();
+  orderAlert(); // listCart.length = 0;
   // printReceipt();
   // console.log('Upload Successful');
 
   listCart = [];
   reloadCart();
-}); // reloadCart();
+};
+
+var orderButton = document.querySelector(".Enter");
+orderButton.addEventListener('click', handleOrderClick); // Enter.addEventListener('click', () => {
+//     // reloadCart();
+//     uploadToDataBase();
+//     updateSalesReport();
+//     orderAlert();
+//     // listCart.length = 0;
+//     // printReceipt();
+//     // console.log('Upload Successful');
+//     listCart = [];
+//     reloadCart();
+//   });
+// reloadCart();
 
 updateAndDisplayData(); // windows.onload = () => {
 //   sideBar.style.display = 'none';

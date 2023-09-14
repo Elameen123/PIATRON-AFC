@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
-  <link rel="stylesheet" href="../CSS/test.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/test.css">
+    <title>Alert Message</title>
 </head>
 <body>
-
-      <header>
-        <h1>Search Firebase Realtime Database</h1>
-        <input type="date" id="date-input">
-        <button id="search-button">Search</button>
-      </header>
-      <main>
-        <div id="results"></div>
-      </main>
-      <script src="../Javascript/test.js" type="module"></script>
-    
-
-  
-  
+    <div class="alert-container">
+        <div class="alert-message" id="alert">
+            This is your alert message.
+            <span class="close-btn" id="close">&times;</span>
+        </div>
+    </div>
+    <script src="../Javascript/test.js"></script>
 </body>
 </html>
