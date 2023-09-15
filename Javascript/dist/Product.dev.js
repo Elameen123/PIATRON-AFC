@@ -470,6 +470,39 @@ function displayCurrentData() {
   });
 }
 
+function updateProgressBar(progress, progressBar) {
+  var colorRanges = [{
+    min: 0,
+    max: 25,
+    color: 'red'
+  }, {
+    min: 25,
+    max: 50,
+    color: 'orange'
+  }, {
+    min: 50,
+    max: 75,
+    color: 'yellow'
+  }, {
+    min: 75,
+    max: 100,
+    color: 'green'
+  }];
+  var barColor = 'blue'; // Default color
+
+  for (var _i = 0, _colorRanges = colorRanges; _i < _colorRanges.length; _i++) {
+    var range = _colorRanges[_i];
+
+    if (progress >= range.min && progress <= range.max) {
+      barColor = range.color;
+      break;
+    }
+  }
+
+  progressBar.style.width = progress + '%';
+  progressBar.style.backgroundColor = barColor;
+}
+
 function displayData(data, itemLocation) {
   var menu = document.getElementById('display');
   menu.innerHTML = '';
@@ -487,10 +520,18 @@ function displayData(data, itemLocation) {
     itemContainer.innerHTML = '';
     data[i].Menu.forEach(function (menuType) {
       menuType.menuList.forEach(function (listItem) {
+        // const progress = ((listItem.qty - listItem.sales) / listItem.qty) * 100;
         var itemCard = document.createElement('div');
         itemCard.classList.add('card');
-        itemCard.innerHTML = "\n          <img src=\"".concat(listItem.image, "\" alt=\"food\" />\n          <h3>").concat(listItem.name, "</h3>\n          <p>&#8358;").concat(listItem.price, "</p>\n          <p style=\"color: red\">Quantity Available: ").concat(listItem.qty - listItem.sales, "</p>\n        ");
-        itemContainer.appendChild(itemCard);
+        itemCard.innerHTML = "\n          <img src=\"".concat(listItem.image, "\" alt=\"food\" />\n          <div class=\"index-container\">\n            <h3>").concat(listItem.name, "</h3>\n            <p>&#8358;").concat(listItem.price, "</p>\n          </div>\n          <p style=\"color: red\">Qty Available: ").concat(listItem.qty - listItem.sales, "</p>\n        ");
+        itemContainer.appendChild(itemCard); // const progressBar = itemCard.querySelector('.progress-bar');
+        //         progressBar.addEventListener('change', () => {
+        //             updateProgressBar(progress, progressBar);
+        //         });
+        // const progressValue = document.getElementsByClassName('progress-bar');
+        // progressValue.addEventListener('click', () =>{
+        //   updateProgressBar(progress);
+        // });
       });
     });
     displayContainer.appendChild(itemContainer);

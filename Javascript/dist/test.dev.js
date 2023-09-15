@@ -49,22 +49,49 @@
 //     pdf.save('data.pdf');
 // });
 // }
-document.addEventListener("DOMContentLoaded", function () {
-  var alert = document.getElementById("alert");
-  var close = document.getElementById("close"); // Function to show the alert
+// script.js
+var progressBar = document.getElementById('progress-bar');
 
-  function showAlert() {
-    alert.style.display = "block";
-    setTimeout(hideAlert, 1000); // Hide after 10 seconds
-  } // Function to hide the alert
+function updateProgressBar(value) {
+  // Define your color ranges and corresponding colors
+  var colorRanges = [{
+    min: 0,
+    max: 25,
+    color: 'red'
+  }, {
+    min: 25,
+    max: 50,
+    color: 'orange'
+  }, {
+    min: 50,
+    max: 75,
+    color: 'limegreen'
+  }, {
+    min: 75,
+    max: 100,
+    color: 'green'
+  }]; // Find the matching color for the value
+
+  var barColor = 'blue'; // Default color
+
+  for (var _i = 0, _colorRanges = colorRanges; _i < _colorRanges.length; _i++) {
+    var range = _colorRanges[_i];
+
+    if (value >= range.min && value <= range.max) {
+      barColor = range.color;
+      break;
+    }
+  } // Update the progress bar's width and color
 
 
-  function hideAlert() {
-    alert.style.display = "none";
-  } // Show the alert when the page loads
+  progressBar.style.width = value + '%';
+  progressBar.style.backgroundColor = barColor;
+} // Example usage:
 
 
-  showAlert(); // Close the alert when the close button is clicked
+var updateButton = document.getElementById('update-button');
+updateButton.addEventListener('click', function () {
+  var newValue = Math.random() * 100; // Replace this with your actual value
 
-  close.addEventListener("click", hideAlert);
+  updateProgressBar(90);
 });

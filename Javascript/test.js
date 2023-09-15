@@ -53,24 +53,35 @@
 // }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  const alert = document.getElementById("alert");
-  const close = document.getElementById("close");
+// script.js
+const progressBar = document.getElementById('progress-bar');
 
-  // Function to show the alert
-  function showAlert() {
-      alert.style.display = "block";
-      setTimeout(hideAlert, 1000); // Hide after 10 seconds
-  }
+function updateProgressBar(value) {
+    // Define your color ranges and corresponding colors
+    const colorRanges = [
+        { min: 0, max: 25, color: 'red' },
+        { min: 25, max: 50, color: 'orange' },
+        { min: 50, max: 75, color: 'limegreen' },
+        { min: 75, max: 100, color: 'green' }
+    ];
 
-  // Function to hide the alert
-  function hideAlert() {
-      alert.style.display = "none";
-  }
+    // Find the matching color for the value
+    let barColor = 'blue'; // Default color
+    for (const range of colorRanges) {
+        if (value >= range.min && value <= range.max) {
+            barColor = range.color;
+            break;
+        }
+    }
 
-  // Show the alert when the page loads
-  showAlert();
+    // Update the progress bar's width and color
+    progressBar.style.width = value + '%';
+    progressBar.style.backgroundColor = barColor;
+}
 
-  // Close the alert when the close button is clicked
-  close.addEventListener("click", hideAlert);
+// Example usage:
+const updateButton = document.getElementById('update-button');
+updateButton.addEventListener('click', () => {
+    const newValue = Math.random() * 100; // Replace this with your actual value
+    updateProgressBar(90);
 });

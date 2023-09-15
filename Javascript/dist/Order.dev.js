@@ -424,7 +424,7 @@ var orderAlert = function orderAlert() {
 
   function showAlert() {
     alert.style.display = "block";
-    setTimeout(hideAlert, 10000); // Hide after 10 seconds
+    setTimeout(hideAlert, 1500); // Hide after 10 seconds
   } // Function to hide the alert
 
 
@@ -436,32 +436,97 @@ var orderAlert = function orderAlert() {
   showAlert(); // Close the alert when the close button is clicked
 
   close.addEventListener("click", hideAlert);
-};
+}; // Initialize orderHistory from localStorage, or an empty array if it doesn't exist
+
+
+var orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+document.addEventListener("DOMContentLoaded", function () {
+  // Get references to the modal and button
+  var orderModal = document.querySelector("#orderModal");
+  var orderBtn = document.querySelector("#cart-history"); // Function to open the modal
+
+  function openModal() {
+    orderModal.style.display = "block";
+    console.log('Working on modal');
+  } // Function to close the modal
+
+
+  function closeModal() {
+    orderModal.style.display = "none";
+  } // Attach a click event listener to the button
+
+
+  orderBtn.addEventListener("click", openModal); // Attach a click event listener to close the modal when clicking outside
+
+  window.addEventListener("click", function (event) {
+    if (event.target == orderModal) {
+      closeModal();
+    }
+  }); // Rest of your code, including orderButton click handler and displayOrderHistory function
+});
 
 var handleOrderClick = function handleOrderClick() {
+  var orderDate = new Date();
+  var orderTimeStamp = "".concat(orderDate.getHours().toString().padStart(2, '0'), ":").concat(orderDate.getMinutes().toString().padStart(2, '0'), ":").concat(orderDate.getSeconds().toString().padStart(2, '0'));
   uploadToDataBase();
+  var order = {
+    items: listCart,
+    timestamp: orderTimeStamp
+  }; // Push the order to orderHistory
+
+  orderHistory.push(order); // Store the updated orderHistory in localStorage
+
+  localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
   updateSalesReport();
-  orderAlert(); // listCart.length = 0;
-  // printReceipt();
-  // console.log('Upload Successful');
+  orderAlert();
+  displayOrderHistory(); // Clear the cart
 
   listCart = [];
   reloadCart();
 };
 
 var orderButton = document.querySelector(".Enter");
-orderButton.addEventListener('click', handleOrderClick); // Enter.addEventListener('click', () => {
-//     // reloadCart();
-//     uploadToDataBase();
-//     updateSalesReport();
-//     orderAlert();
-//     // listCart.length = 0;
-//     // printReceipt();
-//     // console.log('Upload Successful');
-//     listCart = [];
-//     reloadCart();
+orderButton.addEventListener('click', handleOrderClick);
+console.log(orderHistory);
+var modalContent = document.querySelector('.order-modal-content');
+
+var displayOrderHistory = function displayOrderHistory() {
+  var historyContent = modalContent.querySelector('.history-container'); // const historyContent = document.createElement('div');
+  // historyContent.setAttribute('class', 'history-content');
+  // Render order history using orderHistory array
+
+  orderHistory.forEach(function (item) {
+    var historyContainer = document.createElement('div');
+    historyContent.setAttribute('class', 'history-content');
+    historyContainer.innerHTML = "\n      <div class=\"history-list>\n        <small>Jollof Rice &times;2</small>\n\n      </div>\n\n      <bold>".concat(item.timestamp, "</bold>\n      <i class='bx bxs-trash-alt' id=\"history-delete\"></i>\n\n    ");
+    historyContent.appendChild(historyContainer); // You can render order history items here as needed
+  });
+}; // Attach a click event listener to the window to close the modal when clicking outside
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Get references to the modal and button
+//   var orderModal = document.querySelector("#orderModal");
+//   var orderBtn = document.querySelector("#cart-history");
+//   // Function to open the modal
+//   function openModal() {
+//     orderModal.style.display = "block";
+//     console.log('Working on modal');
+//   }
+//   // Function to close the modal
+//   function closeModal() {
+//     orderModal.style.display = "none";
+//   }
+//   // Attach a click event listener to the button
+//   orderBtn.addEventListener("click", openModal);
+//   // Attach a click event listener to close the modal when clicking outside
+//   window.addEventListener("click", function(event) {
+//     if (event.target == orderModal) {
+//       closeModal();
+//     }
 //   });
+//   // Rest of your code, including orderButton click handler and displayOrderHistory function
+// });
 // reloadCart();
+
 
 updateAndDisplayData(); // windows.onload = () => {
 //   sideBar.style.display = 'none';

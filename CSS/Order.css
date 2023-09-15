@@ -108,11 +108,11 @@ body {
 
 .cart {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: whitesmoke;
-  width: 3rem;
+  width: 4.5rem;
   height: 2rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.25rem;
   border-radius: 3px;
   align-items: center;
 }
@@ -199,15 +199,15 @@ body {
   font-size: 1.5rem;;
 }
 
-.cart .cart-icon {
+.cart .cart-icon, .cart .cart-history {
   color: goldenrod;
   font-size: 1.2rem;
 
 }
 
 .cart p {
-  height: 1.2rem;
-  width: 1.2rem;
+  height: 1.3rem;
+  width: 1.3rem;
   display: flex;
   font-size: 1rem;
   align-items: center;
@@ -416,32 +416,126 @@ body {
 }
 
 .alert-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+  position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 400px; /* Adjust the maximum width as needed */
 }
 
 .alert-message {
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  padding: 20px;
+  background-color: rgb(185, 228, 255); /* Bootstrap alert-danger background color */
+  color: steelblue; /* Bootstrap alert-danger text color */
+  border: 1px solid rgb(185, 228, 255); /* Bootstrap alert-danger border color */
+  padding: 15px;
+  text-align: center;
   border-radius: 4px;
-  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto; /* Center horizontally */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none;
 }
 
 .close-btn {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 10px;
   cursor: pointer;
 }
+
+.orderModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.order-modal-content {
+  /* background-color: rgb(51, 76, 124); */
+  margin: 6% auto;
+   /* 15% from the top and centered */
+  /* padding: 1.25rem; */
+  /* border: 1px solid rgb(51, 76, 124); */
+  width: 25%;
+  /* border: 1px solid red; */
+  height: 36rem;
+  border-radius: 10px;
+  /* width: 550px; */
+  position: relative;
+  /* margin: 10% auto; */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  /* border-radius: 7px; */
+  background-color: rgb(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  color: white;
+  box-shadow: 0 0 15px rgba(8, 7, 16, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.order-modal-content hr {
+  width: 100%;
+}
+
+.history-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+.order-modal-content .history-container .history-content {
+  width: calc(100% - 2rem);
+  background-color: steelblue;
+  background-color: rgb(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  color: white;
+  box-shadow: 0 0 15px rgba(8, 7, 16, 0.6);
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.order-modal-content .history-content p {
+  color: white;
+  background-color: none;
+}
+
+.order-modal-content .history-content .history-list {
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.order-modal-content .history-content .history-list small {
+  margin: 0.1rem 0;
+}
+
+.order-modal-content .history-content #history-delete {
+  color: red;
+  font-size: 1.5rem;
+}
+
 
 
 @media print {

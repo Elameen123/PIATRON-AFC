@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../CSS/Order.css">
   <link rel="stylesheet" href="../CSS/menu.css">
+  <link rel="stylesheet" href="../CSS/configure.css">
+
 
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel = "icon" href = "./img/piatron-title.jpeg" type = "">
   <title>Order Button and Functionality</title>
 </head>
@@ -30,8 +33,34 @@
   <div class="checkout-header">
     <div class="bucket-list">CHECKOUT</div>
     <div class="cart">
+      <i class='bx bx-history cart-history' id="cart-history"></i>
+
+      <div id="orderModal" class="orderModal">
+
+        <div class="order-modal-content">
+          <h2>Order History</h2>
+          <hr>
+
+         <div class="history-container">
+          <div class="history-content">
+            <div class="history-list">
+              <small>Jollof Rice &times;2</small>
+              <small>Fried Rice &times;3</small>
+              <small>Chicken &times;1</small>
+            </div>
+
+            <bold>21:09</bold>
+            <i class='bx bxs-trash-alt' id="history-delete"></i>
+          </div>
+         </div>
+        </div>
+
+      </div>
+     
       <i class="fa-solid fa-cart-shopping cart-icon"></i>
       <p id="cart-count">0</p></div>
+
+      
   </div>
 
   <div id="cart-root">
@@ -85,13 +114,15 @@
 
 <div class="alert-container">
   <div class="alert-message" id="alert">
-      This is your alert message.
+      Order Successful
       <span class="close-btn" id="close">&times;</span>
   </div>
 </div>
 
 
   <script src="../dist/order.bundle.js"></script>
+  <script src="../dist/configure.bundle.js"></script>
+
 
 </body>
 </html>

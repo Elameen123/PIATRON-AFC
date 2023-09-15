@@ -497,6 +497,26 @@ function displayCurrentData() {
   });
 }
 
+function updateProgressBar(progress, progressBar) {
+  const colorRanges = [
+      { min: 0, max: 25, color: 'red' },
+      { min: 25, max: 50, color: 'orange' },
+      { min: 50, max: 75, color: 'yellow' },
+      { min: 75, max: 100, color: 'green' }
+  ];
+
+  let barColor = 'blue'; // Default color
+  for (const range of colorRanges) {
+      if (progress >= range.min && progress <= range.max) {
+          barColor = range.color;
+          break;
+      }
+  }
+
+  progressBar.style.width = progress + '%';
+  progressBar.style.backgroundColor = barColor;
+}
+
 function displayData(data, itemLocation) {
   const menu = document.getElementById('display');
   menu.innerHTML = '';
@@ -523,16 +543,34 @@ function displayData(data, itemLocation) {
 
     data[i].Menu.forEach((menuType) => {
       menuType.menuList.forEach((listItem) => {
+
+      // const progress = ((listItem.qty - listItem.sales) / listItem.qty) * 100;
+      
         const itemCard = document.createElement('div');
         itemCard.classList.add('card');
         itemCard.innerHTML = `
           <img src="${listItem.image}" alt="food" />
-          <h3>${listItem.name}</h3>
-          <p>&#8358;${listItem.price}</p>
-          <p style="color: red">Quantity Available: ${listItem.qty - listItem.sales}</p>
+          <div class="index-container">
+            <h3>${listItem.name}</h3>
+            <p>&#8358;${listItem.price}</p>
+          </div>
+          <p style="color: red">Qty Available: ${listItem.qty - listItem.sales}</p>
         `;
 
         itemContainer.appendChild(itemCard);
+
+        // const progressBar = itemCard.querySelector('.progress-bar');
+        //         progressBar.addEventListener('change', () => {
+        //             updateProgressBar(progress, progressBar);
+        //         });
+
+
+        // const progressValue = document.getElementsByClassName('progress-bar');
+
+        // progressValue.addEventListener('click', () =>{
+        //   updateProgressBar(progress);
+        // });
+
       });
     });
 
