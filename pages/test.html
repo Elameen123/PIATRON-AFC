@@ -7,10 +7,23 @@
     <title>Color Changing Progress Bar</title>
 </head>
 <body>
-    <button type="button" id="update-button">Update Button</button>
-    <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-    </div>
+    <form id="email-form">
+        <label for="to">To:</label>
+        <input type="text" id="to" value="recipient@example.com" />
+      
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" value="Sample Email Subject" />
+      
+        <label for="message">Message (Text):</label>
+        <textarea id="message">This is a sample email message in plain text.</textarea>
+      
+        <label for="html">Message (HTML):</label>
+        <textarea id="html"><strong>This is a sample email message in HTML format.</strong></textarea>
+      
+        <button type="submit">Send Email</button>
+      </form>
+      
+      
 
     <script src="../Javascript/test.js"></script>
 </body>

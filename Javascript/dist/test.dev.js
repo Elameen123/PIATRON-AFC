@@ -1,97 +1,124 @@
 "use strict";
 
-// import { db } from '../Javascript/index.js';
-// import { ref, get, child, update, onValue, set } from 'firebase/database';
-// const dateInput = document.getElementById('date-input');
-// const searchButton = document.getElementById('search-button');
-// const results = document.getElementById('results');
-// searchButton.addEventListener('click', () => {
-//   const date = dateInput.value;
-//   // Get a reference to the Firebase Realtime Database
-//   // const database = firebase.database();
-//   // Filter through the data and search if the data with the date exists
-//   const dataRef = ref(db, 'PAU-sales-report/'+ date);
-//   onValue(dataRef, (snapshot) => {
-//     if (snapshot.exists()) {
-//       // Get all the data under that date
-//       const data = snapshot.val();
-//       // Send the data to a function that prepares it for printing
-//       const html = prepareDataForPrinting(data);
-//       // Print out the HTML details of the function in PDF format and download it on the user's computer
-//       printToPDF(html);
-//     } else {
-//       // No data found for the given date
-//       results.innerHTML = 'No data found for the given date.';
-//     }
-//   });
-// });
-// function prepareDataForPrinting(data) {
-//   // Prepare the data for printing in HTML format
-//   let html = `
-//     <h1>Data for ${data.date}</h1>
-//     <ul>`;
-//   for (const key in data) {
-//     if (key !== 'date') {
-//       html += `<li>${key}: ${data[key]}</li>`;
-//     }
-//   }
-//   html += `</ul>`;
-//   return html;
-// }
-// function printToPDF(html) {
-//   // Print the HTML details of the function in PDF format and download it on the user's computer
-//   const pdf = new jsPDF();
-//   html2canvas(html).then(canvas => {
-//     // Convert the canvas to a data URL
-//     const imgData = canvas.toDataURL('image/png');
-//     // Add the image to the PDF
-//     pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
-//     pdf.save('data.pdf');
-// });
-// }
-// script.js
-var progressBar = document.getElementById('progress-bar');
+var _require = require('./server.js'),
+    sendEmail = _require.sendEmail; // Replace with the correct path to your server-side file
 
-function updateProgressBar(value) {
-  // Define your color ranges and corresponding colors
-  var colorRanges = [{
-    min: 0,
-    max: 25,
-    color: 'red'
-  }, {
-    min: 25,
-    max: 50,
-    color: 'orange'
-  }, {
-    min: 50,
-    max: 75,
-    color: 'limegreen'
-  }, {
-    min: 75,
-    max: 100,
-    color: 'green'
-  }]; // Find the matching color for the value
 
-  var barColor = 'blue'; // Default color
+var cron = require('node-cron');
 
-  for (var _i = 0, _colorRanges = colorRanges; _i < _colorRanges.length; _i++) {
-    var range = _colorRanges[_i];
+var _require2 = require('firebase/database'),
+    update = _require2.update,
+    ref = _require2.ref;
 
-    if (value >= range.min && value <= range.max) {
-      barColor = range.color;
-      break;
+var _require3 = require('./index.js'),
+    db = _require3.db;
+
+function updateOtpEnabled(enabled) {
+  return regeneratorRuntime.async(function updateOtpEnabled$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return regeneratorRuntime.awrap(update(ref(db, 'UsersList/Cafeteria/'), {
+            otpEnabled: enabled
+          }));
+
+        case 3:
+          console.log("Cafeteria.otpEnabled set to ".concat(enabled));
+          _context.next = 10;
+          break;
+
+        case 6:
+          _context.prev = 6;
+          _context.t0 = _context["catch"](0);
+          console.error('Error updating otpEnabled:', _context.t0.message);
+          throw _context.t0;
+
+        case 10:
+        case "end":
+          return _context.stop();
+      }
     }
-  } // Update the progress bar's width and color
+  }, null, null, [[0, 6]]);
+} // Define constants for time values
 
 
-  progressBar.style.width = value + '%';
-  progressBar.style.backgroundColor = barColor;
-} // Example usage:
+var EMAIL_HOUR = 21;
+var EMAIL_MINUTE = 26;
+var EMAIL_SECOND = 1;
+var DISABLE_OTP_HOUR = 15; // ...
+// Function to schedule email sending and OTP disabling
+
+var scheduleEmailSendingAndOTPDisabling = function scheduleEmailSendingAndOTPDisabling() {
+  var now, hours, minutes, seconds, recipientEmails;
+  return regeneratorRuntime.async(function scheduleEmailSendingAndOTPDisabling$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          now = new Date();
+          hours = now.getHours();
+          minutes = now.getMinutes();
+          seconds = now.getSeconds();
+
+          if (!(hours === EMAIL_HOUR && minutes === EMAIL_MINUTE && seconds === EMAIL_SECOND)) {
+            _context2.next = 18;
+            break;
+          }
+
+          _context2.prev = 5;
+          _context2.next = 8;
+          return regeneratorRuntime.awrap(updateOtpEnabled(true));
+
+        case 8:
+          recipientEmails = ['lanre.mohammed23@gmail.com', 'mohammedalhameen@gmail.com'];
+          sendEmail(recipientEmails, function (error, result) {
+            if (error) {
+              console.error('Error sending email:', error);
+            } else {
+              console.log('Email result:', result);
+            }
+          });
+          console.log('Emails sent at', now);
+          _context2.next = 16;
+          break;
+
+        case 13:
+          _context2.prev = 13;
+          _context2.t0 = _context2["catch"](5);
+          console.error('Error scheduling email:', _context2.t0.message);
+
+        case 16:
+          _context2.next = 28;
+          break;
+
+        case 18:
+          if (!(hours === DISABLE_OTP_HOUR)) {
+            _context2.next = 28;
+            break;
+          }
+
+          _context2.prev = 19;
+          _context2.next = 22;
+          return regeneratorRuntime.awrap(updateOtpEnabled(false));
+
+        case 22:
+          console.log('OTP Disabled at', now);
+          _context2.next = 28;
+          break;
+
+        case 25:
+          _context2.prev = 25;
+          _context2.t1 = _context2["catch"](19);
+          console.error('Error scheduling otpDisabled:', _context2.t1.message);
+
+        case 28:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  }, null, null, [[5, 13], [19, 25]]);
+}; // Schedule the combined function to run every second
 
 
-var updateButton = document.getElementById('update-button');
-updateButton.addEventListener('click', function () {
-  var newValue = Math.random() * 100; // Replace this with your actual value
-
-  updateProgressBar(90);
-});
+cron.schedule('* * * * * *', scheduleEmailSendingAndOTPDisabling);
