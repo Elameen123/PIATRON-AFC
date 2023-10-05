@@ -1,7 +1,7 @@
-const { sendEmail } = require('./server.js'); // Replace with the correct path to your server-side file
+const { sendEmail } = require('../../Javascript/server.js'); // Replace with the correct path to your server-side file
 const cron = require('node-cron');
 const { update, ref } = require('firebase/database');
-const { db } = require('./index.js');
+const { db } = require('../../Javascript/index.js');
 
 async function updateOtpEnabled(enabled) {
   try {
@@ -16,8 +16,8 @@ async function updateOtpEnabled(enabled) {
 }
 
 // Define constants for time values
-const EMAIL_HOUR = 7;
-const EMAIL_MINUTE = 30;
+const EMAIL_HOUR = 0;
+const EMAIL_MINUTE = 5;
 const EMAIL_SECOND = 1;
 const DISABLE_OTP_HOUR = 17;
 
@@ -60,3 +60,7 @@ const scheduleEmailSendingAndOTPDisabling = async () => {
 // Schedule the combined function to run every second
 cron.schedule('* * * * * *', scheduleEmailSendingAndOTPDisabling);
 
+
+
+// Export the function to be used as a Netlify function
+module.exports = scheduleEmailSendingAndOTPDisabling;

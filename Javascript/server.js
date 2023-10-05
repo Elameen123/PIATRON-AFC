@@ -3,7 +3,7 @@ const express = require('express');
 const sendGridEmail = require('@sendgrid/mail');
 const { update, ref } = require('firebase/database');
 const { db } = require('./index.js');
-const cron = require('node-cron');
+// const cron = require('node-cron');
 
 require('dotenv').config();
 

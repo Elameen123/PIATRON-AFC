@@ -10,9 +10,8 @@ var _require = require('firebase/database'),
     ref = _require.ref;
 
 var _require2 = require('./index.js'),
-    db = _require2.db;
+    db = _require2.db; // const cron = require('node-cron');
 
-var cron = require('node-cron');
 
 require('dotenv').config(); // Create an Express application
 
