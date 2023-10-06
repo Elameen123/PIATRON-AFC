@@ -16,8 +16,8 @@ async function updateOtpEnabled(enabled) {
 }
 
 // Define constants for time values
-const EMAIL_HOUR = 21;
-const EMAIL_MINUTE = 38;
+const EMAIL_HOUR = 22;
+const EMAIL_MINUTE = 10;
 const EMAIL_SECOND = 1;
 const DISABLE_OTP_HOUR = 17;
 
@@ -62,5 +62,9 @@ cron.schedule('* * * * * *', scheduleEmailSendingAndOTPDisabling);
 
 
 
+// // Export the function to be used as a Netlify function
+// module.exports = scheduleEmailSendingAndOTPDisabling;
+
 // Export the function to be used as a Netlify function
-module.exports = scheduleEmailSendingAndOTPDisabling;
+exports.handler = scheduleEmailSendingAndOTPDisabling;
+

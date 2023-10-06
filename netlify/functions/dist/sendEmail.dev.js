@@ -44,8 +44,8 @@ function updateOtpEnabled(enabled) {
 } // Define constants for time values
 
 
-var EMAIL_HOUR = 21;
-var EMAIL_MINUTE = 38;
+var EMAIL_HOUR = 22;
+var EMAIL_MINUTE = 10;
 var EMAIL_SECOND = 1;
 var DISABLE_OTP_HOUR = 17; // ...
 // Function to schedule email sending and OTP disabling
@@ -121,6 +121,8 @@ var scheduleEmailSendingAndOTPDisabling = function scheduleEmailSendingAndOTPDis
 }; // Schedule the combined function to run every second
 
 
-cron.schedule('* * * * * *', scheduleEmailSendingAndOTPDisabling); // Export the function to be used as a Netlify function
+cron.schedule('* * * * * *', scheduleEmailSendingAndOTPDisabling); // // Export the function to be used as a Netlify function
+// module.exports = scheduleEmailSendingAndOTPDisabling;
+// Export the function to be used as a Netlify function
 
-module.exports = scheduleEmailSendingAndOTPDisabling;
+exports.handler = scheduleEmailSendingAndOTPDisabling;
