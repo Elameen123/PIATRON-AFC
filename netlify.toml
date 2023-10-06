@@ -1,2 +1,9 @@
 [build]
-functions = "netlify/functions"
+  command = "npm run build"  # Replace with your build command
+  publish = "public"        # Replace with your build output directory
+
+[functions]
+  directory = "./netlify/functions"  # Replace with the directory where your Netlify functions are located
+
+[dev]
+  functionsPort = 9000

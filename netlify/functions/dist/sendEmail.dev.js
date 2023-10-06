@@ -44,8 +44,8 @@ function updateOtpEnabled(enabled) {
 } // Define constants for time values
 
 
-var EMAIL_HOUR = 11;
-var EMAIL_MINUTE = 40;
+var EMAIL_HOUR = 21;
+var EMAIL_MINUTE = 38;
 var EMAIL_SECOND = 1;
 var DISABLE_OTP_HOUR = 17; // ...
 // Function to schedule email sending and OTP disabling
