@@ -1,5 +1,4 @@
 [build]
-  command = "npm run build"  # Replace with your build command
   publish = "public"        # Replace with your build output directory
 
 [functions]
