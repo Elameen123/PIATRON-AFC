@@ -1,9 +1,8 @@
 [build]
-  command = "npm run build"  # Replace with your build command
-  publish = "public"        # Replace with your build output directory
+  functions = "./netlify/functions"
 
-[functions]
-  directory = "./netlify/functions"  # Replace with the directory where your Netlify functions are located
+[build.environment]
+  SENDGRID_API_KEY = "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"
 
-[dev]
-  functionsPort = 9000
+[[plugins]]
+  package = "@netlify/plugin-functions-core"

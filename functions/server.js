@@ -1,8 +1,10 @@
 // Import required modules
 const express = require('express');
+const serverless = require('serverless-http');
 const sendGridEmail = require('@sendgrid/mail');
 const { update, ref } = require('firebase/database');
-const { db } = require('./index.js');
+const { db } = require('../Javascript/index.js');
+const scheduleEmailSending = require('./sendEmail.js');
 // const cron = require('node-cron');
 
 require('dotenv').config();
@@ -168,13 +170,9 @@ module.exports = { sendEmail };
 
 // Endpoint to send an email to multiple recipients
 app.get('/send-email', (req, res) => {
-  const recipientEmails = ['lanre.mohammed23@gmail.com', 'another@example.com']; // Replace with recipient email addresses
+  scheduleEmailSending(); 
 
-  sendEmail(recipientEmails, (error, result) => {
-    if (error) {
-      res.status(500).send('Error sending emails: ' + error.message);
-    } else {
-      res.send(result);
-    }
-  });
+  res.json({ message: 'Scheduling triggered successfully' });
 });
+
+module.exports.handler = serverless(app);

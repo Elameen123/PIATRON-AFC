@@ -11,7 +11,7 @@ var _require = require('firebase/database'),
     update = _require.update,
     ref = _require.ref;
 
-var _require2 = require('./index.js'),
+var _require2 = require('../Javascript/index.js'),
     db = _require2.db;
 
 var scheduleEmailSending = require('./sendEmail.js'); // const cron = require('node-cron');
