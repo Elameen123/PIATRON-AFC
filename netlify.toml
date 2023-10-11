@@ -4,5 +4,3 @@
 [build.environment]
   SENDGRID_API_KEY = "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"
 
-[[plugins]]
-  package = "@netlify/plugin-functions-core"

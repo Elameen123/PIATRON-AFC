@@ -16,8 +16,8 @@ async function updateOtpEnabled(enabled) {
 }
 
 // Define constants for time values
-const EMAIL_HOUR = 13;
-const EMAIL_MINUTE = 45;
+const EMAIL_HOUR = 14;
+const EMAIL_MINUTE = 0;
 const EMAIL_SECOND = 1;
 const DISABLE_OTP_HOUR = 17;
 
