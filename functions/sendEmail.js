@@ -1,7 +1,7 @@
 const { sendEmail } = require('./server.js'); // Replace with the correct path to your server-side file
 const cron = require('node-cron');
 const { update, ref } = require('firebase/database');
-const { db } = require('../../Javascript/index.js');
+const { db } = require('../Javascript/index.js');
 
 async function updateOtpEnabled(enabled) {
   try {
@@ -17,7 +17,7 @@ async function updateOtpEnabled(enabled) {
 
 // Define constants for time values
 const EMAIL_HOUR = 14;
-const EMAIL_MINUTE = 0;
+const EMAIL_MINUTE = 5;
 const EMAIL_SECOND = 1;
 const DISABLE_OTP_HOUR = 17;
 

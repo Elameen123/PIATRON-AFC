@@ -10,7 +10,7 @@ var _require2 = require('firebase/database'),
     update = _require2.update,
     ref = _require2.ref;
 
-var _require3 = require('../../Javascript/index.js'),
+var _require3 = require('../Javascript/index.js'),
     db = _require3.db;
 
 function updateOtpEnabled(enabled) {
@@ -45,7 +45,7 @@ function updateOtpEnabled(enabled) {
 
 
 var EMAIL_HOUR = 14;
-var EMAIL_MINUTE = 0;
+var EMAIL_MINUTE = 5;
 var EMAIL_SECOND = 1;
 var DISABLE_OTP_HOUR = 17; // ...
 // Function to schedule email sending and OTP disabling
