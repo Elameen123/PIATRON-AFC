@@ -55,6 +55,9 @@ const scheduleEmailSendingAndOTPDisabling = async () => {
       console.error('Error scheduling otpDisabled:', error.message);
     }
   }
+  else {
+    console.log('Its not yet Time to send the email');
+  }
 };
 
 // Schedule the combined function to run every second

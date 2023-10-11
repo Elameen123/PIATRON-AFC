@@ -89,12 +89,12 @@ var scheduleEmailSendingAndOTPDisabling = function scheduleEmailSendingAndOTPDis
           console.error('Error scheduling email:', _context2.t0.message);
 
         case 16:
-          _context2.next = 28;
+          _context2.next = 31;
           break;
 
         case 18:
           if (!(hours === DISABLE_OTP_HOUR)) {
-            _context2.next = 28;
+            _context2.next = 30;
             break;
           }
 
@@ -113,6 +113,13 @@ var scheduleEmailSendingAndOTPDisabling = function scheduleEmailSendingAndOTPDis
           console.error('Error scheduling otpDisabled:', _context2.t1.message);
 
         case 28:
+          _context2.next = 31;
+          break;
+
+        case 30:
+          console.log('Its not yet Time to send the email');
+
+        case 31:
         case "end":
           return _context2.stop();
       }
