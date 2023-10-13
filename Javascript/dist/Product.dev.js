@@ -522,8 +522,34 @@ function displayData(data, itemLocation) {
       menuType.menuList.forEach(function (listItem) {
         // const progress = ((listItem.qty - listItem.sales) / listItem.qty) * 100;
         var itemCard = document.createElement('div');
-        itemCard.classList.add('card');
-        itemCard.innerHTML = "\n          <img src=\"".concat(listItem.image, "\" alt=\"food\" />\n          <div class=\"index-container\">\n            <h3>").concat(listItem.name, "</h3>\n            <p>&#8358;").concat(listItem.price, "</p>\n          </div>\n          <p style=\"color: red\">Qty Available: ").concat(listItem.qty - listItem.sales, "</p>\n        ");
+        itemCard.classList.add('card'); // Calculate the remaining percentage
+
+        var remainingPercentage = parseInt((listItem.qty - listItem.sales) / listItem.qty * 100); // Determine the color based on the remaining percentage
+
+        var color;
+        var textColor = 'white';
+
+        if (remainingPercentage >= 75) {
+          color = '266217';
+        } else if (remainingPercentage >= 50) {
+          color = 'rgb(115, 238, 0)';
+        } else if (remainingPercentage >= 25) {
+          color = 'orange';
+        } else {
+          color = '#FF2400';
+        }
+
+        var width = remainingPercentage + '%';
+        var runOut = listItem.qty - listItem.sales; // Check if the item is out of stock
+
+        var watermarkDisplay = 'none';
+
+        if (runOut === 0) {
+          watermarkDisplay = 'block';
+          itemCard.classList.add('out-of-order'); // watermarkClass.style.display === 'block';
+        }
+
+        itemCard.innerHTML = "\n          <img src=\"".concat(listItem.image, "\" alt=\"food\" />\n          <div class=\"index-container\">\n            <h3>").concat(listItem.name, "</h3>\n            <p>&#8358;").concat(listItem.price, "</p>\n          </div>\n          <div class=\"progress-container\">\n            <div class=\"progress-bar custom-progress\" value=\"").concat(remainingPercentage, "\" max=\"100\" style=\"background-color: ").concat(color, "; width: ").concat(width, ";\"></div>\n            <p class=\"progress-text\" style=\"color: ").concat(textColor, "\">").concat(listItem.qty - listItem.sales, "</p>\n          </div>\n          <div class=\"out-of-stock-watermark\" style=\"display: ").concat(watermarkDisplay, "\">Out of Stock</div>\n        ");
         itemContainer.appendChild(itemCard); // const progressBar = itemCard.querySelector('.progress-bar');
         //         progressBar.addEventListener('change', () => {
         //             updateProgressBar(progress, progressBar);

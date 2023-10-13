@@ -548,13 +548,50 @@ function displayData(data, itemLocation) {
       
         const itemCard = document.createElement('div');
         itemCard.classList.add('card');
+
+        // Calculate the remaining percentage
+        const remainingPercentage = parseInt(((listItem.qty - listItem.sales) / listItem.qty) * 100);
+
+        // Determine the color based on the remaining percentage
+        let color;
+        const textColor = 'white';
+        
+        if (remainingPercentage >= 75) {
+          color = '266217';
+        }
+         else if (remainingPercentage >= 50) {
+          color = 'rgb(115, 238, 0)';
+        } 
+        else if (remainingPercentage >= 25) {
+          color = 'orange';
+        }
+        else {
+          color = '#FF2400';
+        }
+
+        let width = remainingPercentage + '%';
+        let runOut  = (listItem.qty - listItem.sales);
+
+        // Check if the item is out of stock
+        var watermarkDisplay = 'none';
+        if (runOut === 0) {
+          watermarkDisplay = 'block';
+          itemCard.classList.add('out-of-order');
+          // watermarkClass.style.display === 'block';
+        }
+
+
         itemCard.innerHTML = `
           <img src="${listItem.image}" alt="food" />
           <div class="index-container">
             <h3>${listItem.name}</h3>
             <p>&#8358;${listItem.price}</p>
           </div>
-          <p style="color: red">Qty Available: ${listItem.qty - listItem.sales}</p>
+          <div class="progress-container">
+            <div class="progress-bar custom-progress" value="${remainingPercentage}" max="100" style="background-color: ${color}; width: ${width};"></div>
+            <p class="progress-text" style="color: ${textColor}">${listItem.qty - listItem.sales}</p>
+          </div>
+          <div class="out-of-stock-watermark" style="display: ${watermarkDisplay}">Out of Stock</div>
         `;
 
         itemContainer.appendChild(itemCard);

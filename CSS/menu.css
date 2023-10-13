@@ -240,11 +240,13 @@ body {
   border:3.5px solid navy;
   border-radius: 20px;
   float: left;
+  /* justify-content: left; */
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 2rem 2rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .card img {
@@ -254,13 +256,91 @@ body {
   border-top-right-radius: 20px;
 }
 
+.card .progress-container { 
+  width: 70%;
+  height: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(40, 75, 104);
+  position: relative;
+  border-radius: 3px;
+  border: 3px solid rgb(40, 75, 104);
+
+}
+
+.card .progress-container .progress-bar{
+  border-radius: 3px;
+  /* width: 90%; */
+  height: 100%;
+  /* padding: 0.25rem; */
+  background-color: limegreen;
+  /* color: red; */
+  min-width: 1%;
+  /* position: absolute; */
+}
+
+.card .progress-container .progress-text {
+  position: absolute;
+  /* top: 20%; */
+  right: 5px;
+  /* transform: translateX(-50%); */
+  /* color: white; */
+  font: bold 14px 'Quicksand', sans-serif;
+
+}
+
+/* .card .progress-container .progress-bar::before{
+  border-radius: 1rem;
+  width: 80%;
+  padding: 0.25rem;
+  background-color: blue;
+  color: red;
+} */
+
+/* .progress-bar::-webkit-progress-bar {
+  background-color: lightgrey;
+}
+.progress-bar::-webkit-progress-value {
+  background-color: tan;
+} */
+
 .index-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   width: 50%;
-  height: 2rem;
+  height: 3rem;
+  margin: 0.2rem 0;
+  padding: 0.5rem;
 }
+
+.out-of-order {
+  filter: grayscale(70%);
+  border: 0.5px solid #ccc;
+  opacity: 0.7;
+}
+
+.out-of-stock-watermark {
+  position: absolute;
+  top: 45%;
+  left: -5%;
+  justify-content: center;
+  align-items: center;
+  /* transform: translateY(-50%, -50%); */
+  background-color: rgba(255, 255, 255, 0.945); /* Red with some opacity */
+  color: red;
+  padding: 20px 10px;
+  margin: 0;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  transform: rotate(0deg);
+  width: 20.25vw;
+  text-align: center;
+  border: 2px solid red;
+}
+
 
 .index-container h3 {
   color: royalblue;
@@ -288,6 +368,9 @@ body {
   row-gap: 5rem;
   
 }
+
+
+
 
 
 /* Media Queries / Mobile Responsiveness  */
