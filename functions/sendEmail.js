@@ -16,7 +16,7 @@ async function updateOtpEnabled(enabled) {
 }
 
 // Define constants for time values
-const EMAIL_HOUR = 12;
+const EMAIL_HOUR = 14;
 const EMAIL_MINUTE = 10;
 const EMAIL_SECOND = 1;
 const DISABLE_OTP_HOUR = 17;
@@ -34,7 +34,7 @@ const scheduleEmailSendingAndOTPDisabling = async () => {
     try {
       // Set otpEnabled to true at 8:37:01 PM
       await updateOtpEnabled(true);
-      const recipientEmails = ['lanre.mohammed23@gmail.com', 'mohammedalhameen@gmail.com'];
+      const recipientEmails = ['lanre.mohammed23@gmail.com', 'al-hameen.mohammed@pau.edu.ng'];
       sendEmail(recipientEmails, (error, result) => {
         if (error) {
           console.error('Error sending email:', error);
@@ -62,7 +62,7 @@ const scheduleEmailSendingAndOTPDisabling = async () => {
 
 // Schedule the combined function to run every second
 function scheduleEmailSending () {
-  cron.schedule('0 1 * * * *', scheduleEmailSendingAndOTPDisabling);
+  cron.schedule('* * * * * *', scheduleEmailSendingAndOTPDisabling);
 }
 
 scheduleEmailSending();
@@ -71,7 +71,7 @@ scheduleEmailSending();
 
 
 // // Export the function to be used as a Netlify function
-// module.exports = scheduleEmailSendingAndOTPDisabling;
+module.exports = scheduleEmailSending;
 
 // Export the function to be used as a Netlify function
 // module.exports = scheduleEmailSending;

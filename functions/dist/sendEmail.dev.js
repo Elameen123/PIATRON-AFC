@@ -44,7 +44,7 @@ function updateOtpEnabled(enabled) {
 } // Define constants for time values
 
 
-var EMAIL_HOUR = 12;
+var EMAIL_HOUR = 14;
 var EMAIL_MINUTE = 10;
 var EMAIL_SECOND = 1;
 var DISABLE_OTP_HOUR = 17; // ...
@@ -71,7 +71,7 @@ var scheduleEmailSendingAndOTPDisabling = function scheduleEmailSendingAndOTPDis
           return regeneratorRuntime.awrap(updateOtpEnabled(true));
 
         case 8:
-          recipientEmails = ['lanre.mohammed23@gmail.com', 'mohammedalhameen@gmail.com'];
+          recipientEmails = ['lanre.mohammed23@gmail.com', 'al-hameen.mohammed@pau.edu.ng'];
           sendEmail(recipientEmails, function (error, result) {
             if (error) {
               console.error('Error sending email:', error);
@@ -129,10 +129,10 @@ var scheduleEmailSendingAndOTPDisabling = function scheduleEmailSendingAndOTPDis
 
 
 function scheduleEmailSending() {
-  cron.schedule('0 1 * * * *', scheduleEmailSendingAndOTPDisabling);
+  cron.schedule('* * * * * *', scheduleEmailSendingAndOTPDisabling);
 }
 
 scheduleEmailSending(); // // Export the function to be used as a Netlify function
-// module.exports = scheduleEmailSendingAndOTPDisabling;
-// Export the function to be used as a Netlify function
+
+module.exports = scheduleEmailSending; // Export the function to be used as a Netlify function
 // module.exports = scheduleEmailSending;
