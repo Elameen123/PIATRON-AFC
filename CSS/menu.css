@@ -131,12 +131,12 @@ body {
 }
 
 .location {
-  width: calc(100%);
+  width: calc(100% - 1.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 2rem;
-  padding: 1rem 0rem;
+  padding: 1rem 0  1rem 1.5rem;
   line-height: 15px;
   /* margin: 1rem 0; */
   /* background-color: rgb(24, 72, 161); */
@@ -223,33 +223,41 @@ body {
 /* Card Components */
 
 .card-container {
-  width: 100%;
+  /* width: 100%;
   height: auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   flex-flow: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin: 2rem; */
+  /* background-color: lightsteelblue; */
+  /* CSS Grid Equivalent */
+  /* CSS Grid with even spacing on both sides */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 3rem;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 1rem;
   margin: 0.5rem;
-  /* background-color: lightsteelblue; */
 }
 
 .card {
   width: 20%;
   height: 37.5vh;
-  background: white;
+  background: rgb(195, 230, 241);
   border:3.5px solid navy;
   border-radius: 20px;
   float: left;
-  /* justify-content: left; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem 2rem;
+  margin: 2em 2.25em;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
+
 
 .card img {
   width: 100%;
@@ -371,6 +379,21 @@ body {
   background-color: lightsteelblue;
 
   
+}
+
+#index-footer {
+  background-color: rgb(0, 0, 68);
+  width: 100%;
+  height: 1.5rem;
+  /* margin: 1rem 0; */
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 

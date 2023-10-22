@@ -904,6 +904,50 @@ const readProductionReport = (menuClass, location) => {
   })
 }
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Get references to the sidebar menu items
+//   const dashboardLink = document.querySelector("#dashboard");
+//   const notificationsLink = document.querySelector("#notifications");
+//   const generateReportLink = document.querySelector("#gReport");
+
+//   // Get references to the content sections
+//   const dashboardContent = document.querySelector("#main-container");
+//   const notificationsContent = document.querySelector("#notifications"); // Add your content div here
+//   const generateReportContent = document.querySelector("#generateReport");
+
+//   // Function to hide all content sections
+//   function hideAllContent() {
+//       dashboardContent.style.display = "none";
+//       notificationsContent.style.display = "none";
+//       generateReportContent.style.display = "none";
+//   }
+
+//   // Show only the dashboard content when the page loads
+//   hideAllContent();
+//   dashboardContent.style.display = "block";
+//   document.getElementById("page-title").textContent = "Dashboard";
+
+//   // Add click event listeners to the sidebar menu items
+//   dashboardLink.addEventListener("click", () => {
+//       hideAllContent();
+//       dashboardContent.style.display = "block";
+//       document.getElementById("page-title").textContent = "Dashboard";
+//   });
+
+//   notificationsLink.addEventListener("click", () => {
+//       hideAllContent();
+//       notificationsContent.style.display = "block";
+//       document.getElementById("page-title").textContent = "Notifications";
+//   });
+
+//   generateReportLink.addEventListener("click", () => {
+//       hideAllContent();
+//       generateReportContent.style.display = "block";
+//       document.getElementById("page-title").textContent = "Generate Report";
+//   });
+// });
+
+
 const cBreak = document.getElementById('cBreak');
 const mContainer = document.getElementById('main-container');
 const cafeteriaBreakfast = document.getElementById('cafeteriaBreakfast');
@@ -993,9 +1037,9 @@ window.onload = () => {
   generateReport.style.display = 'none';
 };
 
-// const getNotification = () => {
-//   onValue(ref(db, 'PAU/Location/'))
-// }
+const getNotification = () => {
+  onValue(ref(db, 'PAU/Location/'))
+}
 
 
 

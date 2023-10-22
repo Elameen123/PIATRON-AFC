@@ -2,5 +2,5 @@
   functions = "functions/"
 
 [build.environment]
-  SENDGRID_API_KEY = "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"
+  SENDGRID_API_KEY="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"
 
